@@ -8,32 +8,35 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="PACIENTE")
-public class Paciente extends Persona implements Serializable {
+public class Paciente extends Persona implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
-	@Size(max=255)
+
+	@Size(max = 255)
 	@Column(name = "ALERGIAS")
+	@NotEmpty
 	private String alergias;
 	
-	@Size(max=3)
+	@Size(max = 3)
 	@Column(name = "TIPOSANGRE")
+	@NotEmpty
 	private String tipoSangre;
 	
-	@OneToMany(mappedBy="paciente", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="paciente", fetch=FetchType.LAZY)//LAZY, trae los valores de los atributos y no todo el listado 
 	private List<Receta> recetas;
 
 	public Paciente() {
 		super();
 	}
-	
-	public Paciente(Integer id) {
+
+	public Paciente(Integer Id) {
 		super();
-		this.setIdpersona(id);
+		this.setIdpersona(Id);
 	}
 
 	public String getAlergias() {
@@ -51,11 +54,14 @@ public class Paciente extends Persona implements Serializable {
 	public void setTipoSangre(String tipoSangre) {
 		this.tipoSangre = tipoSangre;
 	}
-	
-	
 
+	public List<Receta> getRecetas() {
+		return recetas;
+	}
+
+	public void setRecetas(List<Receta> recetas) {
+		this.recetas = recetas;
+	}
+	
+	
 }
-
-
-
-

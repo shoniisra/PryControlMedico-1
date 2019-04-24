@@ -2,53 +2,37 @@ package com.medico.app.web.models.services;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.medico.app.web.models.dao.IRecetaDAO;
 import com.medico.app.web.models.entities.Receta;
 
-@Repository
-public class RecetaService implements IRecetaDAO {
-
-	@PersistenceContext
-	private EntityManager em;
-		
-	@Override
-	public void create(Receta receta) {		
-		em.persist(receta);
-	}
-
-	@Override
-	public Receta retrieve(Integer id) {		
-		return em.find(Receta.class, id);
-	}
-
-	@Override
-	public void update(Receta receta) {
-		em.merge(receta);
-	}
+@Service
+public class RecetaService implements IRecetaService {
+	
+	@Autowired
+	private IRecetaDAO dao;
 	
 	@Override
-	public void delete(Integer id) {
-		Receta receta = this.retrieve(id); 
-		em.remove(receta);
+	public void save(Receta Receta) {
+
+		dao.save(Receta);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Receta> list() {		
-		return (List<Receta>) em.createQuery("from Receta").getResultList();
+	public Receta findById(Integer id) {
+		return dao.findById(id).get();
 	}
 
+	@Override
+	public void delete(Integer id) {
+		dao.deleteById(id);
+	}
+
+	@Override
+	public List<Receta> findAll() {
+		return (List<Receta>) dao.findAll();
+
+	}
 }
-
-
-
-
-
-
-
-

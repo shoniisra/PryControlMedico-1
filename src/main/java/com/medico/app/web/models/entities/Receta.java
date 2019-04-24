@@ -18,13 +18,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.ManyToAny;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="RECETA")
-public class Receta implements Serializable {
-	
+public class Receta implements Serializable{
+
 	private static final long serialVersionUID = 1L;
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,25 +36,26 @@ public class Receta implements Serializable {
 	
 	@Column(name = "NACIMIENTO")
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Calendar fecha;
 	
-	@JoinColumn(name="IDMEDICO", referencedColumnName="IDPERSONA")
+	@JoinColumn(name="IDMEDICO", referencedColumnName = "IDPERSONA")
 	@ManyToOne
 	private Medico medico;
-		
-	@JoinColumn(name="IDPACIENTE", referencedColumnName="IDPERSONA")
+	
+	@JoinColumn(name="IDPACIENTE", referencedColumnName = "IDPERSONA")
 	@ManyToOne
 	private Paciente paciente;
 	
-	@OneToMany(mappedBy="receta", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="receta", fetch=FetchType.LAZY)
 	private List<DetalleReceta> detalles;
-		
-	public Receta() {		
-	}
 	
-	public Receta(Integer id) {
-		this.idreceta = id;
+	public Receta() {
+		
+	}
+
+	public Receta(Integer idreceta) {
+		super();
+		this.idreceta = idreceta;
 	}
 
 	public Integer getIdreceta() {
@@ -86,9 +89,15 @@ public class Receta implements Serializable {
 	public void setPaciente(Paciente paciente) {
 		this.paciente = paciente;
 	}
-	
-	
-	
-	
 
+	public List<DetalleReceta> getDetalles() {
+		return detalles;
+	}
+
+	public void setDetalles(List<DetalleReceta> detalles) {
+		this.detalles = detalles;
+	}
+	
+	
+	
 }

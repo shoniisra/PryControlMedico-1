@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +18,7 @@ public class RecetaService implements IRecetaDAO {
 	private EntityManager em;
 		
 	@Override
+	@Transactional
 	public void create(Receta receta) {		
 		em.persist(receta);
 	}
@@ -27,11 +29,13 @@ public class RecetaService implements IRecetaDAO {
 	}
 
 	@Override
+	@Transactional
 	public void update(Receta receta) {
 		em.merge(receta);
 	}
 	
 	@Override
+	@Transactional
 	public void delete(Integer id) {
 		Receta receta = this.retrieve(id); 
 		em.remove(receta);

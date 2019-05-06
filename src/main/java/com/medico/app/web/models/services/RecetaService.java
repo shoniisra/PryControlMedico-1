@@ -2,11 +2,10 @@ package com.medico.app.web.models.services;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.medico.app.web.models.dao.IRecetaDAO;
 import com.medico.app.web.models.entities.Receta;
@@ -19,21 +18,6 @@ public class RecetaService implements IRecetaService {
 	
 	@Override
 	@Transactional
-	public void create(Receta receta) {		
-		em.persist(receta);
-	}
-
-		dao.save(Receta);
-	}
-
-	@Override
-	@Transactional
-	public void update(Receta receta) {
-		em.merge(receta);
-	}
-
-	@Override
-	@Transactional
 	public void delete(Integer id) {
 		dao.deleteById(id);
 	}
@@ -42,5 +26,16 @@ public class RecetaService implements IRecetaService {
 	public List<Receta> findAll() {
 		return (List<Receta>) dao.findAll();
 
+	}
+
+	@Override
+	public void save(Receta receta) {
+		dao.save(receta);
+		
+	}
+
+	@Override
+	public Receta findById(Integer id) {		
+		return dao.findById(id).get();
 	}
 }

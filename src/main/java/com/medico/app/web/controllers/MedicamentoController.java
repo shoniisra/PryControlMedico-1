@@ -1,6 +1,5 @@
 package com.medico.app.web.controllers;
 
-import com.medico.app.web.models.dao.IMedicamentoDAO;
 import com.medico.app.web.models.entities.Medicamento;
 import com.medico.app.web.models.services.IMedicamentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
@@ -55,7 +53,7 @@ public class MedicamentoController {
         return "medicamento/form";
     }
 
-    @GetMapping(value="/delete" )
+    @GetMapping(value="/delete/{id}" )
     public String delete(@PathVariable(value = "id") Integer id,
                          Model model){
         try{

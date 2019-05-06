@@ -1,6 +1,5 @@
 package com.medico.app.web.controllers;
 
-import com.medico.app.web.models.dao.IDosisDAO;
 import com.medico.app.web.models.entities.Dosis;
 import com.medico.app.web.models.services.IDosisService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller

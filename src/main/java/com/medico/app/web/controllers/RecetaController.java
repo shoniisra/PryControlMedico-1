@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.medico.app.web.models.dao.IRecetaDAO;
 import com.medico.app.web.models.entities.Receta;
+import com.medico.app.web.models.services.IRecetaService;
 
 @Controller
 @RequestMapping(value="/receta")
@@ -19,7 +20,7 @@ public class RecetaController {
 
 	//Servicio => Inyección de dependencias
 	@Autowired
-	private IRecetaDAO service;
+	private IRecetaService service;
 	
 	@GetMapping(value="/create")
 	public String create(Model model) {
@@ -30,11 +31,10 @@ public class RecetaController {
 	
 	@PostMapping(value="/save")
 	public String save(Receta receta, Model model) {
-		if(receta.getIdreceta() == null) {
-			service.create(receta);
+		try {
+			service.save(receta);
 		}
-		else {
-			service.update(receta);
+		catch(Exception ex){			
 		}
 		return "redirect:/receta/list";
 	}
@@ -43,7 +43,7 @@ public class RecetaController {
 	@GetMapping(value="/retrieve/{id}")
 	public String retrieve(@PathVariable(value="id")Integer id, 
 			Model model) {
-		Receta receta = service.retrieve(id);
+		Receta receta = service.findById(id);
 		model.addAttribute("receta",receta);
 		return "receta/card";
 	}
@@ -51,7 +51,7 @@ public class RecetaController {
 	@GetMapping(value="/update/{id}")
 	public String update(@PathVariable(value="id")Integer id,
 			Model model) {
-		Receta receta = service.retrieve(id);
+		Receta receta = service.findById(id);
 		model.addAttribute("receta",receta);
 		return "receta/form";
 	}
@@ -59,13 +59,17 @@ public class RecetaController {
 	@GetMapping(value="/delete/{id}")
 	public String delete(@PathVariable(value="id")Integer id, 
 			Model model) {
-		service.delete(id);		
+		try {
+			service.delete(id);
+		}
+		catch(Exception ex){			
+		}				
 		return "redirect:/receta/list";
 	}	
 	
 	@GetMapping(value="/list")
 	public String list(Model model) {
-		List<Receta> recetas = service.list();
+		List<Receta> recetas = service.findAll();
 		model.addAttribute("recetas", recetas);
 		return "receta/list";		
 	}

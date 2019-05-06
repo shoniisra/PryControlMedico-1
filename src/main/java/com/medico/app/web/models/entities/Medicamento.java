@@ -28,7 +28,10 @@ public class Medicamento implements Serializable {
 	@Basic(optional = false)
 	@Column(name = "IDMEDICAMENTO")
 	private Integer idmedicamento;
-	
+		
+	@Column(name = "COMPONENTEACTIVO")
+	@Size(max = 65)
+	private String componenteActivo;
 	
 	@Column(name = "VIAADMINISTRACION")
 	@Size(max = 255)
@@ -59,6 +62,14 @@ public class Medicamento implements Serializable {
 
 	public Integer getIdmedicamento() {
 		return idmedicamento;
+	}
+	
+	public String getComponenteActivo() {
+		return componenteActivo;
+	}
+
+	public void setComponenteActivo(String componenteActivo) {
+		this.componenteActivo = componenteActivo;
 	}
 
 	public void setIdmedicamento(Integer idmedicamento) {

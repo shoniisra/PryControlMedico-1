@@ -21,7 +21,7 @@ public class MedicoService implements IMedicoService {
 	}
 
 	@Override
-	public Medico findById(Integer id) {
+	public Medico findById(Integer id) {		
 		return dao.findById(id).get();
 	}
 

@@ -11,21 +11,19 @@ import org.springframework.stereotype.Repository;
 import com.medico.app.web.models.dao.IRecetaDAO;
 import com.medico.app.web.models.entities.Receta;
 
-@Repository
-public class RecetaService implements IRecetaDAO {
-
-	@PersistenceContext
-	private EntityManager em;
-		
+@Service
+public class RecetaService implements IRecetaService {
+	
+	@Autowired
+	private IRecetaDAO dao;
+	
 	@Override
 	@Transactional
 	public void create(Receta receta) {		
 		em.persist(receta);
 	}
 
-	@Override
-	public Receta retrieve(Integer id) {		
-		return em.find(Receta.class, id);
+		dao.save(Receta);
 	}
 
 	@Override
@@ -33,26 +31,16 @@ public class RecetaService implements IRecetaDAO {
 	public void update(Receta receta) {
 		em.merge(receta);
 	}
-	
+
 	@Override
 	@Transactional
 	public void delete(Integer id) {
-		Receta receta = this.retrieve(id); 
-		em.remove(receta);
+		dao.deleteById(id);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<Receta> list() {		
-		return (List<Receta>) em.createQuery("from Receta").getResultList();
+	public List<Receta> findAll() {
+		return (List<Receta>) dao.findAll();
+
 	}
-
 }
-
-
-
-
-
-
-
-

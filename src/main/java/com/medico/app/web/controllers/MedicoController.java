@@ -1,7 +1,6 @@
 package com.medico.app.web.controllers;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +16,17 @@ import com.medico.app.web.models.services.IMedicoService;
 @Controller
 @RequestMapping(value="/medico")
 public class MedicoController {
+    @Autowired
+    private IMedicoService service;
+
+    @GetMapping(value="/create" )
+    public String create(Model model){
+        Medico medico=new Medico();
+        model.addAttribute("medico",medico);
+        return "medico/form";
+    }
+
+
 	
 	@Autowired
 	private IMedicoService service;

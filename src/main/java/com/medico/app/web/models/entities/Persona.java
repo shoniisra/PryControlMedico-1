@@ -25,17 +25,17 @@ public abstract class Persona {
 	@Column(name = "IDPERSONA")
 	private Integer idpersona;
 	
-	@Size(max=15)
-	@Column(name = "CEDULA")	
+	@Size(max = 15)
+	@Column(name = "CEDULA")
 	private String cedula;
 	
-	@Size(max=35)
-	@Column(name = "NOMBRE")
+	@Size(max = 35)
+	@Column(name = "NOMBRES")
 	@NotEmpty
 	private String nombre;
 	
-	@Size(max=35)
-	@Column(name = "APELLIDO")
+	@Size(max = 35)
+	@Column(name = "APELLIDOS")
 	@NotEmpty
 	private String apellido;
 	
@@ -44,22 +44,24 @@ public abstract class Persona {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Calendar nacimiento;
 	
-	@Size(max=15)
-	@Column(name = "TELEFONO")
+	@Size(max = 15)
+	@Column(name = "TELÉFONO")
 	@NotEmpty
 	private String telefono;
 	
-	@Size(max=35)
+	@Size(max = 35)
 	@Column(name = "EMAIL")
 	@NotEmpty
 	@Email
 	private String email;
 	
-	public Persona() {		
+	public Persona() {
+		super();
 	}
-	
-	public Persona(Integer id) {
-		this.idpersona = id;		
+
+	public Persona(Integer idpersona) {
+		super();
+		this.idpersona = idpersona;
 	}
 
 	public Integer getIdpersona() {
@@ -117,11 +119,8 @@ public abstract class Persona {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
-	
-	
-	
+
 	
 
+	
 }

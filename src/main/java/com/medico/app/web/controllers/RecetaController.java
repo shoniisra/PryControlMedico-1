@@ -16,7 +16,7 @@ import com.medico.app.web.models.entities.Receta;
 @Controller
 @RequestMapping(value="/receta")
 public class RecetaController {
-	
+
 	//Servicio => Inyección de dependencias
 	@Autowired
 	private IRecetaDAO service;
@@ -74,6 +74,6 @@ public class RecetaController {
 	
 	
 	
-	
+
 
 }

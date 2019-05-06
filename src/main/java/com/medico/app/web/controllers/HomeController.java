@@ -11,6 +11,7 @@ public class HomeController {
 
 	@GetMapping(value="/")
 	public String home(Model model) {
+		model.addAttribute("title", "Conciliación de medicamentos");
 		return "home";
 	}
 	

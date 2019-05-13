@@ -24,7 +24,15 @@
 							<label class="h5 col-form-label">&nbsp;Nombre:</label>						
 						</div>
 						<div class="content col-sm-6">
-							<input class="form-control" type="text" th:field="*{nombreComercial}" />						
+							
+							<input class="form-control" type="text" 
+								th:field="*{nombreComercial}"
+								th:errorclass="'form-control is-invalid'" />
+								
+							<small class="invalid-feedback" 
+								th:if="${#fields.hasErrors('nombreComercial')}" 
+								th:errors="*{nombreComercial}"></small>
+																						
 						</div>
 					</div>
 				

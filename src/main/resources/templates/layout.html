@@ -29,6 +29,19 @@
 				</ul>
 			</div>
 		</nav>
+		
+		<div id="success-alert" class="alert alert-success" role="alert"
+			th:if="${success != null}">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<span th:text=${success}></span>
+		</div>
+		
+		<div id="error-alert" class="alert alert-error" role="alert"
+			th:if="${error != null}">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<span th:text=${error}></span>
+		</div>
+				
 	</header>
 	
 	<div class="container">

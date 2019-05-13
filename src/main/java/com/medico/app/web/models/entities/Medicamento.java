@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -34,18 +35,19 @@ public class Medicamento implements Serializable {
 	private String componenteActivo;
 	
 	@Column(name = "VIAADMINISTRACION")
-	@Size(max = 255)
+	@Size(max = 255)	
 	private String viaAdministracion;
 	
 	@Column(name = "NOMBRECOMERCIAL")
-	@Size(max = 255)
+	@Size(max = 15)
+	@NotEmpty
 	private String nombreComercial;
 	
 	@Column(name = "PRECIO")
 	private float precio;
 	
 	@Column(name = "CONCENTRACION")
-	@Size(max = 255)
+	@Size(max = 255)	
 	private String concentracion;
 	
 	@OneToMany(mappedBy="medicamento", fetch=FetchType.LAZY)

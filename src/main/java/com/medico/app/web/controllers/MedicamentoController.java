@@ -22,6 +22,7 @@ public class MedicamentoController {
     @GetMapping(value="/create" )
     public String create(Model model){
         Medicamento medicamento=new Medicamento();
+        model.addAttribute("title","Registro de nuevo medicamento");
         model.addAttribute("medicamento",medicamento);
         return "medicamento/form";
     }
@@ -69,6 +70,19 @@ public class MedicamentoController {
     public String list(Model model){
         List<Medicamento> medicamentos=service.findAll();
         model.addAttribute("lista",medicamentos);
+        model.addAttribute("title","Listado de medicamentos");
         return "medicamento/list";
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+

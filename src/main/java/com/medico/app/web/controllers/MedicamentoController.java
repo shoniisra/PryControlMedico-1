@@ -81,9 +81,10 @@ public class MedicamentoController {
 
     @GetMapping(value="/delete/{id}" )
     public String delete(@PathVariable(value = "id") Integer id,
-                         Model model){
+                         Model model, RedirectAttributes message){
         try{
             service.delete(id);
+            message.addFlashAttribute("success", "Medicamento eliminado correctamente");
         }catch (Exception ex){
             model.addAttribute("error: ",ex.toString());
         }

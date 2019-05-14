@@ -1,6 +1,7 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -14,9 +15,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="MEDICAMENTO")
@@ -47,6 +52,11 @@ public class Medicamento implements Serializable {
 	@Column(name = "PRECIO")
 	@Digits(integer=8, fraction=2)
 	private float precio;
+	
+	@Column(name = "FECHACADUCIDAD")
+	@Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date fechaCaducidad;
 		
 	@JoinColumn(name="IDVIAADMINISTRACION", referencedColumnName = "IDVIAADMINISTRACION")
 	@ManyToOne	
@@ -119,6 +129,14 @@ public class Medicamento implements Serializable {
 
 	public void setDetalles(List<DetalleReceta> detalles) {
 		this.detalles = detalles;
+	}
+
+	public Date getFechaCaducidad() {
+		return fechaCaducidad;
+	}
+
+	public void setFechaCaducidad(Date fechaCaducidad) {
+		this.fechaCaducidad = fechaCaducidad;
 	}
 	
 

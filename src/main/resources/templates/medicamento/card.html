@@ -3,24 +3,70 @@
 <head th:replace="layout :: head"></head>
 <body>
 	<header th:replace="layout :: header"></header>
-	
 	<div class="container">
 		<br />
 		<div class="card col-md-12">
 			<div class="card-body">
 				<div class="form-group row">
 					<div class="content col-sm-1">
-						<i class="far fa-plus-square fa-2x"></i>
+						<i class="fas fa-tablets fa-2x"></i>
 					</div>
-					<h3 class="card-title col-sm-6" th:text="${title}"></h3>
-					<div class="col-sm-4"></div>
+					<h3 class="card-title col-sm-6"
+						th:text="${medicamento.nombreComercial}"></h3>
+					<div class="col-sm-4">
+						<a th:href="@{/medicamento/delete/} + ${medicamento.idmedicamento}"
+							class="btn btn-danger"
+							onclick="return confirm('¿Desea eliminar al medicamento?');"><i
+							class="fas fa-trash-alt"></i>&nbsp;Eliminar</a>
+							<a class="btn btn-primary" th:href="@{/medicamento/list}"><i
+							class="fas fa-arrow-left"></i>&nbsp;Volver</a>
+					</div>
 				</div>
+				<input type="hidden" id="idmedicamento" th:value="${medicamento.idmedicamento}" />
 				<hr />
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group row">
+							<div class="content col-sm-3 bg-light">							
+								<i class="fas fa-vial"></i>
+								<label class="h5 col-form-label">&nbsp;Componente activo:</label>
+							</div>
+							<div class="col-sm-8">
+								<h5 class="card-text" th:text="${medicamento.componenteActivo}"></h5>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="content col-sm-3 bg-light">
+								<i class="fas fa-dollar-sign"></i>
+								<label class="h5 col-form-label">&nbsp;Precio:</label>								
+							</div>
+							<div class="col-sm-8">
+								<h5 class="card-text" th:text="${medicamento.precio}"></h5>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="content col-sm-3 bg-light">
+								<i class="fas fa-prescription-bottle"></i>
+								<label class="h5 col-form-label">&nbsp;Concentraci&oacute;n:</label>
+							</div>
+							<div class="col-sm-8">
+								<h5 class="card-text" th:text="${medicamento.concentracion}"></h5>
+							</div>
+						</div>
+						<div class="form-group row">
+							<div class="content col-sm-3 bg-light">
+								<i class="fas fa-syringe"></i>
+								<label class="h5 col-form-label">&nbsp;V&iacute;a de administraci&oacute;n:</label>								
+							</div>
+							<div class="col-sm-8">
+								<h5 class="card-text" th:text="${medicamento.viaAdministracion.nombre}"></h5>
+							</div>
+						</div>
+					</div>					
+				</div>
 			</div>
 		</div>
-	</div>
-	
-				
+	</div>				
 	<footer th:replace="layout :: footer"></footer>
 </body>
 </html>

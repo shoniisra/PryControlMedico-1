@@ -1,7 +1,10 @@
 package com.medico.app.web.controllers;
 
 import com.medico.app.web.models.entities.Medicamento;
+import com.medico.app.web.models.entities.ViaAdministracion;
 import com.medico.app.web.models.services.IMedicamentoService;
+import com.medico.app.web.models.services.IViaAdministracionService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,12 +28,17 @@ public class MedicamentoController {
 
     @Autowired
     private IMedicamentoService service;
+    
+    @Autowired
+    private IViaAdministracionService srvViaAdministacion;
 
     @GetMapping(value="/create" )
-    public String create(Model model){
-        Medicamento medicamento=new Medicamento();
+    public String create(Model model){        
+    	List<ViaAdministracion> vias = srvViaAdministacion.findAll();
+    	Medicamento medicamento=new Medicamento();
         model.addAttribute("title","Registro de nuevo medicamento");
         model.addAttribute("medicamento",medicamento);
+        model.addAttribute("vias",vias);        
         return "medicamento/form";
     }
 
@@ -42,7 +50,7 @@ public class MedicamentoController {
         	if(result.hasErrors()) {        		
         		return "medicamento/form";
         	}                  
-        	String msg = medicamento.getIdmedicamento() == null ? "Nuevo" : "Actualizado";
+        	String msg = medicamento.getIdmedicamento() == null ? medicamento.getNombreComercial() + " ha sido agregado a la lista de medicamentos." : medicamento.getNombreComercial() + " ha sido actualizado.";
         	service.save(medicamento);
             session.setComplete();            
             message.addFlashAttribute("success", msg);
@@ -65,6 +73,9 @@ public class MedicamentoController {
                          Model model){
         Medicamento medicamento=service.findById(id);
         model.addAttribute("medicamento",medicamento);
+        model.addAttribute("title","Actualización de medicamento: " + medicamento.getNombreComercial());
+        List<ViaAdministracion> vias = srvViaAdministacion.findAll();
+        model.addAttribute("vias",vias);        
         return "medicamento/form";
     }
 

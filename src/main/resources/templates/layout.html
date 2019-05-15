@@ -6,64 +6,158 @@
 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
 	<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}"/>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+	<link rel="stylesheet"  th:href="@{/vendor/fontawesome-free/css/all.min.css}"  type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+	<!-- Custom styles for this template-->
+	<link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}" >
+
 </head>
-<body>
-	
-	<header th:fragment="header" class="container">		
-		<!-- Menu principal -->
-		<br />
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-			<a class="navbar-brand" th:href="@{/}">Inicio</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/paciente/list}">Pacientes</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/receta/list}">Recetas</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/medicamento/list}">Medicamentos</a></li>					
-				</ul>
+<body id="page-top">
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<ul th:fragment="header" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+			<!-- Sidebar - Brand -->
+			<a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
+				<div class="sidebar-brand-icon rotate-n-15">
+					<i class="fas fa-laugh-wink"></i>
+				</div>
+				<div class="sidebar-brand-text mx-3">Control Médico <sup>1</sup></div>
+			</a>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider my-0">
+
+			<!-- Nav Item - Dashboard -->
+			<li class="nav-item active">
+				<a class="nav-link" href="index.html">
+					<i class="fas fa-fw fa-tachometer-alt"></i>
+					<span>Reportes</span></a>
+			</li>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider">
+
+			<!-- Heading -->
+			<div class="sidebar-heading">
+				Personas
 			</div>
-		</nav>
-		
-		<div id="success-alert" class="alert alert-success" role="alert"
-			th:if="${success != null}">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<span th:text=${success}></span>
-		</div>
-		
-		<div id="error-alert" class="alert alert-danger" role="alert"
-			th:if="${error != null}">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<span th:text=${error}></span>
-		</div>
-				
-	</header>
-	
-	<div class="container">
-		<!-- Contenido principal -->
-	</div>
-	
-	<footer th:fragment="footer" class="container">
+
+			<!-- Paciente -->
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+					<i class="fas fa-fw fa-cog"></i>
+					<span>Paciente</span>
+				</a>
+				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Pacientes:</h6>
+						<a class="collapse-item" th:href="@{/paciente/list}">Listar</a>
+						<a class="collapse-item" th:href="@{/paciente/create}">Crear</a>
+					</div>
+				</div>
+			</li>
+
+			<!-- Medico -->
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+					<i class="fas fa-fw fa-cog"></i>
+					<span>Medico</span>
+				</a>
+				<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Medicos:</h6>
+						<a class="collapse-item" th:href="@{/medico/list}">Listar</a>
+						<a class="collapse-item" th:href="@{/medico/create}">Crear</a>
+					</div>
+				</div>
+			</li>
+
+
+
+			<!-- Divider -->
+			<hr class="sidebar-divider">
+
+			<!-- Heading -->
+			<div class="sidebar-heading">
+				Control Medicamento
+			</div>
+
+			<!-- Medicamento -->
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+					<i class="fas fa-fw fa-wrench"></i>
+					<span>Medicamento</span>
+				</a>
+				<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Medicamentos:</h6>
+						<a class="collapse-item" th:href="@{/medicamento/list}">Listar</a>
+						<a class="collapse-item" th:href="@{/medicamento/create}">Crear</a>
+					</div>
+				</div>
+			</li>
+			<!-- Receta -->
+			<li class="nav-item">
+				<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+					<i class="fas fa-fw fa-folder"></i>
+					<span>Receta</span>
+				</a>
+				<div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<h6 class="collapse-header">Recetas:</h6>
+						<a class="collapse-item" th:href="@{/receta/list}">Listar</a>
+						<a class="collapse-item" th:href="@{/receta/create}">Crear</a>
+						<div class="collapse-divider"></div>
+						<h6 class="collapse-header">Otras Paginas:</h6>
+						<a class="collapse-item" th:href="@{/dosis/list}">Dosis</a>
+						<a class="collapse-item" th:href="@{/detallereceta/list}">Detalle Receta</a>
+					</div>
+				</div>
+			</li>
+
+			<!-- Divider -->
+			<hr class="sidebar-divider d-none d-md-block">
+
+			<!-- Sidebar Toggler (Sidebar) -->
+			<div class="text-center d-none d-md-inline">
+				<button class="rounded-circle border-0" id="sidebarToggle"></button>
+			</div>
+
+		</ul>
+		<!-- End of Sidebar -->
+
+
+			<div id="content">
+				<!-- Contenido principal -->
+			</div>
+
+
+
+		<footer th:fragment="footer" class="container">
 		<br />
 		<hr />
 		<div class="row">
 			<div class="col-md-1">
-				<i class="fas fa-university fa-5x"></i>
+				<i class="fas fa-university fa-3x"></i>
 			</div>
 			<div class="col-md-9">
-				<h5 class="card-title">Universidad de las Fuerzas Armadas</h5>
+				<h5 class="card-title">ESPE</h5>
 				<div class="card-text">
-					<strong>Carrera de ingeniería de Software</strong><br /> <small>Belisario
+					<strong>Ingeniería de Software</strong><br /> <small>Belisario
 						Quevedo - Latacunga</small>
 				</div>
 			</div>
 			<div class="col-md-1 center-block">				
 				<p>ISOW&copy;2019</p>
+			</div>
+			<div class="container my-auto">
+				<div class="copyright text-center my-auto">
+					<span>Copyright &copy; Johnny Villacís 2019</span>
+				</div>
 			</div>
 		</div>
 		<hr />
@@ -71,10 +165,32 @@
 		<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
 		<script th:src="@{/js/jquery-ui.min.js}"></script>
 		<script th:src="@{/js/popper.js}"></script>
-		<script th:src="@{/js/bootstrap.min.js}"></script>		
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+
+		<!-- Bootstrap core JavaScript-->
+		<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+		<script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+		<!-- Core plugin JavaScript-->
+		<script th:src="@{vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+		<!-- Custom scripts for all pages-->
+		<script th:src="@{js/sb-admin-2.min.js}"></script>
+
+		<!-- Page level plugins -->
+		<script th:src="@{vendor/chart.js/Chart.min.js}"></script>
+
+		<!-- Page level custom scripts -->
+		<script th:src="@{js/demo/chart-area-demo.js}"></script>
+		<script th:src="@{js/demo/chart-pie-demo.js}"></script>
+
 		<!-- Copyright -->
 			
-	</footer>
-	
+		</footer>
+	</div>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
 </body>
 </html>

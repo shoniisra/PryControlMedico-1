@@ -2,7 +2,7 @@ package com.medico.app.web.controllers;
 
 import com.medico.app.web.models.entities.DetalleReceta;
 import com.medico.app.web.models.services.IDetalleRecetaService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+//import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

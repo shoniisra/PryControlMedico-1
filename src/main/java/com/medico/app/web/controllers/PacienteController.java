@@ -77,7 +77,7 @@ public class PacienteController {
         return "paciente/form";
     }
 
-    @GetMapping(value="/delete" )
+    @GetMapping(value="/delete/{id}" )
     public String delete(@PathVariable(value = "id") Integer id,
                          Model model, RedirectAttributes message){
         try{

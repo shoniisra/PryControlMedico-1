@@ -2,9 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head"></head>
 <body>
+<div id="wrapper">
 	<header th:replace="layout :: header"></header>
-	
-	<div class="container">
+	<div id="content-wrapper" class="d-flex flex-column">
+		<!-- Begin Page Content -->
+		<div class="container">
+			<div class="container-fluid">
+				<div th:replace="layout :: alert"></div>
 		<br />
 		<div class="card col-md-12">
 			<div class="card-body">
@@ -19,22 +23,43 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th><i class="fas fa-user-md fa-2x"></i>&nbsp;Campo 1</th>
-							<th><i class="fas far fa-address-card fa-2x"></i>&nbsp;Campo 2</th>
-							<th><i class="fas fa-phone fa-2x"></i>&nbsp;Campo 3</th>
-							<th><i class="fas fa-at fa-2x"></i>&nbsp;Campo 4</th>
-							<th><i class="fas fa-award fa-2x"></i>&nbsp;Campo 5</th>
+							<th><i class="fas fa-phone fa-2x"></i>&nbsp;Nombre</th>
+							<th><i class="fas fa-at fa-2x"></i>&nbsp;Apellido</th>
+							<th><i class="fas fa-award fa-2x"></i>&nbsp;Cedula</th>
+							<th><i class="fas fa-award fa-2x"></i>&nbsp;Fecha Nacimiento</th>
+							<th><i class="fas fa-user-md fa-2x"></i>&nbsp;Alergias</th>
+							<th><i class="fas far fa-address-card fa-2x"></i>&nbsp;Tipo de Sangre</th>
+							<th><i class="fas far fa-address-card fa-2x"></i>&nbsp;Recetas</th>
 							<th><a class="btn btn-sm btn-success"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
 						</tr>
 					</thead>
-					<tbody>						
+					<tbody>
+						<tr th:each=" paciente : ${lista}" >
+							<td th:text="${paciente.nombre}"></td>
+							<td th:text="${paciente.apellido}"></td>
+							<td th:text="${paciente.cedula}"></td>
+							<td th:text="${paciente.nacimiento}"></td>
+							<td th:text="${paciente.alergias}" ></td>
+							<td th:text="${paciente.tipoSangre.nombre}" ></td>
+							<td>
+								<a class="btn btn-sm btn-warning" title="Editar"
+								   th:href="@{/paciente/update/} + ${paciente.idpaciente}">
+									<i class="fas fa-edit"></i>
+								</a>
+								<a class="btn btn-sm btn-primary" title="Ver"
+								   th:href="@{/paciente/retrieve/} + ${paciente.idpaciente}">
+									<i class="fas fa-eye"></i>
+								</a>
+							</td>
+						</tr>
+
 					</tbody>
 				</table>
 			</div>
 		</div>
+	</div><footer th:replace="layout :: footer"></footer>
 	</div>
-	
-				
-	<footer th:replace="layout :: footer"></footer>
+	</div>
+	</div>
 </body>
 </html>

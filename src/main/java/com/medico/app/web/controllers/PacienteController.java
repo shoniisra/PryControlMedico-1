@@ -77,6 +77,7 @@ public class PacienteController {
     public String list(Model model){
         List<Paciente> pacientes=service.findAll();
         model.addAttribute("lista",pacientes);
+        model.addAttribute("title","Listado de pacientes");
         return "paciente/list";
     }
 }

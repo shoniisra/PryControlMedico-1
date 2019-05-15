@@ -1,7 +1,7 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -33,7 +33,7 @@ public class Dosis implements Serializable {
 	
 	@Column(name = "FECHAHORA")
 	@Temporal(TemporalType.DATE)
-	private Calendar fechaHora;
+	private Date fechaHora;
 	
 	@Column(name = "NUMERO")
 	@Min(value = 1)
@@ -68,11 +68,11 @@ public class Dosis implements Serializable {
 		this.iddosis = iddosis;
 	}
 
-	public Calendar getFechaHora() {
+	public Date getFechaHora() {
 		return fechaHora;
 	}
 
-	public void setFechaHora(Calendar fechaHora) {
+	public void setFechaHora(Date fechaHora) {
 		this.fechaHora = fechaHora;
 	}
 

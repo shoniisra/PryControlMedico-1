@@ -1,6 +1,6 @@
 package com.medico.app.web.models.entities;
 
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -42,8 +42,8 @@ public abstract class Persona {
 	@Column(name = "NACIMIENTO")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Calendar nacimiento;
-	
+	private Date nacimiento;
+
 	@Size(max = 15)
 	@Column(name = "TELÉFONO")
 	@NotEmpty
@@ -96,11 +96,11 @@ public abstract class Persona {
 		this.apellido = apellido;
 	}
 
-	public Calendar getNacimiento() {
+	public Date getNacimiento() {
 		return nacimiento;
 	}
 
-	public void setNacimiento(Calendar nacimiento) {
+	public void setNacimiento(Date nacimiento) {
 		this.nacimiento = nacimiento;
 	}
 

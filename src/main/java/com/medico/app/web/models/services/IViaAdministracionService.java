@@ -1,6 +1,5 @@
 package com.medico.app.web.models.services;
 
-
 import java.util.List;
 
 import com.medico.app.web.models.entities.ViaAdministracion;

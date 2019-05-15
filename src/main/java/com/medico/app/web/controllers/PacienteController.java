@@ -1,8 +1,9 @@
 package com.medico.app.web.controllers;
 
-import com.medico.app.web.models.dao.IPacienteDAO;
 import com.medico.app.web.models.entities.Paciente;
+import com.medico.app.web.models.entities.TipoSangre;
 import com.medico.app.web.models.services.IPacienteService;
+import com.medico.app.web.models.services.ITipoSangreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +23,16 @@ public class PacienteController {
     //private IPacienteDAO service;
     private IPacienteService service;
 
+    @Autowired
+    private ITipoSangreService srvSangre;
+
     @GetMapping(value="/create" )
     public String create(Model model){
+        List<TipoSangre> sangres = srvSangre.findAll();
         Paciente paciente=new Paciente();
+        model.addAttribute("title","Registro de nuevo paciente");
         model.addAttribute("paciente",paciente);
+        model.addAttribute("sangres",sangres);
         return "paciente/form";
     }
 

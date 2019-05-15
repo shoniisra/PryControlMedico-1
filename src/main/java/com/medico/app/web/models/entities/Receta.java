@@ -1,7 +1,7 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -36,7 +36,7 @@ public class Receta implements Serializable{
 	
 	@Column(name = "NACIMIENTO")
 	@Temporal(TemporalType.DATE)
-	private Calendar fecha;
+	private Date fecha;
 	
 	@JoinColumn(name="IDMEDICO", referencedColumnName = "IDPERSONA")
 	@ManyToOne
@@ -66,11 +66,11 @@ public class Receta implements Serializable{
 		this.idreceta = idreceta;
 	}
 
-	public Calendar getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Calendar fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

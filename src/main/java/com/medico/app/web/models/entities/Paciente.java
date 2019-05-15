@@ -3,11 +3,7 @@ package com.medico.app.web.models.entities;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -22,10 +18,9 @@ public class Paciente extends Persona implements Serializable{
 	@NotEmpty
 	private String alergias;
 	
-	@Size(max = 3)
-	@Column(name = "TIPOSANGRE")
-	@NotEmpty
-	private String tipoSangre;
+	@JoinColumn(name="IDTIPOSANGRE", referencedColumnName = "IDTIPOSANGRE")
+	@ManyToOne
+	private TipoSangre tipoSangre;
 	
 	@OneToMany(mappedBy="paciente", fetch=FetchType.LAZY)//LAZY, trae los valores de los atributos y no todo el listado 
 	private List<Receta> recetas;
@@ -39,6 +34,10 @@ public class Paciente extends Persona implements Serializable{
 		this.setIdpersona(Id);
 	}
 
+	public static long getSerialVersionUID() {
+		return serialVersionUID;
+	}
+
 	public String getAlergias() {
 		return alergias;
 	}
@@ -47,11 +46,11 @@ public class Paciente extends Persona implements Serializable{
 		this.alergias = alergias;
 	}
 
-	public String getTipoSangre() {
+	public TipoSangre getTipoSangre() {
 		return tipoSangre;
 	}
 
-	public void setTipoSangre(String tipoSangre) {
+	public void setTipoSangre(TipoSangre tipoSangre) {
 		this.tipoSangre = tipoSangre;
 	}
 
@@ -62,6 +61,4 @@ public class Paciente extends Persona implements Serializable{
 	public void setRecetas(List<Receta> recetas) {
 		this.recetas = recetas;
 	}
-	
-	
 }

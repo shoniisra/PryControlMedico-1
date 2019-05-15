@@ -45,7 +45,7 @@ public abstract class Persona {
 	private Date nacimiento;
 
 	@Size(max = 15)
-	@Column(name = "TELÉFONO")
+	@Column(name = "TELEFONO")
 	@NotEmpty
 	private String telefono;
 	

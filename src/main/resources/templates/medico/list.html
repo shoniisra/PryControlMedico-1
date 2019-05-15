@@ -23,12 +23,11 @@
 						<table class="table table-hover">
 							<thead>
 							<tr>
-								<th><i class="fas fa-phone fa-2x"></i>&nbsp;Nombre</th>
-								<th><i class="fas fa-at fa-2x"></i>&nbsp;Apellido</th>
-								<th><i class="fas fa-award fa-2x"></i>&nbsp;Cedula</th>
-								<th><i class="fas fa-award fa-2x"></i>&nbsp;Fecha Nacimiento</th>
-								<th><i class="fas fa-user-md fa-2x"></i>&nbsp;Licencia</th>
-								<th><i class="fas far fa-address-card fa-2x"></i>&nbsp;Especialidad</th>
+								<th><i class="fas fas fa-user-md"></i>&nbsp;Nombre</th>
+								<th>&nbsp;Apellido</th>
+								<th>Cedula</th>
+								<th>Licencia</th>
+								<th>&nbsp;Especialidad</th>
 								<th><a class="btn btn-sm btn-success" th:href="@{/medico/create}"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
 							</tr>
 							</thead>
@@ -37,17 +36,20 @@
 								<td th:text="${medico.nombre}"></td>
 								<td th:text="${medico.apellido}"></td>
 								<td th:text="${medico.cedula}"></td>
-								<td th:text="${medico.nacimiento}"></td>
 								<td th:text="${medico.licencia}" ></td>
 								<td th:text="${medico.especialidad}" ></td>
 
 								<td>
-									<a class="btn btn-sm btn-warning" title="Editar"
+									<a class="btn btn-sm btn-primary" title="Editar"
 									   th:href="@{/medico/update/} + ${medico.idpersona}">
 										<i class="fas fa-edit"></i>
 									</a>
-									<a class="btn btn-sm btn-primary" title="Ver"
+									<a class="btn btn-sm btn-success" title="Ver"
 									   th:href="@{/medico/retrieve/} + ${medico.idpersona}">
+										<i class="fas fa-eye"></i>
+									</a>
+									<a class="btn btn-sm btn-warning" title="Eliminar"
+									   th:href="@{/medico/delete/} + ${medico.idpersona}">
 										<i class="fas fa-eye"></i>
 									</a>
 								</td>

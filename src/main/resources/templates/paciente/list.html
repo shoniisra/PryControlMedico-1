@@ -23,13 +23,12 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th><i class="fas fa-phone fa-2x"></i>&nbsp;Nombre</th>
-							<th><i class="fas fa-at fa-2x"></i>&nbsp;Apellido</th>
-							<th><i class="fas fa-award fa-2x"></i>&nbsp;Cedula</th>
-							<th><i class="fas fa-award fa-2x"></i>&nbsp;Fecha Nacimiento</th>
-							<th><i class="fas fa-user-md fa-2x"></i>&nbsp;Alergias</th>
-							<th><i class="fas far fa-address-card fa-2x"></i>&nbsp;Tipo de Sangre</th>
-							<th><i class="fas far fa-address-card fa-2x"></i>&nbsp;Recetas</th>
+							<th><i class="fas far fa-address-card"></i>&nbsp;Nombre</th>
+							<th>&nbsp;Apellido</th>
+							<th>&nbsp;Cedula</th>
+							<th>&nbsp;Alergias</th>
+							<th>&nbsp;Sangre</th>
+							<th>&nbsp;Recetas</th>
 							<th><a class="btn btn-sm btn-success" th:href="@{/paciente/create}"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
 						</tr>
 					</thead>
@@ -38,7 +37,6 @@
 							<td th:text="${paciente.nombre}"></td>
 							<td th:text="${paciente.apellido}"></td>
 							<td th:text="${paciente.cedula}"></td>
-							<td th:text="${paciente.nacimiento}"></td>
 							<td th:text="${paciente.alergias}" ></td>
 							<td th:text="${paciente.tipoSangre.nombre}" ></td>
 							<td >
@@ -48,12 +46,16 @@
 							</td>
 
 							<td>
-								<a class="btn btn-sm btn-warning" title="Editar"
+								<a class="btn btn-sm btn-primary" title="Editar"
 								   th:href="@{/paciente/update/} + ${paciente.idpersona}">
 									<i class="fas fa-edit"></i>
 								</a>
-								<a class="btn btn-sm btn-primary" title="Ver"
+								<a class="btn btn-sm btn-success" title="Ver"
 								   th:href="@{/paciente/retrieve/} + ${paciente.idpersona}">
+									<i class="fas fa-eye"></i>
+								</a>
+								<a class="btn btn-sm btn-warning" title="Eliminar"
+								   th:href="@{/paciente/delete/} + ${paciente.idpersona}">
 									<i class="fas fa-eye"></i>
 								</a>
 							</td>

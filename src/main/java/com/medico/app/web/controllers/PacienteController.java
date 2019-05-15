@@ -7,10 +7,13 @@ import com.medico.app.web.models.services.ITipoSangreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -37,9 +40,18 @@ public class PacienteController {
     }
 
     @PostMapping(value="/save" )
-    public String save(Paciente paciente,Model model){
+    public String save(Paciente paciente, BindingResult result,
+                       Model model,
+                       RedirectAttributes message, SessionStatus session){
         try{
+            if(result.hasErrors()) {
+                return "paciente/form";
+            }
+            String msg = paciente.getIdpersona() == null ? paciente.getNombre() + " ha sido agregado." : paciente.getNombre() + " ha sido actualizado.";
+
             service.save(paciente);
+            session.setComplete();
+            message.addFlashAttribute("success", msg);
         }catch (Exception ex){
             model.addAttribute("error: ",ex.toString());
         }
@@ -59,14 +71,19 @@ public class PacienteController {
                          Model model){
         Paciente paciente=service.findById(id);
         model.addAttribute("paciente",paciente);
+        model.addAttribute("title","Actualización de paciente: " + paciente.getNombre());
+        List<TipoSangre> sangres = srvSangre.findAll();
+        model.addAttribute("sangres",sangres);
         return "paciente/form";
     }
 
     @GetMapping(value="/delete" )
     public String delete(@PathVariable(value = "id") Integer id,
-                         Model model){
+                         Model model, RedirectAttributes message){
         try{
             service.delete(id);
+            message.addFlashAttribute("success", "Paciente eliminado correctamente");
+
         }catch (Exception ex){
             model.addAttribute("error: ",ex.toString());
         }

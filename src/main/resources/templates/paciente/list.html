@@ -30,7 +30,7 @@
 							<th><i class="fas fa-user-md fa-2x"></i>&nbsp;Alergias</th>
 							<th><i class="fas far fa-address-card fa-2x"></i>&nbsp;Tipo de Sangre</th>
 							<th><i class="fas far fa-address-card fa-2x"></i>&nbsp;Recetas</th>
-							<th><a class="btn btn-sm btn-success"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
+							<th><a class="btn btn-sm btn-success" th:href="@{/paciente/create}"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -41,13 +41,19 @@
 							<td th:text="${paciente.nacimiento}"></td>
 							<td th:text="${paciente.alergias}" ></td>
 							<td th:text="${paciente.tipoSangre.nombre}" ></td>
+							<td >
+								<a class="btn btn-danger"
+								   th:href="@{/receta/list}">
+									<i class="fas fa-minus-circle"></i>&nbsp;Recetas</a>
+							</td>
+
 							<td>
 								<a class="btn btn-sm btn-warning" title="Editar"
-								   th:href="@{/paciente/update/} + ${paciente.idpaciente}">
+								   th:href="@{/paciente/update/} + ${paciente.idpersona}">
 									<i class="fas fa-edit"></i>
 								</a>
 								<a class="btn btn-sm btn-primary" title="Ver"
-								   th:href="@{/paciente/retrieve/} + ${paciente.idpaciente}">
+								   th:href="@{/paciente/retrieve/} + ${paciente.idpersona}">
 									<i class="fas fa-eye"></i>
 								</a>
 							</td>

@@ -1,6 +1,7 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
@@ -14,8 +15,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="MEDICAMENTO")
@@ -30,24 +36,33 @@ public class Medicamento implements Serializable {
 	private Integer idmedicamento;
 		
 	@Column(name = "COMPONENTEACTIVO")
-	@Size(max = 65)
+	@Size(max = 255)
 	private String componenteActivo;
 	
-	@Column(name = "VIAADMINISTRACION")
-	@Size(max = 255)
-	private String viaAdministracion;
-	
+	@Column(name = "CONCENTRACION")
+	@Size(max = 35)
+	@NotEmpty
+	private String concentracion;
+		
 	@Column(name = "NOMBRECOMERCIAL")
-	@Size(max = 255)
+	@Size(max = 65)
+	@NotEmpty
 	private String nombreComercial;
 	
 	@Column(name = "PRECIO")
+	@Digits(integer=8, fraction=2)
 	private float precio;
 	
-	@Column(name = "CONCENTRACION")
-	@Size(max = 255)
-	private String concentracion;
+	@Column(name = "FECHACADUCIDAD")
+	@Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date fechaCaducidad;
+		
+	@JoinColumn(name="IDVIAADMINISTRACION", referencedColumnName = "IDVIAADMINISTRACION")
+	@ManyToOne	
+	private ViaAdministracion viaAdministracion;
 	
+		
 	@OneToMany(mappedBy="medicamento", fetch=FetchType.LAZY)
 	private List<DetalleReceta> detalles;
 
@@ -76,11 +91,11 @@ public class Medicamento implements Serializable {
 		this.idmedicamento = idmedicamento;
 	}
 
-	public String getViaAdministracion() {
+	public ViaAdministracion getViaAdministracion() {
 		return viaAdministracion;
 	}
 
-	public void setViaAdministracion(String viaAdministracion) {
+	public void setViaAdministracion(ViaAdministracion viaAdministracion) {
 		this.viaAdministracion = viaAdministracion;
 	}
 
@@ -114,6 +129,14 @@ public class Medicamento implements Serializable {
 
 	public void setDetalles(List<DetalleReceta> detalles) {
 		this.detalles = detalles;
+	}
+
+	public Date getFechaCaducidad() {
+		return fechaCaducidad;
+	}
+
+	public void setFechaCaducidad(Date fechaCaducidad) {
+		this.fechaCaducidad = fechaCaducidad;
 	}
 	
 

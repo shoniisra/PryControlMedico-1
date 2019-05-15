@@ -24,6 +24,7 @@
     <header th:replace="layout :: header"></header>
     <div id="content-wrapper" class="d-flex flex-column">
         <!-- Begin Page Content -->
+        <div class="container">
         <div class="container-fluid">
 
             <!-- Page Heading -->
@@ -304,10 +305,12 @@
                 </div>
             </div>
 
-        </div></div></div>
-<!-- /.container-fluid -->
+        </div>
+            <footer th:replace="layout :: footer"></footer>
+        </div>
+    </div>
+</div>
 
-
-<footer th:replace="layout :: footer"></footer>
+</div>
 </body>
 </html>

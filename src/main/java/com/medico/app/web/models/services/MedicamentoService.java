@@ -32,10 +32,22 @@ public class MedicamentoService implements IMedicamentoService {
 	public void delete(Integer id) {		
 		dao.deleteById(id);
 	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public List<Medicamento> findByNombre(String criteria) {		
+		return dao.findByNombre(criteria.toLowerCase());
+	}
 
 	@Override
 	@Transactional(readOnly=true)
-	public List<Medicamento> findAll() {		
+	public List<Medicamento> findByComponenteActivoLike(String criteria) {		
+		return dao.findByComponenteActivoLike(criteria);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public List<Medicamento> findByAll() {
 		return (List<Medicamento>) dao.findAll();
 	}
 

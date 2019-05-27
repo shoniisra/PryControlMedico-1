@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -94,21 +96,20 @@ public class MedicamentoController {
 
     @GetMapping(value="/list" )
     public String list(Model model){
-        List<Medicamento> medicamentos=service.findAll();
+        List<Medicamento> medicamentos=service.findByAll();
         model.addAttribute("lista",medicamentos);
         model.addAttribute("title","Listado de medicamentos");
         return "medicamento/list";
     }
+    
+    @GetMapping(value = "/find/{criteria}", produces = { "application/json" })
+	public @ResponseBody List<Medicamento> findByNombre(@PathVariable String criteria) {
+		List<Medicamento> medicamentosNC = service.findByNombre(criteria);
+		List<Medicamento> medicamentosCA = service.findByComponenteActivoLike(criteria);
+		List<Medicamento> result = new ArrayList<>();
+		result.addAll(medicamentosCA);
+		result.addAll(medicamentosNC);
+		return result;
+	}
+    
 }
-
-
-
-
-
-
-
-
-
-
-
-

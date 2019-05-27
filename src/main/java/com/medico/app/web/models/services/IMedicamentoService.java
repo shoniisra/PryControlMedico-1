@@ -12,6 +12,10 @@ public interface IMedicamentoService {
 	
 	public void delete(Integer id);
 	
-	public List<Medicamento> findAll();
+	public List<Medicamento> findByAll();
+	
+	public List<Medicamento> findByNombre(String criteria);
+	
+	public List<Medicamento> findByComponenteActivoLike(String criteria);
 
 }

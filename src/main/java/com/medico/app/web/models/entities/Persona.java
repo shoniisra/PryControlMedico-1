@@ -12,6 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -40,12 +41,13 @@ public abstract class Persona {
 	private String apellido;
 	
 	@Column(name = "NACIMIENTO")
+	@Past
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Calendar nacimiento;
 	
 	@Size(max = 15)
-	@Column(name = "TELÉFONO")
+	@Column(name = "TELEFONO")
 	@NotEmpty
 	private String telefono;
 	
@@ -120,6 +122,13 @@ public abstract class Persona {
 		this.email = email;
 	}
 
+	@Override
+	public String toString() {
+		return nombre + " " + apellido;
+	}
+
+	
+	
 	
 
 	

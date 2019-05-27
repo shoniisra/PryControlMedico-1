@@ -9,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -46,10 +44,6 @@ public class Dosis implements Serializable {
 	@Column(name = "ESTADO")
 	@Min(value = 0)
 	private Integer estado;
-	
-	@JoinColumn(name="IDDETALLERECETA", referencedColumnName = "IDDETALLERECETA")
-	@ManyToOne
-	private DetalleReceta detalleReceta;
 
 	public Dosis() {
 		super();
@@ -99,15 +93,5 @@ public class Dosis implements Serializable {
 	public void setEstado(Integer estado) {
 		this.estado = estado;
 	}
-
-	public DetalleReceta getDetalleReceta() {
-		return detalleReceta;
-	}
-
-	public void setDetalleReceta(DetalleReceta detalleReceta) {
-		this.detalleReceta = detalleReceta;
-	}
-	
-	
 
 }

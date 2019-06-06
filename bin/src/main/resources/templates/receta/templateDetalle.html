@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<table th:fragment="medicamentosReceta">
+		<tbody id="templateDetalleReceta" class="d-none">
+			<tr>
+				<td class="d-none">{ID}</td>
+				<td>{NOMBRE}</td>				
+				<td>{CANTIDAD}</td>
+				<td>{POSOLOGIA}</td>
+				<td>{FRECUENCIA}</td>
+				<td>{TIPOFRECUENCIA}</td>	
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

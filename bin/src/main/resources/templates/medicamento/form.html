@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<header th:replace="layout :: header"></header>
+	
+	<div class="container">
+		<br />
+		<div class="card col-md-12">
+			<div class="card-body">
+				<div class="form-group row">
+					<div class="content col-sm-1">
+						<i class="far fa-plus-square fa-2x"></i>
+					</div>
+					<h3 class="card-title col-sm-10" th:text="${title}"></h3>					
+				</div>
+				<hr />
+				
+				<form th:action="@{/medicamento/save}" th:object="${medicamento}" method="post">
+										
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-tablets"></i>
+							<label class="h5 col-form-label">&nbsp;Nombre:</label>						
+						</div>
+						<div class="content col-sm-6">							
+							<input class="form-control" type="text" 
+								th:field="*{nombreComercial}"
+								th:errorclass="'form-control is-invalid'" />								
+							<small class="invalid-feedback" 
+								th:if="${#fields.hasErrors('nombreComercial')}" 
+								th:errors="*{nombreComercial}"></small>																						
+						</div>
+					</div>
+				
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-vial"></i>
+							<label class="h5 col-form-label">&nbsp;Componente activo:</label>						
+						</div>
+						<div class="content col-sm-6">
+							<input class="form-control" type="text" 
+								th:field="*{componenteActivo}" />						
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-dollar-sign"></i>
+							<label class="h5 col-form-label">&nbsp;Precio:</label>						
+						</div>
+						<div class="content col-sm-6">
+							<input class="form-control" type="text" 
+								th:field="*{precio}"
+								th:errorclass="'form-control is-invalid'" />
+							<small class="invalid-feedback" 
+								th:if="${#fields.hasErrors('precio')}" 
+								th:errors="*{precio}"></small>						
+						</div>
+					</div>
+				
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-prescription-bottle"></i>
+							<label class="h5 col-form-label">&nbsp;Concentraci&oacute;n:</label>						
+						</div>
+						<div class="content col-sm-6">
+							<input class="form-control" type="text" 
+								th:field="*{concentracion}"
+								th:errorclass="'form-control is-invalid'" />
+							<small class="invalid-feedback" 
+								th:if="${#fields.hasErrors('concentracion')}" 
+								th:errors="*{concentracion}"></small>						
+						</div>				
+					</div>
+					
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-calendar-times"></i>
+							<label class="h5 col-form-label">&nbsp;Fecha de caducidad:</label>						
+						</div>
+						<div class="content col-sm-6">
+							<input class="form-control" type="date" 
+								th:field="*{fechaCaducidad}"
+								th:errorclass="'form-control is-invalid'" />
+							<small class="invalid-feedback" 
+								th:if="${#fields.hasErrors('fechaCaducidad')}" 
+								th:errors="*{fechaCaducidad}"></small>						
+						</div>				
+					</div>
+					
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-syringe"></i>
+							<label class="h5 col-form-label">&nbsp;V&iacute;a de administraci&oacute;n:</label>						
+						</div>
+						<div class="content col-sm-6">
+							<select class="form-control"
+								th:field="*{viaAdministracion.idviadaministracion}">
+								<option value="0">-- Seleccione --</option>
+								<option th:each="v : ${vias}"
+									th:value="${v.idviadaministracion}" 
+									th:text="${v.nombre} + ' - ' + ${v.categoria}"></option>
+							</select>							
+							<small class="invalid-feedback" 
+								th:if="${#fields.hasErrors('viaAdministracion')}" 
+								th:errors="*{viaAdministracion}"></small>						
+						</div>
+					</div>
+					<hr />
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<a class="btn btn-danger" 
+								th:href="@{/medicamento/list}">
+							<i class="fas fa-minus-circle"></i>&nbsp;Cancelar</a>
+							<button class="btn btn-success" type="submit">
+								<i class="fas fa-plus-circle"></i>&nbsp;Guardar
+							</button>
+						</div>
+					</div>
+					<input type="hidden" th:field="*{idmedicamento}" />
+							
+				
+				</form>
+				
+				
+				
+				
+				
+				
+				
+			</div>
+		</div>		
+	</div>
+	
+				
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

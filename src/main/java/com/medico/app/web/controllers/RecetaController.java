@@ -5,26 +5,15 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.medico.app.web.models.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.medico.app.web.models.entities.DetalleReceta;
-import com.medico.app.web.models.entities.Medicamento;
-import com.medico.app.web.models.entities.Medico;
-import com.medico.app.web.models.entities.Paciente;
-import com.medico.app.web.models.entities.Receta;
 import com.medico.app.web.models.services.IMedicamentoService;
 import com.medico.app.web.models.services.IMedicoService;
 import com.medico.app.web.models.services.IPacienteService;
@@ -64,19 +53,24 @@ public class RecetaController {
 	}
 	
 	@PostMapping(value="/save")
-	public String save(@Valid Receta receta, BindingResult result, 
-			Model model, RedirectAttributes message, 
-			SessionStatus session) {
+	public String save(@Valid Receta receta, BindingResult result,
+					   Model model, RedirectAttributes message,
+					   SessionStatus session) {
 		try {
-			
 			if(result.hasErrors()) {        		
         		return "receta/form";
-        	} 
-			
-        	String msg = receta.getIdreceta() == null ? "La receta ha sido creada." : "La receta ha sido actualizada.";
-        	service.save(receta);        	
-            session.setComplete();            
-            message.addFlashAttribute("success", msg);
+        	}
+			if (receta.getIdreceta() != null ){
+				String msg = "La receta ha sido actualizada.";
+				message.addFlashAttribute("success", msg);
+				service.save(receta);
+				session.setComplete();
+			}else{ // Si creo una receta creo sus dosis
+				service.save(receta);
+				session.setComplete();
+				message.addFlashAttribute("receta_guardada", receta);
+				return "redirect:/dosis/generatedosis";
+			}
 		}
 		catch(Exception ex){
 			message.addFlashAttribute("error", ex.toString());
@@ -127,7 +121,8 @@ public class RecetaController {
 			List<DetalleReceta> detalles = new ArrayList<>();
 			receta.setDetalles(detalles);
 		}
-		
+		System.out.println(detail.getFechaInicio());
+		System.out.println(detail.getNumeroTomas());
 		Medicamento medicamento = srvMedicamento.findById(detail.getMedicamentoId());
 		detail.setMedicamento(medicamento);
 		receta.getDetalles().add(detail);

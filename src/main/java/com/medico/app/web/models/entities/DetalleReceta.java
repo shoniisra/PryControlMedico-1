@@ -1,6 +1,8 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 
@@ -70,10 +72,9 @@ public class DetalleReceta implements Serializable {
 	private String posologia;
 	//Cantidad del medicamento que se va a suministrar al paciente en cada dosis
 	//ej: 10ml , 1 pastilla, 1 aplicación, 1 inyección
-		
-	@Column(name = "FECHAINICIO")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar fechaInicio;
+
+	@Column(name = "FECHAINICIO", columnDefinition = "TIMESTAMP")
+	private LocalDateTime fechaInicio;
 	//Fecha y hora en que se suministra al paciente la 1ra dosis
 	
 	@JoinColumn(name="IDMEDICAMENTO", referencedColumnName = "IDMEDICAMENTO")//claves foraneas
@@ -188,15 +189,13 @@ public class DetalleReceta implements Serializable {
 	}
 
 
-	public Calendar getFechaInicio() {
+	public LocalDateTime getFechaInicio() {
 		return fechaInicio;
 	}
 
-
-	public void setFechaInicio(Calendar fechaInicio) {
+	public void setFechaInicio(LocalDateTime fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-
 
 	public String getPosologia() {
 		return posologia;
@@ -230,10 +229,4 @@ public class DetalleReceta implements Serializable {
 		}
 		return "";
 	}
-
-
-	
-	
-	
-	
 }

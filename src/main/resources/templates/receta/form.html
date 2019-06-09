@@ -43,10 +43,10 @@
 							<i class="fas fa-user-md"></i> <label class="h5 col-form-label">&nbsp;M&eacute;dico:</label>
 						</div>
 						<div class="content col-sm-6">
-							<select class="form-control" th:field="*{medico.idpersona}">
-								<option value="0">-- Seleccione --</option>
-								<option th:each="med : ${medicos}" th:value="${med.idpersona}"
-									th:text="${med}"></option>
+							<select class="form-control" th:field="*{medico.idpersona}" name="prmedico" id="prmedico">
+								<option value="-1">-- Seleccione --</option>
+								<option value="0">Sin m&eacute;dico</option>
+								<option th:each="med : ${medicos}" th:value="${med.idpersona}" th:text="${med}"></option>
 							</select>
 						</div>
 					</div>

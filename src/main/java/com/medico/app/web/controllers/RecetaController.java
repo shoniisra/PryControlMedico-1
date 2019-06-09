@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -47,6 +48,9 @@ public class RecetaController {
 
 	@Autowired
 	private IMedicamentoService srvMedicamento;
+	
+	@Autowired
+	private Validator validar; 
 		
 	@GetMapping(value="/create")
 	public String create(Model model) {
@@ -68,7 +72,11 @@ public class RecetaController {
 			Model model, RedirectAttributes message, 
 			SessionStatus session) {
 		try {
-			
+			if(receta.getMedico().getIdpersona()==0) {
+				receta.setMedico(null);
+				validar.validate(receta);
+				
+			}
 			if(result.hasErrors()) {        		
         		return "receta/form";
         	} 

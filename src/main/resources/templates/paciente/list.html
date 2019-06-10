@@ -37,8 +37,8 @@
 						<td th:text="${paciente.tipoSangre}" ></td>
 						<td >
 							<a class="btn btn-danger"
-							   th:href="@{/receta/list}">
-								<i class="fas fa-minus-circle"></i>&nbsp;Recetas</a>
+							   th:href="@{/paciente/retrieve/} + ${paciente.idpersona}">
+								<i class="fas fa-minus-circle"></i>&nbsp;Ver Recetas</a>
 						</td>
 
 						<td>

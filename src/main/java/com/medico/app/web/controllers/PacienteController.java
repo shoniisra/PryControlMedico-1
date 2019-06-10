@@ -1,7 +1,9 @@
 package com.medico.app.web.controllers;
 
 import com.medico.app.web.models.dao.IPacienteDAO;
+import com.medico.app.web.models.entities.DetalleReceta;
 import com.medico.app.web.models.entities.Paciente;
+import com.medico.app.web.models.entities.Receta;
 import com.medico.app.web.models.services.IPacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,6 +57,8 @@ public class PacienteController {
     public String retrieve(@PathVariable(value = "id") Integer id,
                            Model model){
         Paciente paciente=service.findById(id);
+        List<Receta> recetas = paciente.getRecetas();
+        model.addAttribute("recetas",recetas);
         model.addAttribute("paciente",paciente);
         model.addAttribute("title","Actualización de paciente: " + paciente.getNombre());
         return "paciente/card";

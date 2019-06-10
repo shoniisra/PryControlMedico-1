@@ -89,7 +89,10 @@ public class RecetaController {
 	public String retrieve(@PathVariable(value="id")Integer id, 
 			Model model) {
 		Receta receta = service.findById(id);
+		List<DetalleReceta> detalles = receta.getDetalles();
 		model.addAttribute("receta",receta);
+		model.addAttribute("detalles",detalles);
+		model.addAttribute("title","Informacion Receta");
 		return "receta/card";
 	}
 	
@@ -115,7 +118,8 @@ public class RecetaController {
 	@GetMapping(value="/list")
 	public String list(Model model) {
 		List<Receta> recetas = service.findAll();
-		model.addAttribute("recetas", recetas);
+		model.addAttribute("title","Listado de Recetas");
+		model.addAttribute("lista", recetas);
 		return "receta/list";		
 	}
 	

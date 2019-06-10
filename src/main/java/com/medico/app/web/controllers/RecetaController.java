@@ -87,8 +87,7 @@ public class RecetaController {
 		int [] numdosis = new int[detalles.size()];
 		int cont=0;
 		for(DetalleReceta detalle:detalles){
-			DetalleReceta detalleReceta = detalleservice.findById(id);
-			List<Dosis> dosis=detalleReceta.getDosis();
+			List<Dosis> dosis=detalle.getDosis();
 			for (Dosis aux:dosis){
 				if(aux.getEstado()==1){
 					numdosis[cont]++;

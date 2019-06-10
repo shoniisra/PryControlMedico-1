@@ -66,12 +66,15 @@ public class DosisController {
                 String descripcionNotificacion = "Recordatorio de dosis del Medicamento: " +
                         detalleReceta.getMedicamento().getNombreComercial() +
                         " del paciente: " + paciente.getNombre() + " " + paciente.getApellido() +
-                        " recetado por: " + medico.getNombre() + " " + medico.getApellido() +
                         " . Tomar/Usar: " + detalleReceta.getPosologia() + ".";
                 nuevaDosis.setDescripcion(descripcionNotificacion);
-                nuevaDosis.setFechaHora(
-                        nuevaDosis.calcularFechaSiguienteDosis(fechaDosisAnterior, detalleReceta.getFrecuencia(),
-                                detalleReceta.getTipoFrecuencia()));
+                if(j==0){
+                    nuevaDosis.setFechaHora(fechaDosisAnterior);
+                }else{
+                    nuevaDosis.setFechaHora(
+                            nuevaDosis.calcularFechaSiguienteDosis(fechaDosisAnterior, detalleReceta.getFrecuencia(),
+                                    detalleReceta.getTipoFrecuencia()));
+                }
                 fechaDosisAnterior = nuevaDosis.getFechaHora();
                 srvDosis.save(nuevaDosis);
                 listaDosis.add(nuevaDosis);

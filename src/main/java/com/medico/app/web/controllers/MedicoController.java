@@ -64,7 +64,7 @@ public class MedicoController {
 	@GetMapping(value="/list")
 	public String list(Model model) {
 		List<Medico> medicos = service.findAll();
-		model.addAttribute("medicos", medicos);
+		model.addAttribute("lista", medicos);
 		model.addAttribute("title","Listado de medicos");
 		return "medico/list";		
 	}

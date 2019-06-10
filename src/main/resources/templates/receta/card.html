@@ -55,36 +55,62 @@
 				</div>
 			</div>
 			<div class="row">
-				<table class="table table-sm">
-					<thead>
-					<tr>
-						<th >Medicamento</th>
-						<th >Cant</th>
-						<th >Posolog&iacute;a</th>
-						<th >Frecuencia</th>
-						<th>Descripción</th>
-						<th>Número</th>
-						<th>Observación</th>
-						<th>Activo</th>
+				<div class="col-sm-10">
+					<table class="table table-sm">
+						<thead>
+						<tr>
+							<th >Medicamento</th>
+							<th >Cant</th>
+							<th >Posolog&iacute;a</th>
+							<th >Frecuencia</th>
+							<th>Descripción</th>
+							<th>Número</th>
+							<th>Observación</th>
+							<th>Activo</th>
+							<th> Ver Dosis</th>
 
-					</tr>
-					</thead>
-					<tbody >
-					<tr th:each=" detalle : ${detalles}">
-						<td class="d-none" th:text="${detalle.iddetalleReceta}"></td>
-						<td th:text="${detalle.medicamento.nombreComercial}"></td>
-						<td th:text="${detalle.cantidad}"></td>
-						<td th:text="${detalle.posologia}"></td>
-						<td th:text="${detalle.frecuencia}"></td>
-						<td th:text="${detalle.descripcionTipoFrecuencia}"></td>
-						<td th:text="${detalle.numeroTomas}"></td>
-						<td th:text="${detalle.observacion}"></td>
-						<td class="data-radio" th:text="${detalle.activo}"></td>
+						</tr>
+						</thead>
+						<tbody >
+						<tr th:each=" detalle : ${detalles}">
+							<td class="d-none" th:text="${detalle.iddetalleReceta}"></td>
+							<td th:text="${detalle.medicamento.nombreComercial}"></td>
+							<td th:text="${detalle.cantidad}"></td>
+							<td th:text="${detalle.posologia}"></td>
+							<td th:text="${detalle.frecuencia}"></td>
+							<td th:text="${detalle.descripcionTipoFrecuencia}"></td>
+							<td th:text="${detalle.numeroTomas}"></td>
+							<td th:text="${detalle.observacion}"></td><td class="data-radio" th:text="${detalle.activo}"></td>
+							<td>
+
+								<a class="btn btn-sm btn-light" title="Dosis"
+								   th:href="@{/detallereceta/retrieve/} + ${detalle.iddetalleReceta}">
+									<i class="fas fa-eye"></i>
+									Dosis
+								</a>
+							</td>
+
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-sm-2">
+					<table>
+						<thead>
+						<tr>
+							<th>dosis</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each=" numdosis : ${numdosis}">
+							<td th:text="${numdosis}"></td>
+						</tr>
+
+						</tbody>
+					</table>
+				</div>
 
 
-					</tr>
-					</tbody>
-				</table>
 			</div>
 		</div>
 		<div id="deleteModal" class="modal" tabindex="-1" role="dialog">

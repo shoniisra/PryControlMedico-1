@@ -51,7 +51,7 @@ public class DosisController {
         return "dosis/form";
     }
 
-    @GetMapping(value="/delete" )
+    @GetMapping(value="/delete/{id}" )
     public String delete(@PathVariable(value = "id") Integer id,
                          Model model){
         try{
@@ -59,7 +59,7 @@ public class DosisController {
         }catch (Exception ex){
             model.addAttribute("error: ",ex.toString());
         }
-        return "redirect:/dosis/list";
+        return "redirect:/receta/list";
     }
 
     @GetMapping(value="/list" )
@@ -67,5 +67,19 @@ public class DosisController {
         List<Dosis> dosiss=service.findAll();
         model.addAttribute("lista",dosiss);
         return "dosis/list";
+    }
+    
+    @GetMapping(value="/suministrar/{id}" )
+    public String suministrar(@PathVariable(value = "id") Integer id,
+                         Model model){
+        try{
+            Dosis dosis=service.findById(id);
+            dosis.setEstado(1);
+            service.save(dosis);
+            //service.delete(id);
+        }catch (Exception ex){
+            model.addAttribute("error: ",ex.toString());
+        }
+        return "redirect:/receta/list";
     }
 }

@@ -36,7 +36,7 @@
 						<td th:text="${paciente.alergias}" ></td>
 						<td th:text="${paciente.tipoSangre}" ></td>
 						<td >
-							<a class="btn btn-danger"
+							<a class="btn btn-warning"
 							   th:href="@{/paciente/retrieve/} + ${paciente.idpersona}">
 								<i class="fas fa-minus-circle"></i>&nbsp;Ver Recetas</a>
 						</td>
@@ -50,7 +50,7 @@
 							   th:href="@{/paciente/retrieve/} + ${paciente.idpersona}">
 								<i class="fas fa-eye"></i>
 							</a>
-							<a class="btn btn-sm btn-warning" title="Eliminar"
+							<a class="btn btn-sm btn-danger" title="Eliminar"
 							   th:href="@{/paciente/delete/} + ${paciente.idpersona}">
 								<i class="fas fa-eye"></i>
 							</a>

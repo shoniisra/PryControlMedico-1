@@ -1,10 +1,13 @@
 function addDetail() {
 	var detail = {
-		medicamentoId : $("#medicamentoId").val(),		
+		medicamentoId : $("#medicamentoId").val(),
 		cantidad : $("#cantidad").val(),
+		activo:true,
+		observacion:'',
+		numeroTomas:0,
 		posologia : $("#posologia").val(),
 		frecuencia : $("#frecuencia").val(),
-		tipoFrecuencia : $("#tipoFrecuencia").val()		
+		tipoFrecuencia : $("#tipoFrecuencia").val()
 	};
 
 	$.ajax({

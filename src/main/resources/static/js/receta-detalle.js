@@ -5,7 +5,8 @@ function addDetail() {
 		cantidad : $("#cantidad").val(),
 		posologia : $("#posologia").val(),
 		frecuencia : $("#frecuencia").val(),
-		tipoFrecuencia : $("#tipoFrecuencia").val()		
+		tipoFrecuencia : $("#tipoFrecuencia").val(),
+		tipoDosis : $("#tipoDosis").val()
 	};
 	console.log(detail.fechaInicio);
 	$.ajax({
@@ -24,6 +25,7 @@ function addDetail() {
 				detailToAdd = detailToAdd.replace(/{CANTIDAD}/, item.cantidad);
 				detailToAdd = detailToAdd.replace(/{POSOLOGIA}/, item.posologia);
 				detailToAdd = detailToAdd.replace(/{FRECUENCIA}/, item.frecuencia + " " + item.descripcionTipoFrecuencia);
+				detailToAdd = detailToAdd.replace(/{TIPODOSIS}/, item.descripcionTipoDosis);
 				$("#tblDetalleReceta tbody").append(detailToAdd);
 			});
 			
@@ -87,5 +89,12 @@ $(document).ready(function() {
 			$('#btnAddDetail').click(function() {				
 				addDetail();
 			});
-			
+			$('#tipoDosis').change(function(e){
+				if($(this).val() == "1"){
+					$('#cantidad').prop("disabled",true);
+				}else{
+					$('#cantidad').prop("disabled",false);
+				}
+			})
 		});
+

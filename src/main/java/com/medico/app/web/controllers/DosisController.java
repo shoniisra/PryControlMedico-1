@@ -25,9 +25,6 @@ public class DosisController {
     private IPacienteService srvPaciente;
 
     @Autowired
-    private IMedicoService srvMedico;
-
-    @Autowired
     private IDosisService srvDosis;
 
 
@@ -54,13 +51,18 @@ public class DosisController {
     public String createDosis(@ModelAttribute("receta_guardada") Receta receta, Model model,
                               RedirectAttributes message, SessionStatus session){
         Paciente paciente = srvPaciente.findById(receta.getPaciente().getIdpersona());
-        Medico medico = srvMedico.findById(receta.getMedico().getIdpersona());
         for (int i=0; i<receta.getDetalles().size(); i++){
             ArrayList<Dosis> listaDosis = new ArrayList<Dosis>();
             DetalleReceta detalleReceta = receta.getDetalles().get(i);
             detalleReceta.setNumeroTomas(detalleReceta.getCantidad());
             LocalDateTime fechaDosisAnterior = detalleReceta.getFechaInicio();
-            for (int j=0;j<detalleReceta.getNumeroTomas(); j++){
+            Integer temporal;
+            if(detalleReceta.getTipoDosis() == 0 ) {
+            	temporal = detalleReceta.getNumeroTomas();
+            }else {
+            	temporal = 1;
+            }
+            for (int j=0;j<temporal; j++){
                 Dosis nuevaDosis = new Dosis();
                 nuevaDosis.setNumero(j+1);
                 String descripcionNotificacion = "Recordatorio de dosis del Medicamento: " +
@@ -68,16 +70,15 @@ public class DosisController {
                         " del paciente: " + paciente.getNombre() + " " + paciente.getApellido() +
                         " . Tomar/Usar: " + detalleReceta.getPosologia() + ".";
                 nuevaDosis.setDescripcion(descripcionNotificacion);
-                if(j==0){
-                    nuevaDosis.setFechaHora(fechaDosisAnterior);
-                }else{
-                    nuevaDosis.setFechaHora(
-                            nuevaDosis.calcularFechaSiguienteDosis(fechaDosisAnterior, detalleReceta.getFrecuencia(),
-                                    detalleReceta.getTipoFrecuencia()));
+                if(j==0) {
+                	nuevaDosis.setFechaHora(fechaDosisAnterior);
+                }else {
+                	nuevaDosis.setFechaHora(nuevaDosis.calcularFechaSiguienteDosis(fechaDosisAnterior, detalleReceta.getFrecuencia(), detalleReceta.getTipoFrecuencia()));
                 }
                 fechaDosisAnterior = nuevaDosis.getFechaHora();
                 srvDosis.save(nuevaDosis);
                 listaDosis.add(nuevaDosis);
+                
             }
             detalleReceta.setDosis(listaDosis);
             srvDetalleReceta.save(detalleReceta);
@@ -98,7 +99,9 @@ public class DosisController {
     @GetMapping(value="/update/{id}" )
     public String update(@PathVariable(value = "id") Integer id,
                          Model model){
+    	
         Dosis dosis=service.findById(id);
+        Dosis dosisIndefinida = dosis; 
         model.addAttribute("dosis",dosis);
         return "dosis/form";
     }
@@ -116,8 +119,8 @@ public class DosisController {
 
     @GetMapping(value="/list" )
     public String list(Model model){
-        List<Dosis> dosiss=service.findAll();
-        model.addAttribute("lista",dosiss);
+        List<Dosis> dosis=service.findAll();
+        model.addAttribute("lista",dosis);
         return "dosis/list";
     }
 }

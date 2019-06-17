@@ -67,6 +67,9 @@ public class DetalleReceta implements Serializable {
 	//Complemento para el cálculo de cada dosis, ej: horas, días, semanas
 	//En el front-end es un 'combobox' con un valor enumerado
 	
+	@Column(name = "TIPODOSIS")
+	private Integer tipoDosis;
+	
 	@Size(max = 255)
 	@Column(name = "POSOLOGIA")
 	private String posologia;
@@ -86,6 +89,9 @@ public class DetalleReceta implements Serializable {
 	
 	@Transient
 	private String descripcionTipoFrecuencia;
+	
+	@Transient
+	private String descripcionTipoDosis;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL) //creo la lista de dosis en detalles receta
 	@JoinColumn(name = "IDDETALLERECETA")
@@ -213,6 +219,16 @@ public class DetalleReceta implements Serializable {
 	public void setMedicamentoId(Integer medicamentoId) {
 		this.medicamentoId = medicamentoId;
 	}
+	
+	
+
+	public Integer getTipoDosis() {
+		return tipoDosis;
+	}
+
+	public void setTipoDosis(Integer tipoDosis) {
+		this.tipoDosis = tipoDosis;
+	}
 
 	public String getDescripcionTipoFrecuencia() {
 		switch(this.tipoFrecuencia) {
@@ -226,6 +242,16 @@ public class DetalleReceta implements Serializable {
 				return "Semanal";
 			case 4:
 				return "Mensual";			
+		}
+		return "";
+	}
+	
+	public String getDescripcionTipoDosis() {
+		switch(this.tipoDosis) {
+			case 0:
+				return "Temporal";
+			case 1:
+				return "Indefinido";		
 		}
 		return "";
 	}

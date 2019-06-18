@@ -18,6 +18,7 @@ import com.medico.app.web.models.services.IMedicamentoService;
 import com.medico.app.web.models.services.IMedicoService;
 import com.medico.app.web.models.services.IPacienteService;
 import com.medico.app.web.models.services.IRecetaService;
+import javax.validation.Validator;
 
 @Controller
 @RequestMapping(value="/receta")
@@ -36,6 +37,9 @@ public class RecetaController {
 
 	@Autowired
 	private IMedicamentoService srvMedicamento;
+
+	@Autowired
+	private Validator validator;
 		
 	@GetMapping(value="/create")
 	public String create(Model model) {
@@ -57,6 +61,10 @@ public class RecetaController {
 					   Model model, RedirectAttributes message,
 					   SessionStatus session) {
 		try {
+			if(receta.getMedico().getIdpersona()==0){
+				receta.setMedico(null);
+				validator.validate(receta);
+			}
 			if(result.hasErrors()) {        		
         		return "receta/form";
         	}

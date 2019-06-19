@@ -1,17 +1,11 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
@@ -27,11 +21,9 @@ public class Dosis implements Serializable {
 	@Basic(optional = false)
 	@Column(name = "IDDOSIS")
 	private Integer iddosis;
-	
-	
-	@Column(name = "FECHAHORA")
-	@Temporal(TemporalType.DATE)
-	private Calendar fechaHora;
+
+	@Column(name = "FECHAHORA", columnDefinition = "TIMESTAMP")
+	private LocalDateTime fechaHora;
 	
 	@Column(name = "NUMERO")
 	@Min(value = 1)
@@ -43,7 +35,10 @@ public class Dosis implements Serializable {
 	
 	@Column(name = "ESTADO")
 	@Min(value = 0)
-	private Integer estado;
+	private Integer estado = 0;
+
+	@Transient
+	private String descripcionEstadoDosis;
 
 	public Dosis() {
 		super();
@@ -62,11 +57,11 @@ public class Dosis implements Serializable {
 		this.iddosis = iddosis;
 	}
 
-	public Calendar getFechaHora() {
+	public LocalDateTime getFechaHora() {
 		return fechaHora;
 	}
 
-	public void setFechaHora(Calendar fechaHora) {
+	public void setFechaHora(LocalDateTime fechaHora) {
 		this.fechaHora = fechaHora;
 	}
 
@@ -94,4 +89,34 @@ public class Dosis implements Serializable {
 		this.estado = estado;
 	}
 
+	public String getDescripcionEstadoDosis() {
+		switch(this.estado) {
+			case 0:
+				return "Pendiente";
+			case 1:
+				return "Notificado";
+		}
+		return "";
+	}
+	public LocalDateTime calcularFechaSiguienteDosis(LocalDateTime fechaHoraDosisAnterior, int frecuencia, int tipoFrecuencia){
+		LocalDateTime fechaHoraNuevaDosis = fechaHoraDosisAnterior;
+		switch(tipoFrecuencia) {
+			case 0:
+				fechaHoraNuevaDosis = fechaHoraDosisAnterior; // Una sola vez
+				break;
+			case 1:
+				fechaHoraNuevaDosis = fechaHoraDosisAnterior.plusHours(frecuencia); //Horas
+				break;
+			case 2:
+				fechaHoraNuevaDosis = fechaHoraDosisAnterior.plusDays(frecuencia); // Diaria
+				break;
+			case 3:
+				fechaHoraNuevaDosis = fechaHoraDosisAnterior.plusWeeks(frecuencia); // Semanal
+				break;
+			case 4:
+				fechaHoraNuevaDosis = fechaHoraDosisAnterior.plusMonths(frecuencia); //Mensual
+				break;
+		}
+		return fechaHoraNuevaDosis;
+	}
 }

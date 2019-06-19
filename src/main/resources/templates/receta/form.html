@@ -47,7 +47,7 @@
 								<option value="-1">-- Seleccione --</option>
 								<option value="0">Sin Medico</option>
 								<option th:each="med : ${medicos}" th:value="${med.idpersona}"
-									th:text="${medico}"></option>
+									th:text="${med.nombre}"></option>
               <!--ojo revisar esta linea, esta imprimiendo med-->
 							</select>
 						</div>

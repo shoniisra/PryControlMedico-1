@@ -58,9 +58,9 @@
 					<tr th:each=" dosis : ${dosis}">
 						<td class="d-none" th:text="${dosis.iddosis}"></td>
 						<td th:text="${dosis.numero}"></td>
-						<td th:text="${dosis.fechaHora.time}"></td>
+						<td th:text="${#temporals.format(dosis.fechaHora, 'dd-MM-yyyy HH:mm')}"></td>
 						<td th:text="${dosis.descripcion}"></td>
-						<td th:text="${dosis.estado}"></td>
+						<td th:text="${dosis.descripcionEstadoDosis}"></td>
 						<td>
 							<a class="btn btn-sm btn-light" title="Suministrar"
 							   th:href="@{/dosis/suministrar/} + ${dosis.iddosis}">

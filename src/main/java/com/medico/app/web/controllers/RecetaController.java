@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.medico.app.web.models.entities.*;
+import com.medico.app.web.models.services.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.medico.app.web.models.services.IMedicamentoService;
-import com.medico.app.web.models.services.IMedicoService;
-import com.medico.app.web.models.services.IPacienteService;
-import com.medico.app.web.models.services.IRecetaService;
 import javax.validation.Validator;
 
 @Controller
@@ -28,6 +26,8 @@ public class RecetaController {
 	//Servicio => Inyección de dependencias
 	@Autowired
 	private IRecetaService service;
+	@Autowired
+	private IDetalleRecetaService detalleservice;
 
 	@Autowired
 	private IMedicoService srvMedico;
@@ -91,7 +91,22 @@ public class RecetaController {
 	public String retrieve(@PathVariable(value="id")Integer id, 
 			Model model) {
 		Receta receta = service.findById(id);
+		List<DetalleReceta> detalles = receta.getDetalles();
+		int [] numdosis = new int[detalles.size()];
+		int cont=0;
+		for(DetalleReceta detalle:detalles){
+			List<Dosis> dosis=detalle.getDosis();
+			for (Dosis aux:dosis){
+				if(aux.getEstado()==1){
+					numdosis[cont]++;
+				}
+			}
+			cont++;
+		}
 		model.addAttribute("receta",receta);
+		model.addAttribute("detalles",detalles);
+		model.addAttribute("numdosis",numdosis);
+		model.addAttribute("title","Informacion Receta");
 		return "receta/card";
 	}
 	
@@ -117,7 +132,8 @@ public class RecetaController {
 	@GetMapping(value="/list")
 	public String list(Model model) {
 		List<Receta> recetas = service.findAll();
-		model.addAttribute("recetas", recetas);
+		model.addAttribute("title","Listado de Recetas");
+		model.addAttribute("lista", recetas);
 		return "receta/list";		
 	}
 	

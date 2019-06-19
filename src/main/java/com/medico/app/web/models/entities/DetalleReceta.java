@@ -50,7 +50,7 @@ public class DetalleReceta implements Serializable {
 	private String observacion;//justificacion de por qué se interrumpe el tratamiento
 
 	@Column(name = "NUMEROTOMAS")
-	@Min(value = 1)
+	@Min(value = 0)
 	private Integer numeroTomas;
 	//Cantidad de veces que el medicamento va 
 	//a ser suministrado al paciente
@@ -92,6 +92,7 @@ public class DetalleReceta implements Serializable {
 	
 	@Transient
 	private String descripcionTipoDosis;
+
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL) //creo la lista de dosis en detalles receta
 	@JoinColumn(name = "IDDETALLERECETA")
@@ -245,6 +246,7 @@ public class DetalleReceta implements Serializable {
 		}
 		return "";
 	}
+
 	
 	public String getDescripcionTipoDosis() {
 		switch(this.tipoDosis) {

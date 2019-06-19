@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<header th:replace="layout :: header"></header>
+
+	<div class="container">
+		<div class="card-body">
+			<div class="form-group row">
+				<div class="content col-sm-1">
+					<i class="far fa-plus-square fa-2x"></i>
+				</div>
+				<h3 class="card-title col-sm-6" th:text="${title}"></h3>
+				<div class="col-sm-4">
+					<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+						<i class="fas fa-trash-alt"></i>&nbsp;Eliminar</button>
+					<a class="btn btn-primary" th:href="@{/receta/list}"><i
+							class="fas fa-arrow-left"></i>&nbsp;Volver</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-8">
+
+				</div>
+				<div class="col-sm-4">
+					<div class="col-md-4">
+						<h2	th:text="${contador}"></h2>
+					</div>
+					<div class="col-md-2">
+						<h2> / </h2>
+					</div>
+					<div class="col-md-4">
+						<h3	th:text="${numdosis}"></h3>
+					</div>
+				</div>
+			</div>
+
+
+			<input type="hidden" id="iddetalleReceta" th:value="${detallereceta.iddetalleReceta}" />
+			<hr />
+			<div class="row">
+				<div class="col-md-12">
+					<hr>
+				</div>
+			</div>
+			<div class="row">
+				<table class="table table-sm">
+					<thead>
+					<tr>
+						<th>NUMERO</th>
+						<th>FECHAHORA</th>
+						<th>DESCRIPCION</th>
+						<th>ESTADO</th>
+						<th>Suministrar</th>
+					</tr>
+					</thead>
+					<tbody >
+					<tr th:each=" dosis : ${dosis}">
+						<td class="d-none" th:text="${dosis.iddosis}"></td>
+						<td th:text="${dosis.numero}"></td>
+						<td th:text="${dosis.fechaHora.time}"></td>
+						<td th:text="${dosis.descripcion}"></td>
+						<td th:text="${dosis.estado}"></td>
+						<td>
+							<a class="btn btn-sm btn-light" title="Suministrar"
+							   th:href="@{/dosis/suministrar/} + ${dosis.iddosis}">
+								<i class="fas fa-eye"></i>
+								Suministrar
+							</a>
+						</td>
+
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div id="deleteModal" class="modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">¿Desea eliminar el medicamento de la receta?</h5>
+						<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+						<a th:href="@{/detallereceta/delete/} + ${detallereceta.iddetalleReceta}" class="btn btn-success">Confirmar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	
+				
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

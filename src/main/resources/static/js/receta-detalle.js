@@ -1,8 +1,11 @@
 function addDetail() {
 	var detail = {
 		medicamentoId : $("#medicamentoId").val(),
-		fechaInicio : $("#fechaInicio").val(),
+  	fechaInicio : $("#fechaInicio").val(),
 		cantidad : $("#cantidad").val(),
+		activo:true,
+		observacion:'',
+		numeroTomas:0,
 		posologia : $("#posologia").val(),
 		frecuencia : $("#frecuencia").val(),
 		tipoFrecuencia : $("#tipoFrecuencia").val(),

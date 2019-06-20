@@ -49,10 +49,10 @@ public class DetalleRecetaController {
                 cont++;
             }
         }
+        String  as= "Tomada "+Integer.toString(cont)+" De "+Integer.toString(contNumDosis);
         model.addAttribute("detallereceta", detalleReceta);
         model.addAttribute("dosis",dosis);
-        model.addAttribute("numdosis",contNumDosis);
-        model.addAttribute("contador",cont);
+        model.addAttribute("numdosis",as);
         model.addAttribute("title","Información Dosis");
         return "detallereceta/card";
     }

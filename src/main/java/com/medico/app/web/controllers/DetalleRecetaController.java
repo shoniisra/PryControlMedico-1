@@ -1,6 +1,7 @@
 package com.medico.app.web.controllers;
 
 import com.medico.app.web.models.entities.DetalleReceta;
+import com.medico.app.web.models.entities.Dosis;
 import com.medico.app.web.models.services.IDetalleRecetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +40,20 @@ public class DetalleRecetaController {
     @GetMapping(value = "/retrieve/{id}")
     public String retrieve(@PathVariable(value = "id") Integer id, Model model){
         DetalleReceta detalleReceta = service.findById(id);
+        List<Dosis> dosis=detalleReceta.getDosis();
+        int cont=0;
+        int contNumDosis=0;
+        for (Dosis aux:dosis){
+            contNumDosis++;
+            if(aux.getEstado()==1){
+                cont++;
+            }
+        }
+        String  as= "Tomada "+Integer.toString(cont)+" De "+Integer.toString(contNumDosis);
         model.addAttribute("detallereceta", detalleReceta);
+        model.addAttribute("dosis",dosis);
+        model.addAttribute("numdosis",as);
+        model.addAttribute("title","Información Dosis");
         return "detallereceta/card";
     }
 
@@ -57,7 +71,7 @@ public class DetalleRecetaController {
         }catch (Exception ex){
             model.addAttribute("error:", ex.toString());
         }
-        return "redirect:/detallereceta/list";
+        return "redirect:/receta/list";
     }
 
     @GetMapping(value = "/list")

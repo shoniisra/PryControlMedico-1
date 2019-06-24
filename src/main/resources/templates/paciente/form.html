@@ -6,7 +6,6 @@
 	
 	<div class="container">
 		<br />
-		<div class="card col-md-12">
 			<div class="card-body">
 				<div class="form-group row">
 					<div class="content col-sm-1">
@@ -15,9 +14,137 @@
 					<h3 class="card-title col-sm-6" th:text="${title}"></h3>
 					<div class="col-sm-4"></div>
 				</div>
+
+				<form th:action="@{/paciente/save}" th:object="${paciente}" method="post">
+
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-tablets"></i>
+							<label class="h5 col-form-label">&nbsp;Nombre:</label>
+						</div>
+						<div class="content col-sm-6">
+							<input class="form-control" type="text"
+								   th:field="*{nombre}"
+								   th:errorclass="'form-control is-invalid'" />
+							<small class="invalid-feedback"
+								   th:if="${#fields.hasErrors('nombre')}"
+								   th:errors="*{nombre}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-vial"></i>
+							<label class="h5 col-form-label">&nbsp;Apellido:</label>
+						</div>
+						<div class="content col-sm-6">
+							<input class="form-control" type="text"
+								   th:field="*{apellido}" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-vial"></i>
+							<label class="h5 col-form-label">&nbsp;Cedula:</label>
+						</div>
+						<div class="content col-sm-6">
+							<input class="form-control" type="text"
+								   th:field="*{cedula}" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-vial"></i>
+							<label class="h5 col-form-label">&nbsp;Telefono:</label>
+						</div>
+						<div class="content col-sm-6">
+							<input class="form-control" type="text"
+								   th:field="*{telefono}" />
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-vial"></i>
+							<label class="h5 col-form-label">&nbsp;email:</label>
+						</div>
+						<div class="content col-sm-6">
+							<input class="form-control" type="text"
+								   th:field="*{email}" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-calendar-times"></i>
+							<label class="h5 col-form-label">Fecha de nacimiento:</label>
+						</div>
+						<div class="content col-sm-6">
+							<input class="form-control" type="date"
+								   th:field="*{nacimiento}"
+								   th:errorclass="'form-control is-invalid'" />
+							<small class="invalid-feedback"
+								   th:if="${#fields.hasErrors('nacimiento')}"
+								   th:errors="*{nacimiento}"></small>
+						</div>
+					</div>
+
+					<hr>
+
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-vial"></i>
+							<label class="h5 col-form-label">&nbsp;Alergias:</label>
+						</div>
+						<div class="content col-sm-6">
+							<input class="form-control" type="text"
+								   th:field="*{alergias}" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-syringe"></i>
+							<label class="h5 col-form-label">Tipo Sangre:</label>
+						</div>
+						<div class="content col-sm-6">
+							<select class="form-control"
+									th:field="*{tipoSangre}">
+								<option value="0">-- Seleccione --</option>
+								<option value="1">-- O- --</option>
+								<option value="2">-- O+ --</option>
+								<option value="3">-- A- --</option>
+								<option value="4">-- A+ --</option>
+								<option value="5">-- B- --</option>
+								<option value="6">-- B+ --</option>
+								<option value="7">-- AB- --</option>
+								<option value="8">-- AB+ --</option>
+							</select>
+							<small class="invalid-feedback"
+								   th:if="${#fields.hasErrors('tipoSangre')}"
+								   th:errors="*{tipoSangre}"></small>
+						</div>
+					</div>
+
+					<hr />
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<a class="btn btn-danger"
+							   th:href="@{/paciente/list}">
+								<i class="fas fa-minus-circle"></i>&nbsp;Cancelar</a>
+							<button class="btn btn-success" type="submit">
+								<i class="fas fa-plus-circle"></i>&nbsp;Guardar
+							</button>
+						</div>
+					</div>
+					<input type="hidden" th:field="*{idpersona}" />
+
+
+				</form>
+
 				<hr />
 			</div>
-		</div>
 	</div>
 	
 				

@@ -122,13 +122,14 @@
 						<tr th:each=" receta : ${recetas}">
 							<td th:text="${receta.idreceta}"></td>
 							<td th:text="${receta.paciente.nombre}"></td>
-							<td th:text="${receta.medico.nombre}"></td>
+							<td th:if="${receta.medico == null}">Sin Medico</td>
+							<td th:unless="${receta.medico == null}" th:text="${receta.medico.nombre}"></td>
 							<td th:text="${receta.fecha.time}" ></td>
 							<td>
-								<a class="btn btn-sm btn-success" title="Ver Detalle"
+								<a class="btn btn-sm btn-warning" title="Ver Receta"
 								   th:href="@{/receta/retrieve/} + ${receta.idreceta}">
 									<i class="fas fa-eye"></i>
-									Ver Detalle
+									Ver Receta
 								</a>
 							</td>
 						</tr>

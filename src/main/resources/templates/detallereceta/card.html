@@ -18,31 +18,88 @@
 							class="fas fa-arrow-left"></i>&nbsp;Volver</a>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-sm-8">
-
-				</div>
-				<div class="col-sm-4">
-					<div class="col-md-4">
-						<h2	th:text="${contador}"></h2>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-9">
+						<input type="hidden" id="iddetalleReceta" th:value="${detallereceta.iddetalleReceta}" />
+						<hr />
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group row">
+									<div class="content col-sm-3 bg-light">
+										<i class="fas fa-vial"></i> <label class="h5 col-form-label">&nbsp;Cantidad:</label>
+									</div>
+									<div class="col-sm-8">
+										<h5 class="card-text" th:text="${detallereceta.cantidad}"></h5>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="content col-sm-3 bg-light">
+										<i class="fas fa-book-reader"></i> <label
+											class="h5 col-form-label">&nbsp;Observacion:</label>
+									</div>
+									<div class="col-sm-8">
+										<h5 class="card-text" th:text="${detallereceta.observacion}"></h5>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="content col-sm-3 bg-light">
+										<i class="fas fa-list-ol"></i> <label
+											class="h5 col-form-label">&nbsp;Numero de Tomas:</label>
+									</div>
+									<div class="col-sm-8">
+										<h5 class="card-text" th:text="${detallereceta.numeroTomas}"></h5>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="content col-sm-3 bg-light">
+										<i class="far fa-clock"></i>
+										<label class="h5 col-form-label">&nbsp;Frecuencia:</label>
+									</div>
+									<div class="col-sm-8">
+										<h5 class="card-text" th:text="${detallereceta.frecuencia}"></h5>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="content col-sm-3 bg-light">
+										<i class="fas fa-business-time"></i> <label
+											class="h5 col-form-label">&nbsp;Tipo Frecuencia:</label>
+									</div>
+									<div class="col-sm-8">
+										<h5 class="card-text" th:text="${detallereceta.tipoFrecuencia}"></h5>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="content col-sm-3 bg-light">
+										<i class="fas fa-stethoscope"></i> <label
+											class="h5 col-form-label">&nbsp;Posologia:</label>
+									</div>
+									<div class="col-sm-8">
+										<h5 class="card-text" th:text="${detallereceta.posologia}"></h5>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="content col-sm-3 bg-light">
+										<i class="fas fa-calendar-alt"></i> <label
+											class="h5 col-form-label">Fecha de Inicio:</label>
+									</div>
+									<div class="col-sm-8">
+										<h5 class="card-text" th:text="${detallereceta.fechaInicio}"></h5>
+									</div>
+								</div>
+								<hr>
+							</div>
+						</div>
 					</div>
-					<div class="col-md-2">
-						<h2> / </h2>
-					</div>
-					<div class="col-md-4">
-						<h3	th:text="${numdosis}"></h3>
+					<div class="col-sm-3">
+						<h2	th:text="${numdosis}"></h2>
 					</div>
 				</div>
 			</div>
 
 
-			<input type="hidden" id="iddetalleReceta" th:value="${detallereceta.iddetalleReceta}" />
-			<hr />
-			<div class="row">
-				<div class="col-md-12">
-					<hr>
-				</div>
-			</div>
+
+
 			<div class="row">
 				<table class="table table-sm">
 					<thead>
@@ -58,11 +115,11 @@
 					<tr th:each=" dosis : ${dosis}">
 						<td class="d-none" th:text="${dosis.iddosis}"></td>
 						<td th:text="${dosis.numero}"></td>
-						<td th:text="${dosis.fechaHora.time}"></td>
+						<td th:text="${#temporals.format(dosis.fechaHora, 'dd-MM-yyyy HH:mm')}"></td>
 						<td th:text="${dosis.descripcion}"></td>
-						<td th:text="${dosis.estado}"></td>
+						<td th:text="${dosis.descripcionEstadoDosis}"></td>
 						<td>
-							<a class="btn btn-sm btn-light" title="Suministrar"
+							<a class="btn btn-sm btn-success" title="Suministrar"
 							   th:href="@{/dosis/suministrar/} + ${dosis.iddosis}">
 								<i class="fas fa-eye"></i>
 								Suministrar

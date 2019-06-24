@@ -27,6 +27,11 @@ public class Paciente extends Persona implements Serializable{
 	@NotEmpty
 	private String tipoSangre;
 	
+	@Size(max = 255)
+	@Column(name = "ANTECEDENTES")
+	@NotEmpty
+	private String antecedentes;
+		
 	@OneToMany(mappedBy="paciente", fetch=FetchType.LAZY)//LAZY, trae los valores de los atributos y no todo el listado 
 	private List<Receta> recetas;
 
@@ -62,6 +67,16 @@ public class Paciente extends Persona implements Serializable{
 	public void setRecetas(List<Receta> recetas) {
 		this.recetas = recetas;
 	}
+
+	public String getAntecedentes() {
+		return antecedentes;
+	}
+
+	public void setAntecedentes(String antecedentes) {
+		this.antecedentes = antecedentes;
+	}
+	
+	
 	
 	
 	

@@ -5,30 +5,18 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.medico.app.web.models.entities.*;
+import com.medico.app.web.models.services.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.medico.app.web.models.entities.DetalleReceta;
-import com.medico.app.web.models.entities.Medicamento;
-import com.medico.app.web.models.entities.Medico;
-import com.medico.app.web.models.entities.Paciente;
-import com.medico.app.web.models.entities.Receta;
-import com.medico.app.web.models.services.IMedicamentoService;
-import com.medico.app.web.models.services.IMedicoService;
-import com.medico.app.web.models.services.IPacienteService;
-import com.medico.app.web.models.services.IRecetaService;
+import javax.validation.Validator;
 
 @Controller
 @RequestMapping(value="/receta")
@@ -38,6 +26,8 @@ public class RecetaController {
 	//Servicio => Inyección de dependencias
 	@Autowired
 	private IRecetaService service;
+	@Autowired
+	private IDetalleRecetaService detalleservice;
 
 	@Autowired
 	private IMedicoService srvMedico;
@@ -47,6 +37,9 @@ public class RecetaController {
 
 	@Autowired
 	private IMedicamentoService srvMedicamento;
+
+	@Autowired
+	private Validator validator;
 		
 	@GetMapping(value="/create")
 	public String create(Model model) {
@@ -64,19 +57,28 @@ public class RecetaController {
 	}
 	
 	@PostMapping(value="/save")
-	public String save(@Valid Receta receta, BindingResult result, 
-			Model model, RedirectAttributes message, 
-			SessionStatus session) {
+	public String save(@Valid Receta receta, BindingResult result,
+					   Model model, RedirectAttributes message,
+					   SessionStatus session) {
 		try {
-			
+			if(receta.getMedico().getIdpersona()==0){
+				receta.setMedico(null);
+				validator.validate(receta);
+			}
 			if(result.hasErrors()) {        		
         		return "receta/form";
-        	} 
-			
-        	String msg = receta.getIdreceta() == null ? "La receta ha sido creada." : "La receta ha sido actualizada.";
-        	service.save(receta);        	
-            session.setComplete();            
-            message.addFlashAttribute("success", msg);
+        	}
+			if (receta.getIdreceta() != null ){
+				String msg = "La receta ha sido actualizada.";
+				message.addFlashAttribute("success", msg);
+				service.save(receta);
+				session.setComplete();
+			}else{ // Si creo una receta creo sus dosis
+				service.save(receta);
+				session.setComplete();
+				message.addFlashAttribute("receta_guardada", receta);
+				return "redirect:/dosis/generatedosis";
+			}
 		}
 		catch(Exception ex){
 			message.addFlashAttribute("error", ex.toString());
@@ -89,7 +91,22 @@ public class RecetaController {
 	public String retrieve(@PathVariable(value="id")Integer id, 
 			Model model) {
 		Receta receta = service.findById(id);
+		List<DetalleReceta> detalles = receta.getDetalles();
+		int [] numdosis = new int[detalles.size()];
+		int cont=0;
+		for(DetalleReceta detalle:detalles){
+			List<Dosis> dosis=detalle.getDosis();
+			for (Dosis aux:dosis){
+				if(aux.getEstado()==1){
+					numdosis[cont]++;
+				}
+			}
+			cont++;
+		}
 		model.addAttribute("receta",receta);
+		model.addAttribute("detalles",detalles);
+		model.addAttribute("numdosis",numdosis);
+		model.addAttribute("title","Informacion Receta");
 		return "receta/card";
 	}
 	
@@ -115,7 +132,8 @@ public class RecetaController {
 	@GetMapping(value="/list")
 	public String list(Model model) {
 		List<Receta> recetas = service.findAll();
-		model.addAttribute("recetas", recetas);
+		model.addAttribute("title","Listado de Recetas");
+		model.addAttribute("lista", recetas);
 		return "receta/list";		
 	}
 	
@@ -127,7 +145,8 @@ public class RecetaController {
 			List<DetalleReceta> detalles = new ArrayList<>();
 			receta.setDetalles(detalles);
 		}
-		
+		System.out.println(detail.getFechaInicio());
+		System.out.println(detail.getNumeroTomas());
 		Medicamento medicamento = srvMedicamento.findById(detail.getMedicamentoId());
 		detail.setMedicamento(medicamento);
 		receta.getDetalles().add(detail);

@@ -18,20 +18,44 @@
 				<hr />
 				<table class="table table-hover">
 					<thead>
-						<tr>
-							<th><i class="fas fa-user-md fa-2x"></i>&nbsp;Campo 1</th>
-							<th><i class="fas far fa-address-card fa-2x"></i>&nbsp;Campo 2</th>
-							<th><i class="fas fa-phone fa-2x"></i>&nbsp;Campo 3</th>
-							<th><i class="fas fa-at fa-2x"></i>&nbsp;Campo 4</th>
-							<th><i class="fas fa-award fa-2x"></i>&nbsp;Campo 5</th>
-							<th><a class="btn btn-sm btn-success" th:href="@{/receta/create}" >
-								<i class="fas fa-plus"></i>&nbsp;Nuevo</a>
-							</th>
-						</tr>
+					<tr>
+						<th><i class="fas far fa-address-card"></i>&nbsp;ID</th>
+						<th>&nbsp;Paciente</th>
+						<th>&nbsp;Medico</th>
+						<th>&nbsp;Fecha</th>
+						<th>&nbsp;Detalle</th>
+						<th><a class="btn btn-sm btn-success" th:href="@{/receta/create}" >
+							<i class="fas fa-plus"></i>&nbsp;Nuevo</a>
+						</th>
+					</tr>
 					</thead>
-					<tbody>						
+					<tbody>
+					<tr th:each=" receta : ${lista}" >
+						<td th:text="${receta.idreceta}"></td>
+						<td th:text="${receta.paciente.nombre}"></td>
+						<td th:if="${receta.medico == null}">Sin Medico</td>
+						<td th:unless="${receta.medico == null}" th:text="${receta.medico.nombre}"></td>
+						<td th:text="${receta.fecha.time}" ></td>
+						<td >
+							<a class="btn btn-sm btn-warning" title="Ver Detalle Receta"
+							   th:href="@{/receta/retrieve/} + ${receta.idreceta}">
+								<i class="fas fa-eye"></i>
+								Ver Detalle Receta
+							</a>
+						</td>
+
+						<td>
+
+							<a class="btn btn-sm btn-danger" title="Eliminar"
+							   th:href="@{/receta/delete/} + ${receta.idreceta}">
+								<i class="fas fa-trash-alt"></i>
+								Eliminar
+							</a>
+						</td>
+					</tr>
+
 					</tbody>
-				</table>				
+				</table>
 			</div>
 		</div>
 	</div>

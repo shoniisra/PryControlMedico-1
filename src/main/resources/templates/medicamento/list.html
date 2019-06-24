@@ -36,14 +36,21 @@
 							<td th:text="${medicamento.viaAdministracion.nombre}"></td>
 							<td th:text="${medicamento.fechaCaducidad}" ></td>
 							<td>
-								<a class="btn btn-sm btn-warning" title="Editar" 
-									th:href="@{/medicamento/update/} + ${medicamento.idmedicamento}">
-									<i class="fas fa-edit"></i>
-								</a>
-								<a class="btn btn-sm btn-primary" title="Ver" 
-									th:href="@{/medicamento/retrieve/} + ${medicamento.idmedicamento}">
-									<i class="fas fa-eye"></i>
-								</a>
+								<div class="row">
+									<a class="btn btn-sm btn-warning" title="Editar"
+									   th:href="@{/medicamento/update/} + ${medicamento.idmedicamento}">
+										<i class="fas fa-edit"></i>
+									</a>
+									<a class="btn btn-sm btn-primary" title="Ver"
+									   th:href="@{/medicamento/retrieve/} + ${medicamento.idmedicamento}">
+										<i class="fas fa-eye"></i>
+									</a>
+									<a class="btn btn-sm btn-danger" title="Eliminar"
+									   th:href="@{/medicamento/delete/} + ${medicamento.idmedicamento}">
+										<i class="fas fa-trash-alt"></i>
+									</a>
+								</div>
+
 							</td>							
 						</tr>				
 					

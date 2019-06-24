@@ -3,21 +3,135 @@
 <head th:replace="layout :: head"></head>
 <body>
 	<header th:replace="layout :: header"></header>
-	
+
 	<div class="container">
-		<br />
-		<div class="card col-md-12">
-			<div class="card-body">
-				<div class="form-group row">
-					<div class="content col-sm-1">
-						<i class="far fa-plus-square fa-2x"></i>
-					</div>
-					<h3 class="card-title col-sm-6" th:text="${title}"></h3>
-					<div class="col-sm-4"></div>
+		<div class="card-body">
+			<div class="form-group row">
+				<div class="content col-sm-1">
+					<i class="far fa-plus-square fa-2x"></i>
 				</div>
-				<hr />
+				<h3 class="card-title col-sm-6" th:text="${title}"></h3>
+				<div class="col-sm-4">
+					<button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+						<i class="fas fa-trash-alt"></i>&nbsp;Eliminar</button>
+					<a class="btn btn-primary" th:href="@{/receta/list}"><i
+							class="fas fa-arrow-left"></i>&nbsp;Volver</a>
+				</div>
+			</div>
+
+			<input type="hidden" id="idreceta" th:value="${receta.idreceta}" />
+			<hr />
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group row">
+						<div class="content col-sm-3 bg-light">
+							<i class="fas fa-vial"></i> <label class="h5 col-form-label">&nbsp;Paciente:</label>
+						</div>
+						<div class="col-sm-8">
+							<h5 class="card-text" th:text="${receta.paciente.nombre}"></h5>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="content col-sm-3 bg-light">
+							<i class="fas fa-dollar-sign"></i> <label
+								class="h5 col-form-label">&nbsp;Doctor:</label>
+						</div>
+						<div class="col-sm-8">
+							<h5 class="card-text" th:if="${receta.medico == null}">Sin Médico</h5>
+							<h5 class="card-text" th:unless="${receta.medico == null}" th:text="${receta.medico.nombre}"></h5>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="content col-sm-3 bg-light">
+							<i class="fas fa-prescription-bottle"></i> <label
+								class="h5 col-form-label">Fecha:</label>
+						</div>
+						<div class="col-sm-8">
+							<h5 class="card-text" th:text="${receta.fecha.time}"></h5>
+						</div>
+					</div>
+					<hr>
+
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-10">
+					<table class="table table-sm">
+						<thead>
+						<tr>
+							<th >Medicamento</th>
+							<th >Cant</th>
+							<th >Posolog&iacute;a</th>
+							<th >Frecuencia</th>
+							<th>Descripción</th>
+							<th>Número</th>
+							<th>Observación</th>
+							<th>Activo</th>
+							<th> Ver Dosis</th>
+
+						</tr>
+						</thead>
+						<tbody >
+						<tr th:each=" detalle : ${detalles}">
+							<td class="d-none" th:text="${detalle.iddetalleReceta}"></td>
+							<td th:text="${detalle.medicamento.nombreComercial}"></td>
+							<td th:text="${detalle.cantidad}"></td>
+							<td th:text="${detalle.posologia}"></td>
+							<td th:text="${detalle.frecuencia}"></td>
+							<td th:text="${detalle.descripcionTipoFrecuencia}"></td>
+							<td th:text="${detalle.numeroTomas}"></td>
+							<td th:text="${detalle.observacion}"></td><td class="data-radio" th:text="${detalle.activo}"></td>
+							<td>
+
+								<a class="btn btn-sm btn-warning" title="Dosis"
+								   th:href="@{/detallereceta/retrieve/} + ${detalle.iddetalleReceta}">
+									<i class="fas fa-eye"></i>
+									Dosis
+								</a>
+							</td>
+
+						</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-sm-2">
+					<table>
+						<thead>
+						<tr>
+							<th>dosis</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each=" numdosis : ${numdosis}">
+							<td th:text="${numdosis}"></td>
+						</tr>
+
+						</tbody>
+					</table>
+				</div>
+
+
 			</div>
 		</div>
+		<div id="deleteModal" class="modal" tabindex="-1" role="dialog">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">¿Desea eliminar la receta?</h5>
+						<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+						<a th:href="@{/receta/delete/} + ${receta.idreceta}" class="btn btn-success">Confirmar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	
 				

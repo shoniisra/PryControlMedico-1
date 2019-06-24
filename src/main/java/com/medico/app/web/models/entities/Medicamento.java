@@ -1,6 +1,7 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Basic;
@@ -53,7 +54,7 @@ public class Medicamento implements Serializable {
 	@Column(name = "FECHACADUCIDAD")
 	@Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date fechaCaducidad;
+	private Calendar fechaCaducidad;
 		
 	@JoinColumn(name="IDVIAADMINISTRACION", referencedColumnName = "IDVIAADMINISTRACION")
 	@ManyToOne	
@@ -116,11 +117,11 @@ public class Medicamento implements Serializable {
 		this.concentracion = concentracion;
 	}
 	
-	public Date getFechaCaducidad() {
+	public Calendar getFechaCaducidad() {
 		return fechaCaducidad;
 	}
 
-	public void setFechaCaducidad(Date fechaCaducidad) {
+	public void setFechaCaducidad(Calendar fechaCaducidad) {
 		this.fechaCaducidad = fechaCaducidad;
 	}
 	

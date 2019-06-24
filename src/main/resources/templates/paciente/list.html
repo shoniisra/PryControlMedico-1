@@ -18,16 +18,45 @@
 				<hr />
 				<table class="table table-hover">
 					<thead>
-						<tr>
-							<th><i class="fas fa-user-md fa-2x"></i>&nbsp;Campo 1</th>
-							<th><i class="fas far fa-address-card fa-2x"></i>&nbsp;Campo 2</th>
-							<th><i class="fas fa-phone fa-2x"></i>&nbsp;Campo 3</th>
-							<th><i class="fas fa-at fa-2x"></i>&nbsp;Campo 4</th>
-							<th><i class="fas fa-award fa-2x"></i>&nbsp;Campo 5</th>
-							<th><a class="btn btn-sm btn-success"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
-						</tr>
+					<tr>
+						<th><i class="fas far fa-address-card"></i>&nbsp;Nombre</th>
+						<th>&nbsp;Apellido</th>
+						<th>&nbsp;Cedula</th>
+						<th>&nbsp;Alergias</th>
+						<th>&nbsp;Sangre</th>
+						<th>&nbsp;Recetas</th>
+						<th><a class="btn btn-sm btn-success" th:href="@{/paciente/create}"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
+					</tr>
 					</thead>
-					<tbody>						
+					<tbody>
+					<tr th:each=" paciente : ${lista}" >
+						<td th:text="${paciente.nombre}"></td>
+						<td th:text="${paciente.apellido}"></td>
+						<td th:text="${paciente.cedula}"></td>
+						<td th:text="${paciente.alergias}" ></td>
+						<td th:text="${paciente.tipoSangre}" ></td>
+						<td >
+							<a class="btn btn-warning"
+							   th:href="@{/paciente/retrieve/} + ${paciente.idpersona}">
+								<i class="fas fa-minus-circle"></i>&nbsp;Ver Recetas</a>
+						</td>
+
+						<td>
+							<a class="btn btn-sm btn-primary" title="Editar"
+							   th:href="@{/paciente/update/} + ${paciente.idpersona}">
+								<i class="fas fa-edit"></i>
+							</a>
+							<a class="btn btn-sm btn-success" title="Ver"
+							   th:href="@{/paciente/retrieve/} + ${paciente.idpersona}">
+								<i class="fas fa-eye"></i>
+							</a>
+							<a class="btn btn-sm btn-danger" title="Eliminar"
+							   th:href="@{/paciente/delete/} + ${paciente.idpersona}">
+								<i class="fas fa-trash-alt"></i>
+							</a>
+						</td>
+					</tr>
+
 					</tbody>
 				</table>
 			</div>

@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
-	<meta charset="UTF-8">
-	<title>Control M&eacute;dico</title>
-	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-	<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}"/>
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+<meta charset="UTF-8">
+<title>Control M&eacute;dico</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+	integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
+	crossorigin="anonymous">
 </head>
 <body>
-	
-	<header th:fragment="header" class="container">		
+
+	<header th:fragment="header" class="container">
 		<!-- Menu principal -->
 		<br />
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -25,29 +29,51 @@
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/receta/list}">Recetas</a></li>
 					<li class="nav-item"><a class="nav-link"
-						th:href="@{/medicamento/list}">Medicamentos</a></li>					
+						th:href="@{/medicamento/list}">Medicamentos</a></li>
+				</ul>
+				<ul class="navbar-nav navbar-right">
+					<li sec:authorize="!isAuthenticated()"><a
+						class="btn btn-primary" th:href="@{/login}">Iniciar
+							sesi&oacute;n</a></li>
+					<li sec:authorize="isAuthenticated()" class="dropdown show"><a
+						class="btn btn-primary dropdown-toggle" href="#" role="button"
+						id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> <span sec:authentication="name"></span>
+					</a>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<form id="logoutForm" th:action="@{/logout}" method="post">
+								<button class="dropdown-item" id="btnSalir" type="submit">Salir</button>
+							</form>
+						</div></li>
 				</ul>
 			</div>
 		</nav>
-		
+
+		<div id="info-alert" class="alert alert-info" role="alert"
+			th:if="${info != null}">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+			<span th:text=${info}></span>
+		</div>
+
+
 		<div id="success-alert" class="alert alert-success" role="alert"
 			th:if="${success != null}">
 			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			<span th:text=${success}></span>
 		</div>
-		
+
 		<div id="error-alert" class="alert alert-danger" role="alert"
 			th:if="${error != null}">
 			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 			<span th:text=${error}></span>
 		</div>
-				
+
 	</header>
-	
+
 	<div class="container">
 		<!-- Contenido principal -->
 	</div>
-	
+
 	<footer th:fragment="footer" class="container">
 		<br />
 		<hr />
@@ -55,14 +81,22 @@
 			<div class="col-md-1">
 				<i class="fas fa-university fa-5x"></i>
 			</div>
-			<div class="col-md-9">
+			<div class="col-md-5">
 				<h5 class="card-title">Universidad de las Fuerzas Armadas</h5>
 				<div class="card-text">
 					<strong>Carrera de ingeniería de Software</strong><br /> <small>Belisario
 						Quevedo - Latacunga</small>
 				</div>
 			</div>
-			<div class="col-md-1 center-block">				
+			<div class="col-md-4">
+				<!-- Muestra el nombre del usuario logeado y sus roles en el footer -->
+				<small sec:authorize="isAuthenticated()">
+					Usuario logeado: <span sec:authentication="name"></span>
+					<br/>
+					Roles: <span sec:authentication="principal.authorities"></span>
+				</small>
+			</div>
+			<div class="col-md-1 center-block">
 				<p>ISOW&copy;2019</p>
 			</div>
 		</div>
@@ -71,10 +105,11 @@
 		<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
 		<script th:src="@{/js/jquery-ui.min.js}"></script>
 		<script th:src="@{/js/popper.js}"></script>
-		<script th:src="@{/js/bootstrap.min.js}"></script>		
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/layout.js}"></script>
 		<!-- Copyright -->
-			
+
 	</footer>
-	
+
 </body>
 </html>

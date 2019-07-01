@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout :: head"></head>
 <body>
 	<header th:replace="layout :: header"></header>
@@ -25,7 +26,8 @@
 						<th>&nbsp;Alergias</th>
 						<th>&nbsp;Sangre</th>
 						<th>&nbsp;Recetas</th>
-						<th><a class="btn btn-sm btn-success" th:href="@{/paciente/create}"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
+						<th sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-sm btn-success"							
+							th:href="@{/paciente/create}"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
 					</tr>
 					</thead>
 					<tbody>
@@ -41,8 +43,9 @@
 								<i class="fas fa-minus-circle"></i>&nbsp;Ver Recetas</a>
 						</td>
 
-						<td>
-							<a class="btn btn-sm btn-primary" title="Editar"
+						<td >
+							<a sec:authorize="hasRole('ROLE_ADMIN')"
+								class="btn btn-sm btn-primary" title="Editar"
 							   th:href="@{/paciente/update/} + ${paciente.idpersona}">
 								<i class="fas fa-edit"></i>
 							</a>
@@ -50,7 +53,8 @@
 							   th:href="@{/paciente/retrieve/} + ${paciente.idpersona}">
 								<i class="fas fa-eye"></i>
 							</a>
-							<a class="btn btn-sm btn-danger" title="Eliminar"
+							<a sec:authorize="hasRole('ROLE_ADMIN')"
+								class="btn btn-sm btn-danger" title="Eliminar"
 							   th:href="@{/paciente/delete/} + ${paciente.idpersona}">
 								<i class="fas fa-trash-alt"></i>
 							</a>

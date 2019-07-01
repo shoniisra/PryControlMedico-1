@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<header th:replace="layout :: header"></header>
+
+	<div class="container">
+		<br />
+		<div class="content row">
+			<div class="col-md-6">
+				<div class="card border-default text-center">
+					<div class="card-header">Inicio de sesi&oacute;n</div>
+					<div class="card-body">
+						<form th:action="@{/login}" method="post">
+
+							<div class="form-group">
+								<input type="text" name="username" id="username"
+									class="form-control" placeholder="Nombre de usuario" autofocus required />
+							</div>
+
+							<div class="form-group">
+								<input type="password" name="password" id="password"
+									class="form-control" placeholder="Contrase&nacute;a" required />
+							</div>
+
+							<div class="form-group">
+								<input type="submit" class="btn btn-lg btn-primary btn-block"
+									value="Iniciar" />
+							</div>							
+						</form>
+
+					</div>
+
+				</div>
+			</div>
+			<div class="col-md-6">
+				<img class="card-img-top" th:src="@{/images/spring-boot.png}" />
+			</div>
+		</div>
+	</div>
+
+
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

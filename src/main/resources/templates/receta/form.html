@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<header th:replace="layout :: header"></header>
+
+	<div class="container">
+		<br />
+		<div class="card col-md-12">
+			<div class="card-body">
+				<div class="form-group row">
+					<div class="content col-sm-1">
+						<i class="far fa-plus-square fa-2x"></i>
+					</div>
+					<h3 class="card-title col-sm-6" th:text="${title}"></h3>
+					<div class="col-sm-4">
+						<button class="btn btn-success" data-toggle="modal"
+							data-target="#addDetalleReceta">
+							<i class="fas fa-plus-square"></i>&nbsp;Agregar medicamento
+						</button>
+					</div>
+				</div>
+				<hr />
+
+				<form th:action="@{/receta/save}" th:object="${receta}"
+					method="post">
+
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-user"></i> <label class="h5 col-form-label">&nbsp;Paciente:</label>
+						</div>
+						<div class="content col-sm-6">
+							<select class="form-control" th:field="*{paciente.idpersona}">
+								<option value="0">-- Seleccione --</option>
+								<option th:each="pac : ${pacientes}" th:value="${pac.idpersona}"
+									th:text="${pac}"></option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="fas fa-user-md"></i> <label class="h5 col-form-label">&nbsp;M&eacute;dico:</label>
+						</div>
+						<div class="content col-sm-6">
+							<select class="form-control" th:field="*{medico.idpersona}">
+								<option value="-1">-- Seleccione --</option>
+								<option value="0">Sin Medico</option>
+								<option th:each="med : ${medicos}" th:value="${med.idpersona}"
+									th:text="${med.nombre}"></option>
+              <!--ojo revisar esta linea, esta imprimiendo med-->
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="content col-sm-3">
+							<i class="far fa-calendar-alt"></i> <label
+								class="h5 col-form-label">&nbsp;Fecha:</label>
+						</div>
+						<div class="content col-sm-6">
+							<input class="form-control" type="date" th:field="*{fecha}"
+								th:errorclass="'form-control is-invalid'" /> <small
+								class="invalid-feedback" th:if="${#fields.hasErrors('fecha')}"
+								th:errors="*{fecha}"></small>
+						</div>
+					</div>
+
+					<hr />
+
+					<table th:replace="receta/templateDetalle :: medicamentosReceta"></table>
+					
+					<table id="tblDetalleReceta" class="table table-sm">
+						<thead>
+							<tr>
+								<th>Medicamento</th>
+								<th>Fecha Inicio</th>
+								<th>Cantidad</th>
+								<th>Posolog&iacute;a</th>
+								<th>Frecuencia (Cada)</th>
+								<th>Dosis</th>
+							</tr>
+						</thead>
+						<tbody>						
+						</tbody>
+					</table>
+
+					<hr />
+					<div class="form-group row">
+						<div class="col-sm-4">
+							<a class="btn btn-danger" th:href="@{/medicamento/list}"> <i
+								class="fas fa-minus-circle"></i>&nbsp;Cancelar
+							</a>
+							<button class="btn btn-success" type="submit">
+								<i class="fas fa-plus-circle"></i>&nbsp;Guardar
+							</button>
+						</div>
+					</div>
+					<input type="hidden" th:field="*{idreceta}" />
+
+				</form>
+
+				<div id="addDetalleReceta" class="modal" tabindex="-1" role="dialog">
+
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<h5 class="modal-title">Agregar un detalle a la receta</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+
+							</div>
+							<div class="modal-body">
+
+								<div class="form-group row" id="divCriteria">
+									<div class="content col-sm-4">
+										<i class="fas fa-pills"></i> <label
+											class="h5 col-form-label">&nbsp;Medicamento:</label>
+									</div>
+									<div class="content col-sm-8">
+										<input id="criteria" name="criteria" type="text"
+											class="form-control" placeholder="Buscar...." />
+									</div>
+								</div>
+
+								<div class="card">
+									<div class="card-body">
+										<h5 class="card-title" id="nombreMedicamento"></h5>
+										<p class="card-text" id="componenteMedicamento"></p>
+									</div>
+								</div>
+
+
+							</div>
+
+							<form>
+								
+								<input type="hidden" class="form-control" id="medicamentoId" />
+
+								<div class="modal-body">
+
+									<div class="form-group row">
+										<div class="content col-sm-4">
+											<i class="fas fa-tablets"></i> <label
+												class="h5 col-form-label">&nbsp;Fecha Inicio:</label>
+										</div>
+										<div class="content col-sm-8">
+											<input type="datetime-local" class="form-control"
+												   id="fechaInicio" />
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<div class="content col-sm-4">
+											<i class="far fa-hourglass"></i> <label
+												class="h5 col-form-label">&nbsp;Dosis:</label>
+										</div>
+										<div class="content col-sm-8">
+											<select class="form-control" id="tipoDosis">
+												<option value="0" >Temporal</option>
+												<option value="1" selected>Indefinida</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="content col-sm-4">
+											<i class="fas fa-tablets"></i> <label
+												class="h5 col-form-label">&nbsp;Cantidad:</label>
+										</div>
+										<div class="content col-sm-8">
+											<input type="number" class="form-control"
+												id="cantidad" disabled="disabled"/>
+										</div>
+									</div>
+
+
+									<div class="form-group row">
+										<div class="content col-sm-4">
+											<i class="fas fa-prescription-bottle"></i> <label
+												class="h5 col-form-label">&nbsp;Posolog&iacute;a:</label>
+										</div>
+										<div class="content col-sm-8">
+											<select type="text" class="form-control"
+												id="posologia" >
+												<option value="Pastilla" selected>Pastilla</option>
+												<option value="Inyeccion">Inyeccion</option>
+												<option value="Suero">Suero</option>
+												<option value="Cucharadita">Cucharadita</option>
+												<option value="Otro">Otro</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<div class="content col-sm-4">
+											<i class="far fa-hourglass"></i> <label
+												class="h5 col-form-label">&nbsp;Frecuencia:</label>
+										</div>
+										<div class="content col-sm-8">
+											<input type="number" id="frecuencia" value="1"
+												class="form-control" />
+										</div>
+									</div>
+
+									<div class="form-group row">
+										<div class="content col-sm-4">											
+										</div>
+										<div class="content col-sm-8">
+											<select class="form-control" id="tipoFrecuencia">
+												<option value="0">Una sola vez</option>
+												<option value="1" selected>Horas</option>
+												<option value="2">Diaria</option>
+												<option value="3">Semanal</option>
+												<option value="4">Mensual</option>
+											</select>
+										</div>
+									</div>
+									
+								</div>
+
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger"
+										data-dismiss="modal">Cancelar</button>
+									<button id="btnAddDetail" class="btn btn-success" data-dismiss="modal">Confirmar</button>
+								</div>
+							</form>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout :: footer"></footer>
+	<script th:src="@{/js/receta-detalle.js}"></script>
+</body>
+</html>

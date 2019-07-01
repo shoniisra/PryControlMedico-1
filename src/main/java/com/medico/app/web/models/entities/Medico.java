@@ -13,27 +13,27 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="MEDICO")
-public class Medico extends Persona implements Serializable {
-	
-	private static final long serialVersionUID = 1L; //Aplica para serializable NO TIENE GET&SET
-	
-	@Size(max=10)
+public class Medico extends Persona implements Serializable{
+
+	private static final long serialVersionUID = 1L; //Aplica para serialización
+
+	@Size(max = 35)
 	@Column(name = "LICENCIA")
 	@NotEmpty
 	private String licencia;
-	
-	@Size(max=255)
+
+	@Size(max = 255)
 	@Column(name = "ESPECIALIDAD")
 	private String especialidad;
 	
-	@OneToMany(mappedBy="medico", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="medico", fetch=FetchType.LAZY)//LAZY, trae los valores de los atributos y no todo el listado 
 	private List<Receta> recetas;
 	
-		
+	
 	public Medico() {
 		super();
 	}
-	
+
 	public Medico(Integer id) {
 		super();
 		this.setIdpersona(id);
@@ -46,7 +46,7 @@ public class Medico extends Persona implements Serializable {
 	public void setLicencia(String licencia) {
 		this.licencia = licencia;
 	}
-	
+
 	public String getEspecialidad() {
 		return especialidad;
 	}
@@ -54,13 +54,7 @@ public class Medico extends Persona implements Serializable {
 	public void setEspecialidad(String especialidad) {
 		this.especialidad = especialidad;
 	}
-
 	
 	
-
+	
 }
-
-
-
-
-

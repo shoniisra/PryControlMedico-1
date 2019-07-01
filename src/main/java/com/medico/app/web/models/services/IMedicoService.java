@@ -5,12 +5,12 @@ import java.util.List;
 import com.medico.app.web.models.entities.Medico;
 
 public interface IMedicoService {
-	
+
 	public void save(Medico medico);
 	
-	public void findById(Integer id);
+	public Medico findById(Integer id);
 	
 	public void delete(Integer id);
 	
-	public List<Medico> findAll();	
+	public List<Medico> findAll();
 }

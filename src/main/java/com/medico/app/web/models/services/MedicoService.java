@@ -13,33 +13,27 @@ public class MedicoService implements IMedicoService {
 
 	@Autowired
 	private IMedicoDAO dao;
-		
+	
 	@Override
 	public void save(Medico medico) {
-		dao.save(medico);		
+
+		dao.save(medico);
 	}
 
 	@Override
-	public void findById(Integer id) {		
-		dao.findById(id);
+	public Medico findById(Integer id) {		
+		return dao.findById(id).get();
 	}
 
 	@Override
 	public void delete(Integer id) {
 		dao.deleteById(id);
-		
 	}
 
 	@Override
 	public List<Medico> findAll() {
 		return (List<Medico>) dao.findAll();
+
 	}
+
 }
-
-
-
-
-
-
-
-

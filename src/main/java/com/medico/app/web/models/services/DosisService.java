@@ -5,6 +5,7 @@ import com.medico.app.web.models.dao.IDosisDAO;
 import com.medico.app.web.models.entities.Dosis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -36,6 +37,12 @@ public class DosisService implements IDosisService {
     public List<Dosis> findAll() {
         // TODO Auto-generated method stub
         return (List<Dosis>) dao.findAll();
+    }
+
+    @Override
+    @Transactional
+    public List<Dosis> findNotTakenPills(Integer idDetalleReceta) {
+        return dao.findNotTakenPills(idDetalleReceta);
     }
 
 }

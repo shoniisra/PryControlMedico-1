@@ -27,6 +27,8 @@ public class DosisController {
     @Autowired
     private IDosisService srvDosis;
 
+    @Autowired
+    private IRecetaService srvReceta;
 
     @Autowired
     private IDetalleRecetaService srvDetalleReceta;
@@ -126,12 +128,30 @@ public class DosisController {
     
     @GetMapping(value="/suministrar/{id}" )
     public String suministrar(@PathVariable(value = "id") Integer id,
-                         Model model){
+                              RedirectAttributes message, Model model){
         try{
             Dosis dosis=service.findById(id);
             dosis.setEstado(1);
             service.save(dosis);
-            //service.delete(id);
+
+            List<Dosis> dosisTomadas = service.findNotTakenPills
+                    (dosis.getDetalleReceta().getIddetalleReceta());
+            if(dosisTomadas.size()==0) {//Detalle Inactivo
+                srvDetalleReceta.setDetalleRecetaInactiveStatus
+                        (dosis.getDetalleReceta().getIddetalleReceta());
+                message.addFlashAttribute("success", "El detalle ha " +
+                        "pasado ha estar inactivo.");
+            }
+            Receta receta = dosis.getDetalleReceta().getReceta();
+            List<DetalleReceta> detalleRecetas =
+                    srvDetalleReceta.findNotTakenDetalles(receta.getIdreceta());
+            if(detalleRecetas.size()==0){//Receta Inactiva
+                srvReceta.setRecetaInactiveStatus(receta.getIdreceta());
+                message.addFlashAttribute("success", "La receta de " +
+                        receta.getPaciente().getNombre() + " " + receta.getPaciente().getApellido()
+                        + " ha pasado ha estar inactiva.");
+            }
+
         }catch (Exception ex){
             model.addAttribute("error: ",ex.toString());
         }

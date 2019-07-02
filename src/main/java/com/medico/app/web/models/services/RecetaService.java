@@ -45,4 +45,10 @@ public class RecetaService implements IRecetaService {
 	public Receta findById(Integer id) {		
 		return dao.findById(id).get();
 	}
+
+	@Override
+	@Transactional
+	public void setRecetaInactiveStatus(Integer id) {
+		dao.setRecetaInactiveStatus(id);
+	}
 }

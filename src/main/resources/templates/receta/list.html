@@ -23,6 +23,7 @@
 						<th>&nbsp;Paciente</th>
 						<th>&nbsp;Medico</th>
 						<th>&nbsp;Fecha</th>
+						<th>&nbsp;Estado</th>
 						<th>&nbsp;Detalle</th>
 						<th><a class="btn btn-sm btn-success" th:href="@{/receta/create}" >
 							<i class="fas fa-plus"></i>&nbsp;Nuevo</a>
@@ -36,6 +37,7 @@
 						<td th:if="${receta.medico == null}">Sin Medico</td>
 						<td th:unless="${receta.medico == null}" th:text="${receta.medico.nombre}"></td>
 						<td th:text="${receta.fecha.time}" ></td>
+						<td th:text="${receta.activo}" ></td>
 						<td >
 							<a class="btn btn-sm btn-warning" title="Ver Detalle Receta"
 							   th:href="@{/receta/retrieve/} + ${receta.idreceta}">

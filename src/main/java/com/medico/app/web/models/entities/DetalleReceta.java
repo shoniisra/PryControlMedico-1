@@ -83,7 +83,11 @@ public class DetalleReceta implements Serializable {
 	@JoinColumn(name="IDMEDICAMENTO", referencedColumnName = "IDMEDICAMENTO")//claves foraneas
 	@ManyToOne
 	private Medicamento medicamento;
-	
+
+	@JoinColumn(name="IDRECETA", referencedColumnName = "IDRECETA")//claves foraneas
+	@ManyToOne
+	private Receta receta;
+
 	@Transient
 	private Integer medicamentoId;
 	
@@ -220,8 +224,14 @@ public class DetalleReceta implements Serializable {
 	public void setMedicamentoId(Integer medicamentoId) {
 		this.medicamentoId = medicamentoId;
 	}
-	
-	
+
+	public Receta getReceta() {
+		return receta;
+	}
+
+	public void setReceta(Receta receta) {
+		this.receta = receta;
+	}
 
 	public Integer getTipoDosis() {
 		return tipoDosis;

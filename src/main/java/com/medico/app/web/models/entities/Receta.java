@@ -40,6 +40,9 @@ public class Receta implements Serializable{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Past
 	private Calendar fecha;
+
+	@Column(name = "ACTIVO")
+	private Boolean activo;
 	
 	@JoinColumn(name="IDMEDICO", referencedColumnName = "IDPERSONA")
 	@ManyToOne
@@ -101,5 +104,12 @@ public class Receta implements Serializable{
 	public void setDetalles(List<DetalleReceta> detalles) {
 		this.detalles = detalles;
 	}
-	
+
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
+	}
 }

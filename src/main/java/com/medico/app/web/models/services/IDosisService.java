@@ -13,5 +13,6 @@ public interface IDosisService {
 	public Dosis findById(Integer id);
 	
 	public List<Dosis> findAll();
-	
+
+	public List<Dosis> findNotTakenPills(Integer idDetalleReceta);
 }

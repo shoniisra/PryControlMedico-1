@@ -12,6 +12,6 @@ public interface IMedicamentoDAO extends CrudRepository<Medicamento, Integer> {
 	@Query("SELECT M FROM Medicamento M WHERE LOWER(M.nombreComercial) LIKE CONCAT('%',?1,'%')")
 	public List<Medicamento> findByNombre(String criteria);
 	
-	public List<Medicamento> findByComponenteActivoLike(String criteria);
+	public List<Medicamento> findByComponenteActivo(String criteria);
 	
 }

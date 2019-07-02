@@ -40,6 +40,10 @@ public class Dosis implements Serializable {
 	@Transient
 	private String descripcionEstadoDosis;
 
+	@JoinColumn(name="IDDETALLERECETA", referencedColumnName = "IDDETALLERECETA")//claves foraneas
+	@ManyToOne
+	private DetalleReceta detalleReceta;
+
 	public Dosis() {
 		super();
 	}
@@ -119,4 +123,13 @@ public class Dosis implements Serializable {
 		}
 		return fechaHoraNuevaDosis;
 	}
+
+	public DetalleReceta getDetalleReceta() {
+		return detalleReceta;
+	}
+
+	public void setDetalleReceta(DetalleReceta detalleReceta) {
+		this.detalleReceta = detalleReceta;
+	}
+
 }

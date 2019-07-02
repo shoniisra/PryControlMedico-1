@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.medico.app.web.models.dao.IDetalleRecetaDAO;
 import com.medico.app.web.models.entities.DetalleReceta;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DetalleRecetaService implements IDetalleRecetaService {
@@ -38,4 +39,15 @@ public class DetalleRecetaService implements IDetalleRecetaService {
 		return (List<DetalleReceta>) dao.findAll();
 	}
 
+	@Override
+	@Transactional
+	public List<DetalleReceta> findNotTakenDetalles(Integer idReceta) {
+		return dao.findNotTakenDetalles(idReceta);
+	}
+
+	@Override
+	@Transactional
+	public void setDetalleRecetaInactiveStatus(Integer id) {
+		dao.setDetalleRecetaInactiveStatus(id);
+	}
 }

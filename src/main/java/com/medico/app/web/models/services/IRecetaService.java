@@ -14,4 +14,6 @@ public interface IRecetaService {
 	public void delete(Integer id);
 	
 	public List<Receta> findAll();
+
+	public void setRecetaInactiveStatus(Integer id);
 }

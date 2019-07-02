@@ -14,4 +14,8 @@ public interface IDetalleRecetaService {
 	public void delete(Integer id);
 	
 	public List<DetalleReceta> findAll();
+
+	public List<DetalleReceta> findNotTakenDetalles(Integer idReceta);
+
+	public void setDetalleRecetaInactiveStatus(Integer id);
 }

@@ -1,6 +1,8 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -52,9 +54,8 @@ public class Medicamento implements Serializable {
 	private float precio;
 	
 	@Column(name = "FECHACADUCIDAD")
-	@Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Calendar fechaCaducidad;
+	private LocalDate fechaCaducidad;
 		
 	@JoinColumn(name="IDVIAADMINISTRACION", referencedColumnName = "IDVIAADMINISTRACION")
 	@ManyToOne	
@@ -116,12 +117,12 @@ public class Medicamento implements Serializable {
 	public void setConcentracion(String concentracion) {
 		this.concentracion = concentracion;
 	}
-	
-	public Calendar getFechaCaducidad() {
+
+	public LocalDate getFechaCaducidad() {
 		return fechaCaducidad;
 	}
 
-	public void setFechaCaducidad(Calendar fechaCaducidad) {
+	public void setFechaCaducidad(LocalDate fechaCaducidad) {
 		this.fechaCaducidad = fechaCaducidad;
 	}
 	

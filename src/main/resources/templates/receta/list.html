@@ -36,7 +36,7 @@
 						<td th:text="${receta.paciente.nombre}"></td>
 						<td th:if="${receta.medico == null}">Sin Medico</td>
 						<td th:unless="${receta.medico == null}" th:text="${receta.medico.nombre}"></td>
-						<td th:text="${receta.fecha.time}" ></td>
+						<td th:text="${receta.fecha}" ></td>
 						<td th:text="${receta.activo}" ></td>
 						<td >
 							<a class="btn btn-sm btn-warning" title="Ver Detalle Receta"

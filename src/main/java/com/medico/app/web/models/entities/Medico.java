@@ -1,16 +1,14 @@
 package com.medico.app.web.models.entities;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -30,8 +28,7 @@ public class Medico extends Persona implements Serializable{
 
 	@Size(max = 255)
 	@Column(name = "ESPECIALIDAD")
-	private String especialidad;
-	
+	private String especialidad;	
 	@Column(name = "CREADOPOR")
 	private String creadoPor;
 	
@@ -128,4 +125,5 @@ public class Medico extends Persona implements Serializable{
 	}
 	
 	
+
 }

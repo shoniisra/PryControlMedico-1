@@ -1,22 +1,9 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -36,28 +23,28 @@ public class Medicamento implements Serializable {
 	@Basic(optional = false)
 	@Column(name = "IDMEDICAMENTO")
 	private Integer idmedicamento;
-		
+
 	@Column(name = "COMPONENTEACTIVO")
 	@Size(max = 255)
 	private String componenteActivo;
-	
+
 	@Column(name = "CONCENTRACION")
 	@Size(max = 35)
 	@NotEmpty
 	private String concentracion;
-		
+
 	@Column(name = "NOMBRECOMERCIAL")
 	@Size(max = 65)
 	@NotEmpty
 	private String nombreComercial;
-	
+
 	@Column(name = "PRECIO")
-	@Digits(integer=8, fraction=2)
+	@Digits(integer = 8, fraction = 2)
 	private float precio;
-	
+
 	@Column(name = "FECHACADUCIDAD")
 	@Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Calendar fechaCaducidad;
 	
 	@Column(name = "CREADOPOR")
@@ -74,8 +61,9 @@ public class Medicamento implements Serializable {
 		
 	@JoinColumn(name="IDVIAADMINISTRACION", referencedColumnName = "IDVIAADMINISTRACION")
 	@ManyToOne	
+
 	private ViaAdministracion viaAdministracion;
-	
+
 	public Medicamento() {
 		super();
 	}
@@ -88,7 +76,7 @@ public class Medicamento implements Serializable {
 	public Integer getIdmedicamento() {
 		return idmedicamento;
 	}
-	
+
 	public String getComponenteActivo() {
 		return componenteActivo;
 	}
@@ -132,7 +120,12 @@ public class Medicamento implements Serializable {
 	public void setConcentracion(String concentracion) {
 		this.concentracion = concentracion;
 	}
-	
+
+	public String getFechaCaducidadFormato() {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		return simpleDateFormat.format(fechaCaducidad.getTime());
+	}
+
 	public Calendar getFechaCaducidad() {
 		return fechaCaducidad;
 	}
@@ -156,7 +149,6 @@ public class Medicamento implements Serializable {
 	public void setCreadoEn(LocalDateTime creadoEn) {
 		this.creadoEn = creadoEn;
 	}
-
 	public String getActualizadoPor() {
 		return actualizadoPor;
 	}
@@ -186,6 +178,5 @@ public class Medicamento implements Serializable {
         actualizadoPor = auth.getName();  
         actualizadoEn = LocalDateTime.now();
 	}
-	
 	
 }

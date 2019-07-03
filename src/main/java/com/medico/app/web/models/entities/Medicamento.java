@@ -1,8 +1,8 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +22,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Entity
 @Table(name="MEDICAMENTO")
@@ -55,6 +59,18 @@ public class Medicamento implements Serializable {
 	@Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Calendar fechaCaducidad;
+	
+	@Column(name = "CREADOPOR")
+	private String creadoPor;
+	
+	@Column(name = "CREADOEN")
+	private LocalDateTime creadoEn;
+	
+	@Column(name = "ACTUALIZADOPOR")
+	private String actualizadoPor;
+	
+	@Column(name = "ACTUALIZADOPEN")
+	private LocalDateTime actualizadoEn;
 		
 	@JoinColumn(name="IDVIAADMINISTRACION", referencedColumnName = "IDVIAADMINISTRACION")
 	@ManyToOne	
@@ -124,8 +140,52 @@ public class Medicamento implements Serializable {
 	public void setFechaCaducidad(Calendar fechaCaducidad) {
 		this.fechaCaducidad = fechaCaducidad;
 	}
-	
 
+	public String getCreadoPor() {
+		return creadoPor;
+	}
+
+	public void setCreadoPor(String creadoPor) {
+		this.creadoPor = creadoPor;
+	}
+
+	public LocalDateTime getCreadoEn() {
+		return creadoEn;
+	}
+
+	public void setCreadoEn(LocalDateTime creadoEn) {
+		this.creadoEn = creadoEn;
+	}
+
+	public String getActualizadoPor() {
+		return actualizadoPor;
+	}
+
+	public void setActualizadoPor(String actualizadoPor) {
+		this.actualizadoPor = actualizadoPor;
+	}
+
+	public LocalDateTime getActualizadoEn() {
+		return actualizadoEn;
+	}
+
+	public void setActualizadoEn(LocalDateTime actualizadoEn) {
+		this.actualizadoEn = actualizadoEn;
+	}
+	
+	@PrePersist
+    public void prePersist() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        creadoPor = auth.getName();  
+        creadoEn = LocalDateTime.now();
+    }
+	
+	@PreUpdate
+	public void preUpdate() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        actualizadoPor = auth.getName();  
+        actualizadoEn = LocalDateTime.now();
+	}
 	
 	
 }

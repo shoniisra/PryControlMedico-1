@@ -1,6 +1,7 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -36,10 +38,17 @@ public class Paciente extends Persona implements Serializable{
 	@NotEmpty
 	private String antecedentes;
 	
-	@Size(max = 25)
 	@Column(name = "CREADOPOR")
-	@NotEmpty
 	private String creadoPor;
+	
+	@Column(name = "CREADOEN")
+	private LocalDateTime creadoEn;
+	
+	@Column(name = "ACTUALIZADOPOR")
+	private String actualizadoPor;
+	
+	@Column(name = "ACTUALIZADOPEN")
+	private LocalDateTime actualizadoEn;
 	
 	@OneToMany(mappedBy="paciente", fetch=FetchType.LAZY)//LAZY, trae los valores de los atributos y no todo el listado 
 	private List<Receta> recetas;
@@ -92,11 +101,43 @@ public class Paciente extends Persona implements Serializable{
 	public void setCreadoPor(String creadoPor) {
 		this.creadoPor = creadoPor;
 	}
+
+	public LocalDateTime getCreadoEn() {
+		return creadoEn;
+	}
+
+	public void setCreadoEn(LocalDateTime creadoEn) {
+		this.creadoEn = creadoEn;
+	}
+
+	public String getActualizadoPor() {
+		return actualizadoPor;
+	}
+
+	public void setActualizadoPor(String actualizadoPor) {
+		this.actualizadoPor = actualizadoPor;
+	}
+
+	public LocalDateTime getActualizadoEn() {
+		return actualizadoEn;
+	}
+
+	public void setActualizadoEn(LocalDateTime actualizadoEn) {
+		this.actualizadoEn = actualizadoEn;
+	}
 	
 	@PrePersist
     public void prePersist() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        creadoPor = auth.getName();        
+        creadoPor = auth.getName();  
+        creadoEn = LocalDateTime.now();
     }
+	
+	@PreUpdate
+	public void preUpdate() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        actualizadoPor = auth.getName();  
+        actualizadoEn = LocalDateTime.now();
+	}
 	
 }

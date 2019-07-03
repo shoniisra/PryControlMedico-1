@@ -1,6 +1,7 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -51,13 +52,12 @@ public class Receta implements Serializable{
 	@JoinColumn(name="IDPACIENTE", referencedColumnName = "IDPERSONA")
 	@ManyToOne
 	private Paciente paciente;
-	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "IDRECETA")
+
+	@OneToMany(mappedBy = "receta", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<DetalleReceta> detalles;
 	
 	public Receta() {
-		
+		detalles = new ArrayList<DetalleReceta>();
 	}
 
 	public Receta(Integer idreceta) {

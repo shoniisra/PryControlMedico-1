@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: head"></head>
+<body>
+	<header th:replace="layout :: header"></header>
+	
+	<div class="container">
+		<br />
+		<div class="card col-md-12">
+			<div class="card-body">
+				<div class="form-group row">
+					<div class="content col-sm-1">
+						<i class="far fa-plus-square fa-2x"></i>
+					</div>
+					<h3 class="card-title col-sm-10" th:text="${title}"></h3>
+				</div>
+				<hr />
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th><i class="fas fa-tablets fa-2x"></i>&nbsp;Nombre</th>
+							<th><i class="fas fa-vial fa-2x"></i>&nbsp;Componente</th>
+							<th><i class="fas fa-dollar-sign fa-2x"></i>&nbsp;Precio</th>
+							<th><i class="fas fa-syringe fa-2x"></i>&nbsp;V&iacute;a de administraci&oacute;n</th>
+							<th><i class="fas fa-calendar-times fa-2x"></i>&nbsp;Fecha de caducidad</th>
+							<th><a class="btn btn-sm btn-success" th:href="@{/medicamento/create}" >
+								<i class="fas fa-plus"></i>&nbsp;Nuevo</a>
+							</th>
+						</tr>
+					</thead>
+					<tbody>						
+						<tr th:each="medicamento : ${lista}" >
+							<td th:text="${medicamento.nombreComercial}"></td>
+							<td th:text="${medicamento.componenteActivo}"></td>
+							<td th:text="${medicamento.precio}"></td>
+							<td th:text="${medicamento.viaAdministracion.nombre}"></td>
+							<td th:text="${medicamento.fechaCaducidad}" ></td>
+							<td>
+								<a class="btn btn-sm btn-warning" title="Editar" 
+									th:href="@{/medicamento/update/} + ${medicamento.idmedicamento}">
+									<i class="fas fa-edit"></i>
+								</a>
+								<a class="btn btn-sm btn-primary" title="Ver" 
+									th:href="@{/medicamento/retrieve/} + ${medicamento.idmedicamento}">
+									<i class="fas fa-eye"></i>
+								</a>
+							</td>							
+						</tr>				
+					
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
+				
+	<footer th:replace="layout :: footer"></footer>
+</body>
+</html>

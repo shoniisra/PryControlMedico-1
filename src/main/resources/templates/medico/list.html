@@ -19,15 +19,36 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th><i class="fas fa-user-md fa-2x"></i>&nbsp;Campo 1</th>
-							<th><i class="fas far fa-address-card fa-2x"></i>&nbsp;Campo 2</th>
-							<th><i class="fas fa-phone fa-2x"></i>&nbsp;Campo 3</th>
-							<th><i class="fas fa-at fa-2x"></i>&nbsp;Campo 4</th>
-							<th><i class="fas fa-award fa-2x"></i>&nbsp;Campo 5</th>
-							<th><a class="btn btn-sm btn-success"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
+							<th><i class="fas fa-id-badge fa-2x"></i>&nbsp;Cedula</th>
+							<th><i class="fas fa-user-md fa-2x"></i>&nbsp;Nombres</th>
+							<th><i class="fas fa-user-nurse fa-2x"></i>&nbsp;Apellidos</th>
+							<th><i class="fas fa-user-tag fa-2x"></i>&nbsp;Especialidad</th>
+							<th><i class="fas fa-phone fa-2x"></i>&nbsp;Telefono</th>	
+												
+							<th>
+								<a class="btn btn-sm btn-success" th:href="@{/medico/create/}" >
+									<i class="fas fa-plus"></i>&nbsp;Nuevo
+								</a>
+							</th>
 						</tr>
 					</thead>
-					<tbody>						
+					<tbody>	
+						<tr th:each="medico : ${medicos}">
+							<td th:text="${medico.cedula}"></td>
+							<td th:text="${medico.nombre}"></td>
+							<td th:text="${medico.apellido}"></td>
+							<td th:text="${medico.especialidad}"></td>
+							<td th:text="${medico.telefono}"></td>
+							
+							<td>
+								<a class="btn btn-sm btn-warning" title="Editar" th:href="@{/medico/update/} + ${medico.idpersona}">
+									<i class="fas fa-edit"></i>
+								</a>
+								<a class="btn btn-sm btn-primary" title="Ver" th:href="@{/medico/retrieve/} + ${medico.idpersona}">
+									<i class="fas fa-eye"></i>
+								</a>
+							</td>
+						</tr>						
 					</tbody>
 				</table>
 			</div>

@@ -2,77 +2,90 @@
 <html xmlns:th="http://www.thymeleaf.org" 
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout :: head"></head>
-<body>
-<div id="wrapper">
-	<header th:replace="layout :: header"></header>
+<body id="page-top">
+	<div id="wrapper">
+	<!-- Header -->
+	<ul th:replace="layout :: header"></ul>
+	<!-- End of Header -->
+
 	<div id="content-wrapper" class="d-flex flex-column">
-		<!-- Begin Page Content -->
-		<div class="container">
+		<div id="content">
+			<!-- Topbar -->
+			<nav th:replace="layout :: topbar"> </nav>
+			<!-- End of Topbar -->
+
 			<div class="container-fluid">
-				<div th:replace="layout :: topbar"> </div>
-				<br />
-		<div class="card col-md-12">
-			<div class="card-body">
-				<div class="form-group row">
-					<div class="content col-sm-1">
-						<i class="far fa-plus-square fa-2x"></i>
+				<div th:replace="layout :: alert"> </div>
+
+				<!-- Contenido sin heredar -->
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<div class="row align-items-center">
+							<i class="pl-3 far fa-plus-square fa-2x"></i>
+							<h6 class="pl-3 m-0 font-weight-bold text-primary" th:text="${title}"></h6>
+						</div>
 					</div>
-					<h3 class="card-title col-sm-6" th:text="${title}"></h3>
-					<div class="col-sm-4"></div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table id="tablaPacientes" class="table table-bordered" width="100%" cellspacing="0" >
+								<thead>
+								<tr>
+									<th><i class="fas far fa-address-card"></i>&nbsp;Nombre</th>
+									<th>&nbsp;Apellido</th>
+									<th>&nbsp;Cedula</th>
+									<th>&nbsp;Alergias</th>
+									<th>&nbsp;Sangre</th>
+									<th>&nbsp;Recetas</th>
+									<th sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-sm btn-success"
+																				 th:href="@{/paciente/create}"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr th:each=" paciente : ${lista}" >
+									<td th:text="${paciente.nombre}"></td>
+									<td th:text="${paciente.apellido}"></td>
+									<td th:text="${paciente.cedula}"></td>
+									<td th:text="${paciente.alergias}" ></td>
+									<td th:text="${paciente.tipoSangre}" ></td>
+									<td >
+										<a class="btn btn-warning"
+										   th:href="@{/paciente/retrieve/} + ${paciente.idpersona}">
+											<i class="fas fa-minus-circle"></i>&nbsp;Ver Recetas</a>
+									</td>
+
+									<td >
+										<a sec:authorize="hasRole('ROLE_ADMIN')"
+										   class="btn btn-sm btn-primary" title="Editar"
+										   th:href="@{/paciente/update/} + ${paciente.idpersona}">
+											<i class="fas fa-edit"></i>
+										</a>
+										<a class="btn btn-sm btn-success" title="Ver"
+										   th:href="@{/paciente/retrieve/} + ${paciente.idpersona}">
+											<i class="fas fa-eye"></i>
+										</a>
+										<a sec:authorize="hasRole('ROLE_ADMIN')"
+										   class="btn btn-sm btn-danger" title="Eliminar"
+										   th:href="@{/paciente/delete/} + ${paciente.idpersona}">
+											<i class="fas fa-trash-alt"></i>
+										</a>
+									</td>
+								</tr>
+
+								</tbody>
+							</table>
+
+						</div>
+					</div>
 				</div>
-				<hr />
-				<table class="table table-hover">
-					<thead>
-					<tr>
-						<th><i class="fas far fa-address-card"></i>&nbsp;Nombre</th>
-						<th>&nbsp;Apellido</th>
-						<th>&nbsp;Cedula</th>
-						<th>&nbsp;Alergias</th>
-						<th>&nbsp;Sangre</th>
-						<th>&nbsp;Recetas</th>
-						<th sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-sm btn-success"							
-							th:href="@{/paciente/create}"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
-					</tr>
-					</thead>
-					<tbody>
-					<tr th:each=" paciente : ${lista}" >
-						<td th:text="${paciente.nombre}"></td>
-						<td th:text="${paciente.apellido}"></td>
-						<td th:text="${paciente.cedula}"></td>
-						<td th:text="${paciente.alergias}" ></td>
-						<td th:text="${paciente.tipoSangre}" ></td>
-						<td >
-							<a class="btn btn-warning"
-							   th:href="@{/paciente/retrieve/} + ${paciente.idpersona}">
-								<i class="fas fa-minus-circle"></i>&nbsp;Ver Recetas</a>
-						</td>
 
-						<td >
-							<a sec:authorize="hasRole('ROLE_ADMIN')"
-								class="btn btn-sm btn-primary" title="Editar"
-							   th:href="@{/paciente/update/} + ${paciente.idpersona}">
-								<i class="fas fa-edit"></i>
-							</a>
-							<a class="btn btn-sm btn-success" title="Ver"
-							   th:href="@{/paciente/retrieve/} + ${paciente.idpersona}">
-								<i class="fas fa-eye"></i>
-							</a>
-							<a sec:authorize="hasRole('ROLE_ADMIN')"
-								class="btn btn-sm btn-danger" title="Eliminar"
-							   th:href="@{/paciente/delete/} + ${paciente.idpersona}">
-								<i class="fas fa-trash-alt"></i>
-							</a>
-						</td>
-					</tr>
-
-					</tbody>
-				</table>
 			</div>
 		</div>
-			</div>
-			<footer th:replace="layout :: footer"></footer>
-		</div>
+		<footer th:replace="layout :: footer"></footer>
 	</div>
 </div>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
 </body>
 </html>

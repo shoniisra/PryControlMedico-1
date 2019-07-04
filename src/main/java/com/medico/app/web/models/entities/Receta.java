@@ -1,6 +1,8 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -36,10 +38,9 @@ public class Receta implements Serializable{
 	private Integer idreceta;
 	
 	@Column(name = "FECHA")
-	@Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Past
-	private Calendar fecha;
+	private LocalDate fecha;
 
 	@Column(name = "ACTIVO")
 	private Boolean activo;
@@ -73,11 +74,11 @@ public class Receta implements Serializable{
 		this.idreceta = idreceta;
 	}
 
-	public Calendar getFecha() {
+	public LocalDate getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Calendar fecha) {
+	public void setFecha(LocalDate fecha) {
 		this.fecha = fecha;
 	}
 

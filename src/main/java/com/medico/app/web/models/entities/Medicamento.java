@@ -2,6 +2,9 @@ package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -46,22 +49,16 @@ public class Medicamento implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Calendar fechaCaducidad;
-	
+
+	@Size(max = 25)
 	@Column(name = "CREADOPOR")
 	private String creadoPor;
-	
+
 	@Column(name = "CREADOEN")
 	private LocalDateTime creadoEn;
-	
-	@Column(name = "ACTUALIZADOPOR")
-	private String actualizadoPor;
-	
-	@Column(name = "ACTUALIZADOPEN")
-	private LocalDateTime actualizadoEn;
-		
-	@JoinColumn(name="IDVIAADMINISTRACION", referencedColumnName = "IDVIAADMINISTRACION")
-	@ManyToOne	
 
+	@JoinColumn(name = "IDVIAADMINISTRACION", referencedColumnName = "IDVIAADMINISTRACION")
+	@ManyToOne
 	private ViaAdministracion viaAdministracion;
 
 	public Medicamento() {
@@ -149,34 +146,11 @@ public class Medicamento implements Serializable {
 	public void setCreadoEn(LocalDateTime creadoEn) {
 		this.creadoEn = creadoEn;
 	}
-	public String getActualizadoPor() {
-		return actualizadoPor;
-	}
 
-	public void setActualizadoPor(String actualizadoPor) {
-		this.actualizadoPor = actualizadoPor;
-	}
-
-	public LocalDateTime getActualizadoEn() {
-		return actualizadoEn;
-	}
-
-	public void setActualizadoEn(LocalDateTime actualizadoEn) {
-		this.actualizadoEn = actualizadoEn;
-	}
-	
 	@PrePersist
-    public void prePersist() {
+	public void prePersist() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        creadoPor = auth.getName();  
-        creadoEn = LocalDateTime.now();
-    }
-	
-	@PreUpdate
-	public void preUpdate() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        actualizadoPor = auth.getName();  
-        actualizadoEn = LocalDateTime.now();
+		creadoPor = auth.getName();
+		creadoEn = LocalDateTime.now();
 	}
-	
 }

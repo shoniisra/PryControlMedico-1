@@ -2,10 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head"></head>
 <body>
+<div id="wrapper">
 	<header th:replace="layout :: header"></header>
-	
-	<div class="container">
-		<br />
+	<div id="content-wrapper" class="d-flex flex-column">
+		<!-- Begin Page Content -->
+		<div class="container">
+			<div class="container-fluid">
+				<br />
 		<div class="card col-md-12">
 			<div class="card-body">
 				<div class="form-group row">
@@ -34,7 +37,7 @@
 							<td th:text="${medicamento.componenteActivo}"></td>
 							<td th:text="${medicamento.precio}"></td>
 							<td th:text="${medicamento.viaAdministracion.nombre}"></td>
-							<td th:text="${medicamento.fechaCaducidadFormato}" ></td>
+							<td th:text="${medicamento.fechaCaducidad}" ></td>
 							<td>
 								<div class="row">
 									<a class="btn btn-sm btn-warning" title="Editar"
@@ -58,9 +61,10 @@
 				</table>
 			</div>
 		</div>
+			</div>
+			<footer th:replace="layout :: footer"></footer>
+		</div>
 	</div>
-	
-				
-	<footer th:replace="layout :: footer"></footer>
+</div>
 </body>
 </html>

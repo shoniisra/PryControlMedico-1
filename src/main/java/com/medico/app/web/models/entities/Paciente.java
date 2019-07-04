@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -33,17 +32,12 @@ public class Paciente extends Persona implements Serializable{
 	@NotEmpty
 	private String antecedentes;
 	
+	@Size(max = 25)
 	@Column(name = "CREADOPOR")
 	private String creadoPor;
-	
-	@Column(name = "CREADOEN")
-	private LocalDateTime creadoEn;
-	
-	@Column(name = "ACTUALIZADOPOR")
-	private String actualizadoPor;
-	
-	@Column(name = "ACTUALIZADOPEN")
-	private LocalDateTime actualizadoEn;
+
+    @Column(name = "CREADOEN")
+    private LocalDateTime creadoEn;
 
 	@OneToMany(mappedBy="paciente", fetch=FetchType.LAZY)//LAZY, trae los valores de los atributos y no todo el listado 
 	private List<Receta> recetas;
@@ -97,43 +91,19 @@ public class Paciente extends Persona implements Serializable{
 		this.creadoPor = creadoPor;
 	}
 
-	public LocalDateTime getCreadoEn() {
-		return creadoEn;
-	}
+    public LocalDateTime getCreadoEn() {
+        return creadoEn;
+    }
 
-	public void setCreadoEn(LocalDateTime creadoEn) {
-		this.creadoEn = creadoEn;
-	}
+    public void setCreadoEn(LocalDateTime creadoEn) {
+        this.creadoEn = creadoEn;
+    }
 
-	public String getActualizadoPor() {
-		return actualizadoPor;
-	}
-
-	public void setActualizadoPor(String actualizadoPor) {
-		this.actualizadoPor = actualizadoPor;
-	}
-
-	public LocalDateTime getActualizadoEn() {
-		return actualizadoEn;
-	}
-
-	public void setActualizadoEn(LocalDateTime actualizadoEn) {
-		this.actualizadoEn = actualizadoEn;
-	}
-	
-	@PrePersist
+    @PrePersist
     public void prePersist() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        creadoPor = auth.getName();  
-
+        creadoPor = auth.getName();
         creadoEn = LocalDateTime.now();
     }
-	
-	@PreUpdate
-	public void preUpdate() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        actualizadoPor = auth.getName();  
-        actualizadoEn = LocalDateTime.now();
-	}
 	
 }

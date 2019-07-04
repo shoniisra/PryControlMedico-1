@@ -1,7 +1,5 @@
 package com.medico.app.web.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -86,8 +84,8 @@ public class DetalleReceta implements Serializable {
 	@ManyToOne
 	private Medicamento medicamento;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="IDRECETA")//claves foraneas
+	@JoinColumn(name="IDRECETA", referencedColumnName = "IDRECETA")//claves foraneas
+	@ManyToOne
 	private Receta receta;
 
 	@Transient

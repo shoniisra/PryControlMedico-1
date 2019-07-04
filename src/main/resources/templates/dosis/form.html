@@ -3,9 +3,13 @@
 <head th:replace="layout :: head"></head>
 <body>
 <header th:replace="layout :: header"></header>
-
-<div class="container">
-    <br />
+<div id="wrapper">
+    <header th:replace="layout :: header"></header>
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Begin Page Content -->
+        <div class="container">
+            <div class="container-fluid">
+                <br />
     <div class="card col-md-12">
         <div class="card-body">
             <div class="form-group row">
@@ -21,10 +25,10 @@
                     th:text="${receta_guardada.fecha}"></h5>
             </div>
         </div>
+    </div></div>
+            <footer th:replace="layout :: footer"></footer>
+        </div>
     </div>
 </div>
-
-
-<footer th:replace="layout :: footer"></footer>
 </body>
 </html>

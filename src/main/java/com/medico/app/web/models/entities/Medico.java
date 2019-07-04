@@ -7,13 +7,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 @Entity
 @Table(name="MEDICO")
@@ -28,19 +24,15 @@ public class Medico extends Persona implements Serializable{
 
 	@Size(max = 255)
 	@Column(name = "ESPECIALIDAD")
-	private String especialidad;	
+	private String especialidad;
+
+	@Size(max = 25)
 	@Column(name = "CREADOPOR")
 	private String creadoPor;
-	
+
 	@Column(name = "CREADOEN")
 	private LocalDateTime creadoEn;
-	
-	@Column(name = "ACTUALIZADOPOR")
-	private String actualizadoPor;
-	
-	@Column(name = "ACTUALIZADOPEN")
-	private LocalDateTime actualizadoEn;
-	
+
 	@OneToMany(mappedBy="medico", fetch=FetchType.LAZY)//LAZY, trae los valores de los atributos y no todo el listado 
 	private List<Receta> recetas;
 	
@@ -86,44 +78,10 @@ public class Medico extends Persona implements Serializable{
 		this.creadoEn = creadoEn;
 	}
 
-	public String getActualizadoPor() {
-		return actualizadoPor;
-	}
-
-	public void setActualizadoPor(String actualizadoPor) {
-		this.actualizadoPor = actualizadoPor;
-	}
-
-	public LocalDateTime getActualizadoEn() {
-		return actualizadoEn;
-	}
-
-	public void setActualizadoEn(LocalDateTime actualizadoEn) {
-		this.actualizadoEn = actualizadoEn;
-	}
-
-	public List<Receta> getRecetas() {
-		return recetas;
-	}
-
-	public void setRecetas(List<Receta> recetas) {
-		this.recetas = recetas;
-	}
-	
 	@PrePersist
-    public void prePersist() {
+	public void prePersist() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        creadoPor = auth.getName();  
-        creadoEn = LocalDateTime.now();
-    }
-	
-	@PreUpdate
-	public void preUpdate() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        actualizadoPor = auth.getName();  
-        actualizadoEn = LocalDateTime.now();
+		creadoPor = auth.getName();
+		creadoEn = LocalDateTime.now();
 	}
-	
-	
-
 }

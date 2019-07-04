@@ -2,30 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head"></head>
 <body>
-
-<!--<div class="container-fluid">
-    <br/>
-    <div class="content row">
-        <div class="col-md-6">
-            <div class="jumbotron">
-                <h1 class="display-4" th:text="${title}"></h1>
-                <p class="lead" th:text="${framework}"></p>
-                <hr class="my-4">
-                <p th:text="${description}"></p>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <img class="card-img-top" th:src="@{/images/spring-boot.png}" />
-        </div>
-    </div>
-</div>
--->
 <div id="wrapper">
     <header th:replace="layout :: header"></header>
     <div id="content-wrapper" class="d-flex flex-column">
         <!-- Begin Page Content -->
         <div class="container">
             <div class="container-fluid">
+                <div th:replace="layout :: topbar"> </div>
+                <br>
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">

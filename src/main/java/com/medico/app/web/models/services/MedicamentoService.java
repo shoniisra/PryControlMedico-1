@@ -42,7 +42,7 @@ public class MedicamentoService implements IMedicamentoService {
 	@Override
 	@Transactional(readOnly=true)
 	public List<Medicamento> findByComponenteActivoLike(String criteria) {		
-		return dao.findByComponenteActivoLike(criteria);
+		return dao.findByComponenteActivo(criteria);
 	}
 
 	@Override

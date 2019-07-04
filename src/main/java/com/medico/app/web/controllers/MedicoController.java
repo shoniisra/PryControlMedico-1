@@ -2,8 +2,10 @@ package com.medico.app.web.controllers;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.medico.app.web.models.entities.Medico;
 import com.medico.app.web.models.entities.Receta;
 import com.medico.app.web.models.services.IMedicoService;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@Secured("ROLE_ADMIN")
 @Controller
 @RequestMapping(value="/medico")
 public class MedicoController {
@@ -23,6 +28,7 @@ public class MedicoController {
 	@GetMapping(value="/create")
 	public String create(Model model) {
 		Medico medico = new Medico();
+		model.addAttribute("title","Registro de nuevo medico");
 		model.addAttribute("medico",medico);
 		return "medico/form";
 	}
@@ -39,15 +45,17 @@ public class MedicoController {
 	public String update(@PathVariable(value="id")Integer id,
 			Model model) {
 		Medico medico = service.findById(id);
+		model.addAttribute("title","Actualización de medico: " + medico.getNombre());
 		model.addAttribute("medico",medico);
 		return "medico/form";
 	}
 	
 	@GetMapping(value="/delete/{id}")
 	public String delete(@PathVariable(value="id")Integer id, 
-			Model model) {
+			Model model, RedirectAttributes message) {
 		try {
 			service.delete(id);
+			message.addFlashAttribute("success", "Medico eliminado correctamente");
 		}
 		catch(Exception ex){
 			model.addAttribute("error", ex.toString());
@@ -58,7 +66,8 @@ public class MedicoController {
 	@GetMapping(value="/list")
 	public String list(Model model) {
 		List<Medico> medicos = service.findAll();
-		model.addAttribute("medicos", medicos);
+		model.addAttribute("lista", medicos);
+		model.addAttribute("title","Listado de medicos");
 		return "medico/list";		
 	}
 	

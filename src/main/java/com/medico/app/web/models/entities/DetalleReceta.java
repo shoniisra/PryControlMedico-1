@@ -1,6 +1,8 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class DetalleReceta implements Serializable {
 	private String observacion;//justificacion de por qué se interrumpe el tratamiento
 
 	@Column(name = "NUMEROTOMAS")
-	@Min(value = 1)
+	@Min(value = 0)
 	private Integer numeroTomas;
 	//Cantidad de veces que el medicamento va 
 	//a ser suministrado al paciente
@@ -65,26 +67,36 @@ public class DetalleReceta implements Serializable {
 	//Complemento para el cálculo de cada dosis, ej: horas, días, semanas
 	//En el front-end es un 'combobox' con un valor enumerado
 	
+	@Column(name = "TIPODOSIS")
+	private Integer tipoDosis;
+	
 	@Size(max = 255)
 	@Column(name = "POSOLOGIA")
 	private String posologia;
 	//Cantidad del medicamento que se va a suministrar al paciente en cada dosis
 	//ej: 10ml , 1 pastilla, 1 aplicación, 1 inyección
-		
-	@Column(name = "FECHAINICIO")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar fechaInicio;
+
+	@Column(name = "FECHAINICIO", columnDefinition = "TIMESTAMP")
+	private LocalDateTime fechaInicio;
 	//Fecha y hora en que se suministra al paciente la 1ra dosis
 	
 	@JoinColumn(name="IDMEDICAMENTO", referencedColumnName = "IDMEDICAMENTO")//claves foraneas
 	@ManyToOne
 	private Medicamento medicamento;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="IDRECETA")//claves foraneas
+	private Receta receta;
+
 	@Transient
 	private Integer medicamentoId;
 	
 	@Transient
 	private String descripcionTipoFrecuencia;
+	
+	@Transient
+	private String descripcionTipoDosis;
+
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL) //creo la lista de dosis en detalles receta
 	@JoinColumn(name = "IDDETALLERECETA")
@@ -188,15 +200,13 @@ public class DetalleReceta implements Serializable {
 	}
 
 
-	public Calendar getFechaInicio() {
+	public LocalDateTime getFechaInicio() {
 		return fechaInicio;
 	}
 
-
-	public void setFechaInicio(Calendar fechaInicio) {
+	public void setFechaInicio(LocalDateTime fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
-
 
 	public String getPosologia() {
 		return posologia;
@@ -215,6 +225,22 @@ public class DetalleReceta implements Serializable {
 		this.medicamentoId = medicamentoId;
 	}
 
+	public Receta getReceta() {
+		return receta;
+	}
+
+	public void setReceta(Receta receta) {
+		this.receta = receta;
+	}
+
+	public Integer getTipoDosis() {
+		return tipoDosis;
+	}
+
+	public void setTipoDosis(Integer tipoDosis) {
+		this.tipoDosis = tipoDosis;
+	}
+
 	public String getDescripcionTipoFrecuencia() {
 		switch(this.tipoFrecuencia) {
 			case 0:
@@ -231,9 +257,14 @@ public class DetalleReceta implements Serializable {
 		return "";
 	}
 
-
 	
-	
-	
-	
+	public String getDescripcionTipoDosis() {
+		switch(this.tipoDosis) {
+			case 0:
+				return "Temporal";
+			case 1:
+				return "Indefinido";		
+		}
+		return "";
+	}
 }

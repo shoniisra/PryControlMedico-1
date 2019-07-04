@@ -2,9 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head"></head>
 <body>
+<div id="wrapper">
 	<header th:replace="layout :: header"></header>
-	<div class="container">
-		<br />
+	<div id="content-wrapper" class="d-flex flex-column">
+		<!-- Begin Page Content -->
+		<div class="container">
+			<div class="container-fluid">
+				<div th:replace="layout :: topbar"> </div>
+				<br />
+
 		<div class="card col-md-12">
 			<div class="card-body">
 				<div class="form-group row">
@@ -96,7 +102,10 @@
 				</div>
 			</div>
 		</div>
+			</div>
+			<footer th:replace="layout :: footer"></footer>
+		</div>
 	</div>
-	<footer th:replace="layout :: footer"></footer>
+</div>
 </body>
 </html>

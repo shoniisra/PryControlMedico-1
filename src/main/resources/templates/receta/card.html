@@ -2,7 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head"></head>
 <body>
+<div id="wrapper">
 	<header th:replace="layout :: header"></header>
+	<div id="content-wrapper" class="d-flex flex-column">
+		<!-- Begin Page Content -->
+		<div class="container">
+			<div class="container-fluid">
+				<div th:replace="layout :: topbar"> </div>
+				<br />
 
 	<div class="container">
 		<div class="card-body">
@@ -47,7 +54,7 @@
 								class="h5 col-form-label">Fecha:</label>
 						</div>
 						<div class="col-sm-8">
-							<h5 class="card-text" th:text="${receta.fecha.time}"></h5>
+							<h5 class="card-text" th:text="${receta.fecha}"></h5>
 						</div>
 					</div>
 					<hr>
@@ -133,8 +140,12 @@
 		</div>
 
 	</div>
-	
-				
-	<footer th:replace="layout :: footer"></footer>
+
+
+			</div>
+			<footer th:replace="layout :: footer"></footer>
+		</div>
+	</div>
+</div>
 </body>
 </html>

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.validation.Validator;
 
 import com.medico.app.web.models.entities.*;
 import com.medico.app.web.models.services.*;

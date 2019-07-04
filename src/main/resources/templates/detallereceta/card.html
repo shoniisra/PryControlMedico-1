@@ -2,9 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head"></head>
 <body>
+<div id="wrapper">
 	<header th:replace="layout :: header"></header>
-
-	<div class="container">
+	<div id="content-wrapper" class="d-flex flex-column">
+		<!-- Begin Page Content -->
+		<div class="container">
+			<div class="container-fluid">
+				<div th:replace="layout :: topbar"> </div>
+				<br />
 		<div class="card-body">
 			<div class="form-group row">
 				<div class="content col-sm-1">
@@ -84,7 +89,7 @@
 											class="h5 col-form-label">Fecha de Inicio:</label>
 									</div>
 									<div class="col-sm-8">
-										<h5 class="card-text" th:text="${detallereceta.fechaInicio}"></h5>
+										<h5 class="card-text" th:text="${#temporals.format(detallereceta.fechaInicio, 'dd-MM-yyyy HH:mm')}"></h5>
 									</div>
 								</div>
 								<hr>
@@ -96,10 +101,6 @@
 					</div>
 				</div>
 			</div>
-
-
-
-
 			<div class="row">
 				<table class="table table-sm">
 					<thead>
@@ -148,10 +149,10 @@
 				</div>
 			</div>
 		</div>
-
+		</div>
+		<footer th:replace="layout :: footer"></footer>
 	</div>
-	
-				
-	<footer th:replace="layout :: footer"></footer>
+</div>
+</div>
 </body>
 </html>

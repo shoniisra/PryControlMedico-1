@@ -2,10 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head"></head>
 <body>
+<div id="wrapper">
 	<header th:replace="layout :: header"></header>
-	
-	<div class="container">
-		<br />
+	<div id="content-wrapper" class="d-flex flex-column">
+		<!-- Begin Page Content -->
+		<div class="container">
+			<div class="container-fluid">
+				<div th:replace="layout :: topbar"> </div>
+				<br />
 		<div class="card col-md-12">
 			<div class="card-body">
 				<div class="form-group row">
@@ -36,7 +40,7 @@
 						<td th:text="${receta.paciente.nombre}"></td>
 						<td th:if="${receta.medico == null}">Sin Medico</td>
 						<td th:unless="${receta.medico == null}" th:text="${receta.medico.nombre}"></td>
-						<td th:text="${receta.fecha.time}" ></td>
+						<td th:text="${receta.fecha}" ></td>
 						<td th:text="${receta.activo}" ></td>
 						<td >
 							<a class="btn btn-sm btn-warning" title="Ver Detalle Receta"
@@ -60,9 +64,11 @@
 				</table>
 			</div>
 		</div>
+			</div>
+			<footer th:replace="layout :: footer"></footer>
+		</div>
 	</div>
-	
-				
-	<footer th:replace="layout :: footer"></footer>
+</div>
+
 </body>
 </html>

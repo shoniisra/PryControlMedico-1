@@ -211,10 +211,6 @@
 						<h6 class="collapse-header">Recetas:</h6>
 						<a class="collapse-item" th:href="@{/receta/list}">Listar</a>
 						<a class="collapse-item" th:href="@{/receta/create}">Crear</a>
-						<div class="collapse-divider"></div>
-						<h6 class="collapse-header">Otras Paginas:</h6>
-						<a class="collapse-item" th:href="@{/dosis/list}">Dosis</a>
-						<a class="collapse-item" th:href="@{/detallereceta/list}">Detalle Receta</a>
 					</div>
 				</div>
 			</li>
@@ -466,29 +462,24 @@
 			</div>
 			<hr />
 			<!-- Javascript -->
-			<script th:src="@{/js/layout.js}"></script>
 			<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
 			<script th:src="@{/js/jquery-ui.min.js}"></script>
 			<script th:src="@{/js/popper.js}"></script>
 			<script th:src="@{/js/bootstrap.min.js}"></script>
-
-			<!-- Bootstrap core JavaScript-->
-			<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-			<script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+			<script th:src="@{/js/layout.js}"></script>
 
 			<!-- Core plugin JavaScript-->
-			<script th:src="@{vendor/jquery-easing/jquery.easing.min.js}"></script>
+			<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
 
 			<!-- Custom scripts for all pages-->
-			<script th:src="@{js/sb-admin-2.min.js}"></script>
+			<script th:src="@{/js/sb-admin-2.min.js}"></script>
 
 			<!-- Page level plugins -->
-			<script th:src="@{vendor/chart.js/Chart.min.js}"></script>
+			<script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
 
 			<!-- Page level custom scripts -->
-			<script th:src="@{js/demo/chart-area-demo.js}"></script>
-			<script th:src="@{js/demo/chart-pie-demo.js}"></script>
-
+			<script th:src="@{/js/demo/chart-area-demo.js}"></script>
+			<script th:src="@{/js/demo/chart-pie-demo.js}"></script>
 			<!-- Copyright -->
 
 		</footer>

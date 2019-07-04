@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.validation.Validator;
 
 import com.medico.app.web.models.entities.*;
 import com.medico.app.web.models.services.*;
@@ -75,9 +74,6 @@ public class RecetaController {
 				service.save(receta);
 				session.setComplete();
 			}else{ // Si creo una receta creo sus dosis
-				for (DetalleReceta detalleReceta: receta.getDetalles()){
-					detalleReceta.setReceta(receta);
-				}
 				service.save(receta);
 				session.setComplete();
 				message.addFlashAttribute("receta_guardada", receta);

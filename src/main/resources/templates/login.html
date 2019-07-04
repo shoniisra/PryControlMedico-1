@@ -2,10 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head"></head>
 <body>
-	<header th:replace="layout :: header"></header>
 
-	<div class="container">
-		<br />
+	<div id="wrapper">
+	<header th:replace="layout :: header"></header>
+	<div id="content-wrapper" class="d-flex flex-column">
+		<!-- Begin Page Content -->
+		<div class="container">
+			<div class="container-fluid">
+				<br />
+
+
 		<div class="content row">
 			<div class="col-md-6">
 				<div class="card border-default text-center">
@@ -37,9 +43,15 @@
 				<img class="card-img-top" th:src="@{/images/spring-boot.png}" />
 			</div>
 		</div>
+
+
+			</div>
+			<footer th:replace="layout :: footer"></footer>
+		</div>
 	</div>
+</div>
 
 
-	<footer th:replace="layout :: footer"></footer>
+
 </body>
 </html>

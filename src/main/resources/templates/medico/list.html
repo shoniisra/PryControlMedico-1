@@ -8,6 +8,7 @@
 		<!-- Begin Page Content -->
 		<div class="container">
 			<div class="container-fluid">
+				<div th:replace="layout :: topbar"> </div>
 				<br />
 <div class="container">
 	<br />
@@ -38,7 +39,7 @@
 				</tr>
 				</thead>
 				<tbody>
-				<tr th:each="medico : ${medicos}">
+				<tr th:each="medico : ${lista}">
 					<td th:text="${medico.cedula}"></td>
 					<td th:text="${medico.nombre}"></td>
 					<td th:text="${medico.apellido}"></td>

@@ -20,104 +20,8 @@
 </head>
 <body id="page-top">
 
-<!--
-	<header th:fragment="header" class="container">
-
-		<br />
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-			<a class="navbar-brand" th:href="@{/}">Inicio</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/paciente/list}">Pacientes</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/receta/list}">Recetas</a></li>
-					<li class="nav-item"><a class="nav-link"
-						th:href="@{/medicamento/list}">Medicamentos</a></li>
-				</ul>
-				<ul class="navbar-nav navbar-right">
-					<li sec:authorize="!isAuthenticated()"><a
-						class="btn btn-primary" th:href="@{/login}">Iniciar
-							sesi&oacute;n</a></li>
-					<li sec:authorize="isAuthenticated()" class="dropdown show"><a
-						class="btn btn-primary dropdown-toggle" href="#" role="button"
-						id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> <span sec:authentication="name"></span>
-					</a>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-							<form id="logoutForm" th:action="@{/logout}" method="post">
-								<button class="dropdown-item" id="btnSalir" type="submit">Salir</button>
-							</form>
-						</div></li>
-				</ul>
-			</div>
-		</nav>
-
-		<div id="info-alert" class="alert alert-info" role="alert"
-			th:if="${info != null}">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<span th:text=${info}></span>
-		</div>
-
-
-		<div id="success-alert" class="alert alert-success" role="alert"
-			th:if="${success != null}">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<span th:text=${success}></span>
-		</div>
-
-		<div id="error-alert" class="alert alert-danger" role="alert"
-			th:if="${error != null}">
-			<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			<span th:text=${error}></span>
-		</div>
-
-	</header>
--->
-	<!--
-
-	<footer th:fragment="footer" class="container">
-		<br />
-		<hr />
-		<div class="row">
-			<div class="col-md-1">
-				<i class="fas fa-university fa-5x"></i>
-			</div>
-			<div class="col-md-5">
-				<h5 class="card-title">Universidad de las Fuerzas Armadas</h5>
-				<div class="card-text">
-					<strong>Carrera de ingeniería de Software</strong><br /> <small>Belisario
-						Quevedo - Latacunga</small>
-				</div>
-			</div>
-			<div class="col-md-4">
-
-				<small sec:authorize="isAuthenticated()">
-					Usuario logeado: <span sec:authentication="name"></span>
-					<br/>
-					Roles: <span sec:authentication="principal.authorities"></span>
-				</small>
-			</div>
-			<div class="col-md-1 center-block">
-				<p>ISOW&copy;2019</p>
-			</div>
-		</div>
-		<hr />
-
-
-	</footer>
--->
-
-	<div id="wrapper">
-
-
-		</div>
-		<!-- Sidebar -->
-		<ul th:fragment="header" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+	<!-- Header -->
+	<ul th:fragment="header" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
 			<!-- Sidebar - Brand -->
 			<a class="sidebar-brand d-flex align-items-center justify-content-center" th:href="@{/}">
@@ -211,10 +115,6 @@
 						<h6 class="collapse-header">Recetas:</h6>
 						<a class="collapse-item" th:href="@{/receta/list}">Listar</a>
 						<a class="collapse-item" th:href="@{/receta/create}">Crear</a>
-						<div class="collapse-divider"></div>
-						<h6 class="collapse-header">Otras Paginas:</h6>
-						<a class="collapse-item" th:href="@{/dosis/list}">Dosis</a>
-						<a class="collapse-item" th:href="@{/detallereceta/list}">Detalle Receta</a>
 					</div>
 				</div>
 			</li>
@@ -228,11 +128,12 @@
 			</div>
 
 		</ul>
-		<!-- End of Sidebar -->
+	<!-- End of Header -->
 
-		<div id="content1">
-			<!-- Topbar -->
-			<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+	<div id="content1">
+
+	<!-- Topbar -->
+	<nav th:fragment="topbar" class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
 				<!-- Sidebar Toggle (Topbar) -->
 				<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -382,9 +283,12 @@
 					<div class="topbar-divider d-none d-sm-block"></div>
 
 					<!-- Nav Item - User Information -->
-					<li class="nav-item dropdown no-arrow">
+					<li sec:authorize="!isAuthenticated()"><a
+							class="nav-item dropdown no-arrow" th:href="@{/login}">Iniciar
+						sesi&oacute;n</a></li>
+					<li sec:authorize="isAuthenticated()" class="nav-item dropdown no-arrow">
 						<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+							<span class="mr-2 d-none d-lg-inline text-gray-600 small" sec:authentication="name" />
 							<img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
 						</a>
 						<!-- Dropdown - User Information -->
@@ -402,19 +306,31 @@
 								Activity Log
 							</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-								<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-								Logout
-							</a>
+							<div class="dropdown-item">
+								<form id="logoutForm" th:action="@{/logout}" method="post">
+									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400" ></i>
+									<button class="dropdown-item" id="btnSalir" type="submit">Salir</button>
+								</form>
+							</div>
+
 						</div>
 					</li>
+
+
+
+
+
+
+
+
 
 				</ul>
 
 			</nav>
-			<!-- End of Topbar -->
+	<!-- End of Topbar -->
 
 			<div id="content">
+				
 				<div th:fragment="alert">
 					<div id="success-alert" class="alert alert-success" role="alert"
 						 th:if="${success != null}">
@@ -466,29 +382,24 @@
 			</div>
 			<hr />
 			<!-- Javascript -->
-			<script th:src="@{/js/layout.js}"></script>
 			<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
 			<script th:src="@{/js/jquery-ui.min.js}"></script>
 			<script th:src="@{/js/popper.js}"></script>
 			<script th:src="@{/js/bootstrap.min.js}"></script>
-
-			<!-- Bootstrap core JavaScript-->
-			<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
-			<script th:src="@{vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+			<script th:src="@{/js/layout.js}"></script>
 
 			<!-- Core plugin JavaScript-->
-			<script th:src="@{vendor/jquery-easing/jquery.easing.min.js}"></script>
+			<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
 
 			<!-- Custom scripts for all pages-->
-			<script th:src="@{js/sb-admin-2.min.js}"></script>
+			<script th:src="@{/js/sb-admin-2.min.js}"></script>
 
 			<!-- Page level plugins -->
-			<script th:src="@{vendor/chart.js/Chart.min.js}"></script>
+			<script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
 
 			<!-- Page level custom scripts -->
-			<script th:src="@{js/demo/chart-area-demo.js}"></script>
-			<script th:src="@{js/demo/chart-pie-demo.js}"></script>
-
+			<script th:src="@{/js/demo/chart-area-demo.js}"></script>
+			<script th:src="@{/js/demo/chart-pie-demo.js}"></script>
 			<!-- Copyright -->
 
 		</footer>

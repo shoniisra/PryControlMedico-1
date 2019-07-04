@@ -83,9 +83,9 @@ public class DetalleReceta implements Serializable {
 	@JoinColumn(name="IDMEDICAMENTO", referencedColumnName = "IDMEDICAMENTO")//claves foraneas
 	@ManyToOne
 	private Medicamento medicamento;
-
-	@JoinColumn(name="IDRECETA", referencedColumnName = "IDRECETA")//claves foraneas
-	@ManyToOne
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="IDRECETA")//claves foraneas
 	private Receta receta;
 
 	@Transient

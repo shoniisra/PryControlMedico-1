@@ -135,6 +135,7 @@ public class RecetaController {
 	@GetMapping(value="/list")
 	public String list(Model model) {
 		List<Receta> recetas = service.findAll();
+		
 		model.addAttribute("title","Listado de Recetas");
 		model.addAttribute("lista", recetas);
 		return "receta/list";		

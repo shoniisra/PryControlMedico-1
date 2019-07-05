@@ -65,7 +65,14 @@ public class RecetaController {
 				receta.setMedico(null);
 				validator.validate(receta);
 			}
-			if(result.hasErrors()) {        		
+			if(result.hasErrors()||receta.getPaciente().getIdpersona()==0||(receta.getMedico()!=null && receta.getMedico().getIdpersona()==-1)) {
+				
+				List<Paciente> pacientes = srvPaciente.findAll();
+				List<Medico> medicos = srvMedico.findAll();	
+				List<DetalleReceta> detalles =receta.getDetalles();
+				model.addAttribute("pacientes",pacientes);
+				model.addAttribute("medicos",medicos);
+				model.addAttribute("receta.detalles",detalles);
         		return "receta/form";
         	}
 			if (receta.getIdreceta() != null ){
@@ -77,6 +84,7 @@ public class RecetaController {
 				for (DetalleReceta detalleReceta: receta.getDetalles()){
 					detalleReceta.setReceta(receta);
 				}
+				
 				service.save(receta);
 				session.setComplete();
 				message.addFlashAttribute("receta_guardada", receta);
@@ -85,6 +93,8 @@ public class RecetaController {
 		}
 		catch(Exception ex){
 			message.addFlashAttribute("error", ex.toString());
+			System.out.println("se cago");
+			System.out.println(ex.toString());
 		}
 		return "redirect:/receta/list";
 	}
@@ -148,11 +158,22 @@ public class RecetaController {
 			List<DetalleReceta> detalles = new ArrayList<>();
 			receta.setDetalles(detalles);
 		}
-		System.out.println(detail.getFechaInicio());
-		System.out.println(detail.getNumeroTomas());
+
 		Medicamento medicamento = srvMedicamento.findById(detail.getMedicamentoId());
 		detail.setMedicamento(medicamento);
 		receta.getDetalles().add(detail);
+		
+    	return receta.getDetalles();
+    }
+	
+	@PostMapping(value="/showReceta", produces="application/json")
+	public @ResponseBody List<DetalleReceta> showReceta(
+			@SessionAttribute(name="receta") Receta receta) {
+		if(receta.getDetalles() == null)
+		{
+			List<DetalleReceta> detalles = new ArrayList<>();
+			receta.setDetalles(detalles);
+		}
     	return receta.getDetalles();
     }
 	

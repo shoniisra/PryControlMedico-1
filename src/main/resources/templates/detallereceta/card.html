@@ -109,6 +109,7 @@
 						<th>DESCRIPCION</th>
 						<th>ESTADO</th>
 						<th>Suministrar</th>
+						
 					</tr>
 					</thead>
 					<tbody >
@@ -117,12 +118,31 @@
 						<td th:text="${dosis.numero}"></td>
 						<td th:text="${#temporals.format(dosis.fechaHora, 'dd-MM-yyyy HH:mm')}"></td>
 						<td th:text="${dosis.descripcion}"></td>
-						<td th:text="${dosis.descripcionEstadoDosis}"></td>
-						<td>
-							<a class="btn btn-sm btn-success" title="Suministrar"
+						<td  th:if="${dosis.estado==0}" th:bgcolor="yellow" th:text="${dosis.descripcionEstadoDosis}"></td>
+						<td  th:if="${dosis.estado==1}" th:bgcolor="green" th:text="${dosis.descripcionEstadoDosis}"></td>
+						<td  th:if="${dosis.estado==2}" th:bgcolor="red" th:text="${dosis.descripcionEstadoDosis}"></td>
+						
+						<td >
+							<a th:if="${dosis.estado==0}" class="btn btn-sm btn-success" title="Suministrar"
 							   th:href="@{/dosis/suministrar/} + ${dosis.iddosis}">
 								<i class="fas fa-eye"></i>
 								Suministrar
+							</a>
+							<a th:if="${dosis.estado!=0}" class="btn btn-sm btn-success" title="Suministrar"
+							  >
+								<i class="fas fa-eye"></i>
+								Suministrar
+							</a>
+							
+							<a th:if="${dosis.estado==0}" class="btn btn-sm btn-danger" title="rechazar" 
+							   th:href="@{/dosis/rechazar/} + ${dosis.iddosis}">
+								<i class="fas fa-eye"></i>
+								Rechazar
+							</a>
+							<a th:if="${dosis.estado!=0}" class="btn btn-sm btn-danger" title="rechazar" 
+							   >
+								<i class="fas fa-eye"></i>
+								Rechazar
 							</a>
 						</td>
 

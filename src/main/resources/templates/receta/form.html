@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="layout :: head"></head>
-<body>
-<div id="wrapper">
-	<header th:replace="layout :: header"></header>
-	<div id="content-wrapper" class="d-flex flex-column">
-		<!-- Begin Page Content -->
-		<div class="container">
-			<div class="container-fluid">
-				<div th:replace="layout :: topbar"> </div>
-				<br />
-	<div class="container">
-		<br />
-		<div class="card col-md-12">
-			<div class="card-body">
-				<div class="form-group row">
-					<div class="content col-sm-1">
-						<i class="far fa-plus-square fa-2x"></i>
-					</div>
-					<h3 class="card-title col-sm-6" th:text="${title}"></h3>
-					<div class="col-sm-4">
-						<button class="btn btn-success" data-toggle="modal"
-							data-target="#addDetalleReceta">
-							<i class="fas fa-plus-square"></i>&nbsp;Agregar medicamento
-						</button>
-					</div>
-				</div>
-				<hr />
+<body id="page-top">
+	<div id="wrapper">
+		<!-- Header -->
+		<ul th:replace="layout :: header"></ul>
+		<!-- End of Header -->
+		<div id="content-wrapper" class="d-flex flex-column">
+			<div id="content">
+				<!-- Topbar -->
+				<nav th:replace="layout :: topbar"> </nav>
+				<!-- End of Topbar -->
+
+				<div class="container-fluid">
+					<div th:replace="layout :: alert"> </div>
+
+					<!-- Contenido sin heredar -->
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<div class="row align-items-center">
+								<i class="pl-3 far fa-plus-square fa-2x"></i>
+								<h6 class="pl-3 m-0 font-weight-bold text-primary" th:text="${title}"></h6>
+								<div class="content col-sm-6">
+								<button class="btn btn-success" data-toggle="modal"
+									data-target="#addDetalleReceta">
+									<i class="fas fa-plus-square"></i>&nbsp;Agregar medicamento
+								</button>
+								</div>
+						</div>
+							</div>
+						
+						<div class="card-body">
 
 				<form th:action="@{/receta/save}" th:object="${receta}"
 					method="post">
@@ -37,10 +41,12 @@
 						</div>
 						<div class="content col-sm-6">
 							<select class="form-control" th:field="*{paciente.idpersona}">
+								
 								<option value="0">-- Seleccione --</option>
 								<option th:each="pac : ${pacientes}" th:value="${pac.idpersona}"
 									th:text="${pac}"></option>
 							</select>
+
 						</div>
 					</div>
 
@@ -49,7 +55,8 @@
 							<i class="fas fa-user-md"></i> <label class="h5 col-form-label">&nbsp;M&eacute;dico:</label>
 						</div>
 						<div class="content col-sm-6">
-							<select class="form-control" th:field="*{medico.idpersona}">
+							<select class="form-control" th:field="*{medico.idpersona}"
+							>
 								<option value="-1">-- Seleccione --</option>
 								<option value="0">Sin Medico</option>
 								<option th:each="med : ${medicos}" th:value="${med.idpersona}"
@@ -97,13 +104,14 @@
 							<a class="btn btn-danger" th:href="@{/medicamento/list}"> <i
 								class="fas fa-minus-circle"></i>&nbsp;Cancelar
 							</a>
-							<button class="btn btn-success" type="submit">
+							<button id="btnSaveReceta" class="btn btn-success" type="submit">
 								<i class="fas fa-plus-circle"></i>&nbsp;Guardar
 							</button>
 						</div>
 					</div>
 					<input type="hidden" th:field="*{idreceta}" />
-
+					<input type="hidden" th:field="*{activo}" />
+					
 				</form>
 
 				<div id="addDetalleReceta" class="modal" tabindex="-1" role="dialog">
@@ -127,7 +135,7 @@
 											class="h5 col-form-label">&nbsp;Medicamento:</label>
 									</div>
 									<div class="content col-sm-8">
-										<input id="criteria" name="criteria" type="text"
+										<input id="criteria" required="required" name="criteria" type="text"
 											class="form-control" placeholder="Buscar...." />
 									</div>
 								</div>
@@ -145,7 +153,7 @@
 							<form>
 								
 								<input type="hidden" class="form-control" id="medicamentoId" />
-
+	}
 								<div class="modal-body">
 
 									<div class="form-group row">
@@ -178,7 +186,7 @@
 										</div>
 										<div class="content col-sm-8">
 											<input type="number" class="form-control"
-												id="cantidad" disabled="disabled"/>
+												 id="cantidad" disabled="disabled" />
 										</div>
 									</div>
 
@@ -230,7 +238,7 @@
 								<div class="modal-footer">
 									<button type="button" class="btn btn-danger"
 										data-dismiss="modal">Cancelar</button>
-									<button id="btnAddDetail" class="btn btn-success" data-dismiss="modal">Confirmar</button>
+									<button id="btnAddDetail" class="btn btn-success" data-dismiss="modal" disabled="disabled">Confirmar</button>
 								</div>
 							</form>
 						</div>
@@ -247,7 +255,7 @@
 			<script th:src="@{/js/receta-detalle.js}"></script>
 	</div>
 	</div>
-	</div>
+
 
 </body>
 </html>

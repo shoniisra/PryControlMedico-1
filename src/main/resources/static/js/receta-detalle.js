@@ -18,26 +18,30 @@ function addDetail() {
 		contentType : "application/json",
 		dataType : "json",
 		data : JSON.stringify(detail),
-		success : function(result) {
-			$("#tblDetalleReceta tbody").html('');
-			$.each(result, function(i, item) {
-				var detailToAdd = $("#templateDetalleReceta").html();
-				console.log(item);
-				detailToAdd = detailToAdd.replace(/{NOMBRE}/, item.medicamento.nombreComercial);
-				detailToAdd = detailToAdd.replace(/{FECHAINICIO}/, parse(item.fechaInicio));
-				detailToAdd = detailToAdd.replace(/{CANTIDAD}/, item.cantidad);
-				detailToAdd = detailToAdd.replace(/{POSOLOGIA}/, item.posologia);
-				detailToAdd = detailToAdd.replace(/{FRECUENCIA}/, item.frecuencia + " " + item.descripcionTipoFrecuencia);
-				detailToAdd = detailToAdd.replace(/{TIPODOSIS}/, item.descripcionTipoDosis);
-				$("#tblDetalleReceta tbody").append(detailToAdd);
-			});
-			
+		success : function(result){
+			cargar(result);
 		},
 		error : function(err) {
 			console.log(err);
 		}
 	});
 }
+///////////////////////
+function cargar(result){
+	$("#tblDetalleReceta tbody").html('');
+	$.each(result, function(i, item) {
+		var detailToAdd = $("#templateDetalleReceta").html();
+		console.log(item);
+		detailToAdd = detailToAdd.replace(/{NOMBRE}/, item.medicamento.nombreComercial);
+		detailToAdd = detailToAdd.replace(/{FECHAINICIO}/, parse(item.fechaInicio));
+		detailToAdd = detailToAdd.replace(/{CANTIDAD}/, item.cantidad);
+		detailToAdd = detailToAdd.replace(/{POSOLOGIA}/, item.posologia);
+		detailToAdd = detailToAdd.replace(/{FRECUENCIA}/, item.frecuencia + " " + item.descripcionTipoFrecuencia);
+		detailToAdd = detailToAdd.replace(/{TIPODOSIS}/, item.descripcionTipoDosis);
+		$("#tblDetalleReceta tbody").append(detailToAdd);
+	});
+}
+///////////////////////
 function parse(dateTimeSpan){
 	var date = new Date(dateTimeSpan);
 	var year = date.getFullYear(),
@@ -54,6 +58,20 @@ function parse(dateTimeSpan){
 }
 
 $(document).ready(function() {
+	$.ajax({
+		url : "/receta/showReceta",
+		method : "POST",
+		contentType : "application/json",
+		dataType : "json",
+		data : JSON.stringify(),
+		success : function(result){
+			cargar(result);
+		},
+		error : function(err) {
+			console.log(err);
+		}
+	});
+
 			$("#fechaInicio").val(new Date().toISOString().slice(0,16));
 			$("#criteria").autocomplete({
 				source : function(request, response) {
@@ -64,7 +82,7 @@ $(document).ready(function() {
 							term : request.term
 						},
 						success : function(data) {
-							console.log(data);					
+							console.log(data);
 							response($.map(data, function(item) {
 								return {
 									value : item.idmedicamento,
@@ -78,7 +96,7 @@ $(document).ready(function() {
 				},
 				select : function(event, ui) {					
 					$("#criteria").val(ui.item.label);			
-										
+					$('#btnAddDetail').prop("disabled",false);					
 					$("#medicamentoId").val(ui.item.value);
 					$("#nombreMedicamento").html(ui.item.label);
 					$("#nombreMedicamento").append(" - ");
@@ -92,6 +110,7 @@ $(document).ready(function() {
 			$('#btnAddDetail').click(function() {				
 				addDetail();
 			});
+
 			$('#tipoDosis').change(function(e){
 				if($(this).val() == "1"){
 					$('#cantidad').prop("disabled",true);

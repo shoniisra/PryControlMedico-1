@@ -3,6 +3,7 @@ package com.medico.app.web.models.services;
 import java.util.List;
 
 import com.medico.app.web.models.entities.Paciente;
+import com.medico.app.web.models.entities.reportes.PacienteRangoEdad;
 
 public interface IPacienteService {
 
@@ -13,4 +14,6 @@ public interface IPacienteService {
 	public void delete(Integer id);
 	
 	public List<Paciente> findAll();
+
+	public List<PacienteRangoEdad> countPacientsByAgeRange();
 }

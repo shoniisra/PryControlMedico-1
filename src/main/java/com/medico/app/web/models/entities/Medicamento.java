@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -41,10 +42,12 @@ public class Medicamento implements Serializable {
 	
 	@Column(name = "PRECIO")
 	@Digits(integer=8, fraction=2)
+	@NotNull
 	private float precio;
 	
 	@Column(name = "FECHACADUCIDAD")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@NotNull
 	private LocalDate fechaCaducidad;
 	
 	@Column(name = "CREADOPOR")

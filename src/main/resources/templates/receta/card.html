@@ -67,7 +67,7 @@
 												class="h5 col-form-label">Fecha:</label>
 										</div>
 										<div class="col-sm-8">
-											<h5 class="card-text" th:text="${receta.fecha}"></h5>
+											<h5 class="card-text" th:text="${#temporals.format(receta.fecha, 'dd-MM-yyyy')}"></h5>
 										</div>
 									</div>							
 								</div>

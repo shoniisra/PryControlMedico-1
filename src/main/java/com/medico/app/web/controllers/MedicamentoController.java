@@ -49,7 +49,9 @@ public class MedicamentoController {
     		Model model,    		 
     		RedirectAttributes message, SessionStatus session){
         try{        	
-        	if(result.hasErrors()) {        		
+        	if(result.hasErrors()) {    
+                List<ViaAdministracion> vias = srvViaAdministacion.findAll();
+                model.addAttribute("vias",vias); 
         		return "medicamento/form";
         	}                  
         	String msg = medicamento.getIdmedicamento() == null ? medicamento.getNombreComercial() + " ha sido agregado a la lista de medicamentos." : medicamento.getNombreComercial() + " ha sido actualizado.";
@@ -66,6 +68,7 @@ public class MedicamentoController {
     public String retrieve(@PathVariable(value = "id") Integer id,
                            Model model){
         Medicamento medicamento=service.findById(id);
+        model.addAttribute("title","Ver datos de: " + medicamento.getNombreComercial());
         model.addAttribute("medicamento",medicamento);
         return "medicamento/card";
     }

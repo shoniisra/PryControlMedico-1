@@ -134,7 +134,7 @@ public class DosisController {
             dosis.setEstado(1);
 
             service.save(dosis);
-
+            message.addFlashAttribute("success", "La dosis ha sido suministrada");
             validarEstado(dosis, message);
 
         }catch (Exception ex){
@@ -151,7 +151,7 @@ public class DosisController {
             dosis.setEstado(2);
 
             service.save(dosis);
-
+            message.addFlashAttribute("error", "La dosis ha sido rechazada");
             validarEstado(dosis, message);
 
         }catch (Exception ex){

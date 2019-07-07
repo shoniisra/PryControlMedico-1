@@ -41,7 +41,7 @@
 						</div>
 						<div class="content col-sm-6">
 							<select class="form-control" th:field="*{paciente.idpersona}">
-								
+
 								<option value="0">-- Seleccione --</option>
 								<option th:each="pac : ${pacientes}" th:value="${pac.idpersona}"
 									th:text="${pac}"></option>
@@ -78,6 +78,7 @@
 								th:errors="*{fecha}"></small>
 						</div>
 					</div>
+					<input type="hidden" th:field="*{activo}"/>
 
 					<hr />
 

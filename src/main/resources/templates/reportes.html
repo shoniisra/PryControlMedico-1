@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout :: head"></head>
 <body id="page-top">
     <div id="wrapper">
@@ -21,30 +22,33 @@
 
                         <div class="card-header py-3">
                             <div class="row align-items-center">
-                                <h3 class="pl-3 m-0 font-weight-bold text-primary">Bienvenido</h3>
+                                <h6 class="pl-3 m-0 font-weight-bold text-primary">Pacientes por edad</h6>
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="content row">
-								<div class="col-md-6">
-									<div class="jumbotron">
-										<h1 class="display-4" th:text="${title}"></h1>
-										<p class="lead" th:text="${framework}"></p>
-										<hr class="my-4">
-										<p th:text="${description}"></p>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<img class="card-img-top" th:src="@{/images/spring-boot.png}" />
-								</div>
-							</div>
+                            <div id="chart-container" class="text-center">
+                                Procesando .......
+                            </div>
                         </div>
                         
+                        <div class="card-header py-3">
+                            <div class="row align-items-center">
+                                <h6 class="pl-3 m-0 font-weight-bold text-primary">Dosis suministradas y rechazadas en la semana actual.</h6>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="chart-container2" class="text-center">
+                                Procesando .......
+                            </div>
+                        </div>
                     </div>
 
                 </div>
             </div>
             <footer th:replace="layout :: footer"></footer>
+            <!-- Java Script reportes -->
+            <script th:src="@{/js/charts/reportePorEdad.js}"></script>
+            <script th:src="@{/js/charts/reportePorEstadoDosis.js}"></script>
         </div>
     </div>
     <!-- Scroll to Top Button-->

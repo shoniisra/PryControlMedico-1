@@ -1,5 +1,6 @@
 package com.medico.app.web.models.entities;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 import javax.persistence.Basic;
@@ -10,10 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,12 +37,13 @@ public abstract class Persona {
 	@Column(name = "APELLIDOS")
 	@NotEmpty
 	private String apellido;
-	
+
+
 	@Column(name = "NACIMIENTO")
-	@Past
-	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Calendar nacimiento;
+	@Past
+	@NotNull
+	private LocalDate nacimiento;
 	
 	@Size(max = 15)
 	@Column(name = "TELEFONO")
@@ -98,11 +97,11 @@ public abstract class Persona {
 		this.apellido = apellido;
 	}
 
-	public Calendar getNacimiento() {
+	public LocalDate getNacimiento() {
 		return nacimiento;
 	}
 
-	public void setNacimiento(Calendar nacimiento) {
+	public void setNacimiento(LocalDate nacimiento) {
 		this.nacimiento = nacimiento;
 	}
 

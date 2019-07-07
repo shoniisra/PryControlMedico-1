@@ -1,71 +1,83 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout :: head"></head>
-<body>
-<div id="wrapper">
-	<header th:replace="layout :: header"></header>
-	<div id="content-wrapper" class="d-flex flex-column">
-		<!-- Begin Page Content -->
-		<div class="container">
-			<div class="container-fluid">
-				<div th:replace="layout :: topbar"> </div>
-				<br />
-<div class="container">
-	<br />
-	<div class="card col-md-12">
-		<div class="card-body">
-			<div class="form-group row">
-				<div class="content col-sm-1">
-					<i class="far fa-plus-square fa-2x"></i>
+<body id="page-top">
+	<div id="wrapper">
+		<!-- Header -->
+		<ul th:replace="layout :: header"></ul>
+		<!-- End of Header -->
+
+		<div id="content-wrapper" class="d-flex flex-column">
+			<div id="content">
+				<!-- Topbar -->
+				<nav th:replace="layout :: topbar"> </nav>
+				<!-- End of Topbar -->
+
+				<div class="container-fluid">
+					<div th:replace="layout :: alert"> </div>
+
+					<!-- Contenido sin heredar -->
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<div class="row align-items-center">
+								<i class="pl-3 far fa-plus-square fa-2x"></i>
+								<h6 class="pl-3 m-0 font-weight-bold text-primary" th:text="${title}"></h6>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table id="tablaMedicos" class="table table-bordered" width="100%" cellspacing="0">
+									<thead>
+									<tr>
+										<th><i class="fas fa-id-badge"></i>&nbsp;Cedula</th>
+										<th><i class="fas fa-user-md"></i>&nbsp;Nombres</th>
+										<th><i class="fas fa-user-nurse"></i>&nbsp;Apellidos</th>
+										<th><i class="fas fa-user-tag"></i>&nbsp;Especialidad</th>
+										<th><i class="fas fa-phone"></i>&nbsp;Telefono</th>
+										<th sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-sm btn-success"
+																					 th:href="@{/medico/create}"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr th:each="medico : ${lista}">
+										<td th:text="${medico.cedula}"></td>
+										<td th:text="${medico.nombre}"></td>
+										<td th:text="${medico.apellido}"></td>
+										<td th:text="${medico.especialidad}"></td>
+										<td th:text="${medico.telefono}"></td>
+
+										<td>
+											<a sec:authorize="hasRole('ROLE_ADMIN')"
+											   class="btn btn-sm btn-primary" title="Editar"
+											   th:href="@{/medico/update/} + ${medico.idpersona}">
+												<i class="fas fa-edit"></i>
+											</a>
+											<a class="btn btn-sm btn-success" title="Ver"
+											   th:href="@{/medico/retrieve/} + ${medico.idpersona}">
+												<i class="fas fa-eye"></i>
+											</a>
+											<a sec:authorize="hasRole('ROLE_ADMIN')"
+											   class="btn btn-sm btn-danger" title="Eliminar"
+											   th:href="@{/medico/delete/} + ${medico.idpersona}">
+												<i class="fas fa-trash-alt"></i>
+											</a>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+
+							</div>
+						</div>
+					</div>
+
 				</div>
-				<h3 class="card-title col-sm-6" th:text="${title}"></h3>
-				<div class="col-sm-4"></div>
 			</div>
-			<hr />
-			<table class="table table-hover">
-				<thead>
-				<tr>
-					<th><i class="fas fa-id-badge fa-2x"></i>&nbsp;Cedula</th>
-					<th><i class="fas fa-user-md fa-2x"></i>&nbsp;Nombres</th>
-					<th><i class="fas fa-user-nurse fa-2x"></i>&nbsp;Apellidos</th>
-					<th><i class="fas fa-user-tag fa-2x"></i>&nbsp;Especialidad</th>
-					<th><i class="fas fa-phone fa-2x"></i>&nbsp;Telefono</th>
-
-					<th>
-						<a class="btn btn-sm btn-success" th:href="@{/medico/create/}" >
-							<i class="fas fa-plus"></i>&nbsp;Nuevo
-						</a>
-					</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr th:each="medico : ${lista}">
-					<td th:text="${medico.cedula}"></td>
-					<td th:text="${medico.nombre}"></td>
-					<td th:text="${medico.apellido}"></td>
-					<td th:text="${medico.especialidad}"></td>
-					<td th:text="${medico.telefono}"></td>
-
-					<td>
-						<a class="btn btn-sm btn-warning" title="Editar" th:href="@{/medico/update/} + ${medico.idpersona}">
-							<i class="fas fa-edit"></i>
-						</a>
-						<a class="btn btn-sm btn-primary" title="Ver" th:href="@{/medico/retrieve/} + ${medico.idpersona}">
-							<i class="fas fa-eye"></i>
-						</a>
-					</td>
-				</tr>
-				</tbody>
-			</table>
+			<footer th:replace="layout :: footer"></footer>
 		</div>
 	</div>
-</div>
-
-</div>
-<footer th:replace="layout :: footer"></footer>
-</div>
-</div>
-</div>
-
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top">
+		<i class="fas fa-angle-up"></i>
+	</a>
 </body>
 </html>

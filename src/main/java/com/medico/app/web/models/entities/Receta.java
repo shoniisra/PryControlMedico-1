@@ -46,7 +46,7 @@ public class Receta implements Serializable{
 	private LocalDate fecha;
 	
 	@Column(name = "ACTIVO")
-	private Boolean activo;
+	private Boolean activo = true;
 	
 	@JoinColumn(name="IDMEDICO", referencedColumnName = "IDPERSONA")
 	@ManyToOne

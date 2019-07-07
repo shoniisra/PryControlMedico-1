@@ -17,6 +17,8 @@ import com.medico.app.web.models.services.IMedicoService;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
+
 @Secured("ROLE_ADMIN")
 @Controller
 @RequestMapping(value="/medico")
@@ -72,12 +74,20 @@ public class MedicoController {
 	}
 	
 	@PostMapping(value="/save")
-	public String save(Medico medico, Model model) {
+	public String save(@Valid Medico medico, BindingResult result,
+					   Model model, RedirectAttributes message,
+					   SessionStatus session) {
 		try {
+			if (result.hasErrors()){
+				return "medico/form";
+			}
+			String msg = medico.getIdpersona() == null ? medico.getNombre() + " ha sido agregado a la lista de médicos." : medico.getNombre() + " ha sido actualizado.";
 			service.save(medico);
+			session.setComplete();
+			message.addFlashAttribute("success", msg);
 		}
 		catch(Exception ex) {
-			model.addAttribute("error", ex.toString());
+			message.addFlashAttribute("error",ex.toString());
 		}	
 		return "redirect:/medico/list";
 	}

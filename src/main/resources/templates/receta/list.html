@@ -31,13 +31,13 @@
 								<thead>
 								<tr>
 									<th>&nbsp;ID</th>
-									<th>&nbsp;Paciente</th>
-									<th>&nbsp;M&eacutedico</th>
-									<th>&nbsp;Fecha</th>
-									<th>&nbsp;Estado</th>
-									<th>&nbsp;Detalle</th>
+									<th><i class="fas fa-user-injured"></i>&nbsp;Paciente</th>
+									<th><i class="fas fa-user-md"></i>&nbsp;M&eacutedico</th>
+									<th><i class="fas fa-calendar-alt"></i>&nbsp;Fecha</th>
+									<th><i class="fas fa-check-square"></i>&nbsp;Estado</th>
+									<th><i class="fas fa-list-alt"></i>&nbsp;Detalle</th>
 									<th sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-sm btn-success"
-																				 th:href="@{/paciente/create}"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
+																				 th:href="@{/receta/create}"><i class="fas fa-plus"></i>&nbsp;Nuevo</a></th>
 								</tr>
 								</thead>
 								<tbody>
@@ -46,7 +46,7 @@
 									<td th:text="${receta.paciente.nombre}"></td>
 									<td th:if="${receta.medico == null}">Sin M&eacutedico</td>
 									<td th:unless="${receta.medico == null}" th:text="${receta.medico.nombre}"></td>
-									<td th:text="${receta.fecha}" ></td>
+									<td th:text="${#temporals.format(receta.fecha, 'dd-MM-yyyy')}" ></td>
 									<td align="center"><input type="checkbox" th:checked="${receta.activo}" onclick="return false"/></td>
 								
 																									    
@@ -57,11 +57,6 @@
 									</td>
 
 									<td >
-										<a sec:authorize="hasRole('ROLE_ADMIN')"
-										   class="btn btn-sm btn-primary" title="Editar"
-										   th:href="@{/receta/update/} + ${receta.idreceta}">
-											<i class="fas fa-edit"></i>
-										</a>
 										<a class="btn btn-sm btn-success" title="Ver"
 										   th:href="@{/receta/retrieve/} + ${receta.idreceta}">
 											<i class="fas fa-eye"></i>

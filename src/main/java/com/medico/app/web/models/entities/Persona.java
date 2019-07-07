@@ -37,13 +37,6 @@ public abstract class Persona {
 	@Column(name = "APELLIDOS")
 	@NotEmpty
 	private String apellido;
-
-
-	@Column(name = "NACIMIENTO")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Past
-	@NotNull
-	private LocalDate nacimiento;
 	
 	@Size(max = 15)
 	@Column(name = "TELEFONO")
@@ -95,14 +88,6 @@ public abstract class Persona {
 
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
-	}
-
-	public LocalDate getNacimiento() {
-		return nacimiento;
-	}
-
-	public void setNacimiento(LocalDate nacimiento) {
-		this.nacimiento = nacimiento;
 	}
 
 	public String getTelefono() {

@@ -36,6 +36,8 @@ public class Dosis implements Serializable {
 	@Column(name = "ESTADO")
 	@Min(value = 0)
 	private Integer estado = 0;
+	
+	
 
 	@Transient
 	private String descripcionEstadoDosis;
@@ -92,16 +94,26 @@ public class Dosis implements Serializable {
 	public void setEstado(Integer estado) {
 		this.estado = estado;
 	}
+	
+	
+	
 
 	public String getDescripcionEstadoDosis() {
 		switch(this.estado) {
 			case 0:
 				return "Pendiente";
 			case 1:
-				return "Notificado";
+				return "Suministrado";
+			case 2: 
+				return "Rechazado";
 		}
 		return "";
 	}
+	
+	
+
+	
+	
 	public LocalDateTime calcularFechaSiguienteDosis(LocalDateTime fechaHoraDosisAnterior, int frecuencia, int tipoFrecuencia){
 		LocalDateTime fechaHoraNuevaDosis = fechaHoraDosisAnterior;
 		switch(tipoFrecuencia) {

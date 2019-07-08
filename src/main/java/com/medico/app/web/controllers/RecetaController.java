@@ -93,7 +93,6 @@ public class RecetaController {
 		}
 		catch(Exception ex){
 			message.addFlashAttribute("error", ex.toString());
-			System.out.println("se cago");
 			System.out.println(ex.toString());
 		}
 		return "redirect:/receta/list";

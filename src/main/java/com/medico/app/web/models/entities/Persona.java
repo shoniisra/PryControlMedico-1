@@ -30,22 +30,20 @@ public abstract class Persona {
 	
 	@Size(max = 35)
 	@Column(name = "NOMBRES")
-	@NotEmpty
+	@NotEmpty(message = "Campo Obligatorio")
 	private String nombre;
 	
 	@Size(max = 35)
 	@Column(name = "APELLIDOS")
-	@NotEmpty
+	@NotEmpty(message = "{persona.apellido}")
 	private String apellido;
 	
 	@Size(max = 15)
 	@Column(name = "TELEFONO")
-	@NotEmpty
 	private String telefono;
 	
 	@Size(max = 35)
 	@Column(name = "EMAIL")
-	@NotEmpty
 	@Email
 	private String email;
 	

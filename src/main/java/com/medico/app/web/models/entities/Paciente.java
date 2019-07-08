@@ -23,7 +23,6 @@ public class Paciente extends Persona implements Serializable{
 
 	@Size(max = 255)
 	@Column(name = "ALERGIAS")
-	@NotEmpty
 	private String alergias;
 	
 	@Size(max = 3)
@@ -33,13 +32,11 @@ public class Paciente extends Persona implements Serializable{
 	
 	@Size(max = 255)
 	@Column(name = "ANTECEDENTES")
-	@NotEmpty
 	private String antecedentes;
 
 	@Column(name = "NACIMIENTO")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Past
-	@NotNull
 	private LocalDate nacimiento;
 	
 	@Size(max = 25)

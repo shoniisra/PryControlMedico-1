@@ -41,13 +41,20 @@ public class PacienteController {
                 model.addAttribute("paciente",paciente);
                 return "paciente/form";
             }
+            System.out.println("*1****************hubo error");
             String msg = paciente.getIdpersona() == null ? paciente.getNombre() + " ha sido agregado." : paciente.getNombre() + " ha sido actualizado.";
             service.save(paciente);
+            System.out.println("*222****************hubo error");
             session.setComplete();
             message.addFlashAttribute("success", msg);
+            System.out.println("*333****************hubo error");
+            
         }catch (Exception ex){
             message.addFlashAttribute("error", "Algo no ha salido Bien");
             System.out.println(ex.toString());
+            model.addAttribute("error", "Algo no ha salido Bien");
+            model.addAttribute("paciente",paciente);
+            return "paciente/form";
         }
         return "redirect:/paciente/list";
     }

@@ -35,7 +35,7 @@ public abstract class Persona {
 	
 	@Size(max = 35)
 	@Column(name = "APELLIDOS")
-	@NotEmpty(message = "{persona.apellido}")
+	@NotEmpty
 	private String apellido;
 	
 	@Size(max = 15)

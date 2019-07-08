@@ -1,13 +1,17 @@
 package com.medico.app.web.models.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -31,6 +35,12 @@ public class Paciente extends Persona implements Serializable{
 	@Column(name = "ANTECEDENTES")
 	@NotEmpty
 	private String antecedentes;
+
+	@Column(name = "NACIMIENTO")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Past
+	@NotNull
+	private LocalDate nacimiento;
 	
 	@Size(max = 25)
 	@Column(name = "CREADOPOR")
@@ -49,6 +59,14 @@ public class Paciente extends Persona implements Serializable{
 	public Paciente(Integer Id) {
 		super();
 		this.setIdpersona(Id);
+	}
+
+	public LocalDate getNacimiento() {
+		return nacimiento;
+	}
+
+	public void setNacimiento(LocalDate nacimiento) {
+		this.nacimiento = nacimiento;
 	}
 
 	public String getAlergias() {

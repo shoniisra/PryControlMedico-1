@@ -54,28 +54,25 @@
 										   th:errors="*{nombre}"></small>
 								</div>
 							</div>
-
 							<div class="form-group row">
 								<div class="content col-sm-3">
-									<i class="fas fa-vial"></i>
-									<label class="h5 col-form-label">&nbsp;Alergias:</label>
+									<i class="fas fa-calendar-times"></i>
+									<label class="h5 col-form-label">Fecha de nacimiento:</label>
 								</div>
 								<div class="content col-sm-6">
-									<input class="form-control" type="text"
-										   th:field="*{alergias}" />
+									<input class="form-control" type="date"
+										   th:field="*{nacimiento}"
+										   th:errorclass="'form-control is-invalid'"
+										   max="3000-12-31"
+										   min="1850-01-02"
+									/>
+									<small>La fecha debe ser pasada</small>
+									<small class="invalid-feedback"
+										   th:if="${#fields.hasErrors('nacimiento')}"
+										   th:errors="*{nacimiento}"></small>
 								</div>
 							</div>
 
-							<div class="form-group row">
-								<div class="content col-sm-3">
-									<i class="fas fa-vial"></i>
-									<label class="h5 col-form-label">&nbsp;Antecedentes:</label>
-								</div>
-								<div class="content col-sm-6">
-									<input class="form-control" type="text"
-										   th:field="*{antecedentes}" />
-								</div>
-							</div>
 
 							<div class="form-group row">
 								<div class="content col-sm-3">
@@ -106,6 +103,27 @@
 								<i class="far fa-angle-double-right"></i>&nbsp;Registro Detallado << Datos Opcionales>>
 							<br>
 	<span >
+		<div class="form-group row">
+								<div class="content col-sm-3">
+									<i class="fas fa-vial"></i>
+									<label class="h5 col-form-label">&nbsp;Alergias:</label>
+								</div>
+								<div class="content col-sm-6">
+									<input class="form-control" type="text"
+										   th:field="*{alergias}" />
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="content col-sm-3">
+									<i class="fas fa-vial"></i>
+									<label class="h5 col-form-label">&nbsp;Antecedentes:</label>
+								</div>
+								<div class="content col-sm-6">
+									<input class="form-control" type="text"
+										   th:field="*{antecedentes}" />
+								</div>
+							</div>
 <div class="form-group row">
 								<div class="content col-sm-3">
 									<i class="fas fa-vial"></i>
@@ -144,24 +162,7 @@
 								</div>
 							</div>
 
-							<div class="form-group row">
-								<div class="content col-sm-3">
-									<i class="fas fa-calendar-times"></i>
-									<label class="h5 col-form-label">Fecha de nacimiento:</label>
-								</div>
-								<div class="content col-sm-6">
-									<input class="form-control" type="date"
-										   th:field="*{nacimiento}"
-										   th:errorclass="'form-control is-invalid'"
-										   max="3000-12-31"
-										   min="1850-01-02"
-									/>
-									<small>La fecha debe ser pasada</small>
-									<small class="invalid-feedback"
-										   th:if="${#fields.hasErrors('nacimiento')}"
-										   th:errors="*{nacimiento}"></small>
-								</div>
-							</div>
+
 	</span>
 
 							<hr />
